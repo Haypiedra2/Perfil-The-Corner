@@ -1,0 +1,708 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Texto The Corner</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&family=Montserrat:wght@400;500;700;900&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Bangers&family=Creepster&family=Fredoka:wght@500;700&family=Luckiest+Guy&family=Permanent+Marker&family=Oswald:wght@500;700&family=Merriweather:wght@400;700&family=Nunito:wght@500;800&family=Special+Elite&family=Michroma&family=Roboto:wght@400;700&family=Roboto+Mono&family=Indie+Flower&family=Patrick+Hand&family=Amatic+SC:wght@700&family=Orbitron:wght@500;800&family=Press+Start+2P&family=Ubuntu:wght@400;700&family=Titillium+Web:wght@400;700&family=Josefin+Sans:wght@400;700&family=Kalam&family=Jura:wght@500;700&family=Libre+Bodoni&family=EB+Garamond&family=MedievalSharp&family=IM+Fell+English&family=Denk+One&family=Fondamento&family=Grenze+Gotisch&family=Roboto+Condensed&family=Sarpanch:wght@500&family=Barlow:wght@400;500;700;800&family=Arimo:wght@400;700&display=swap"></noscript>
+<style>
+/* Layout: a la izquierda Tu texto, Texto transformado (con Copiar texto debajo) y Vista previa; a la derecha los estilos. Una columna en móvil. */
+:root {
+  --bg: #eceeef;
+  --surface: #ffffff;
+  --fg: #1d2326;
+  --muted: #5d676c;
+  --line: #d3d8da;
+  --accent: #0b6b57;
+  --accent-fg: #ffffff;
+  --amber: #b45f06;
+  --scene: #1b2125;
+  --code-bg: #14191c;
+  --code-fg: #d9e4e1;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-code: "JetBrains Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #141a1d; --surface: #1d2428; --fg: #e6ecee; --muted: #93a0a6; --line: #2f3a3f;
+    --accent: #3fc4a2; --accent-fg: #07231c; --amber: #e8a54b; --code-bg: #0e1214; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #141a1d; --surface: #1d2428; --fg: #e6ecee; --muted: #93a0a6; --line: #2f3a3f;
+  --accent: #3fc4a2; --accent-fg: #07231c; --amber: #e8a54b; --code-bg: #0e1214; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  padding-block: 28px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1180px; margin: 0 auto; }
+header { display: flex; flex-direction: column; gap: 6px; margin-bottom: 22px; }
+.kicker { font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--amber); font-weight: 600; }
+h1 { font-family: var(--font-display); font-size: clamp(28px, 5vw, 40px); line-height: 1.1; margin: 0; text-wrap: balance; }
+header p { margin: 0; color: var(--muted); max-width: 64ch; }
+.grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 400px); gap: 20px; align-items: start; }
+@media (max-width: 860px) { .grid { grid-template-columns: minmax(0, 1fr); } }
+.col { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.panel h2 { font-family: var(--font-display); font-size: 16px; margin: 0; }
+label, .lab { font-size: 12.5px; font-weight: 600; color: var(--muted); display: block; margin-bottom: 4px; }
+textarea, select, input[type=number] {
+  width: 100%; font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line);
+  border-radius: 6px; padding: 8px 10px;
+}
+textarea { min-height: 120px; resize: vertical; line-height: 1.55; }
+#codigo { font-family: var(--font-code); font-size: 13px; background: var(--code-bg); color: var(--code-fg); border-color: var(--code-bg); }
+input[type=color] { width: 100%; min-width: 44px; height: 36px; border: 1px solid var(--line); border-radius: 6px; background: var(--bg); padding: 2px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button { font: inherit; cursor: pointer; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 999px; padding: 5px 11px; font-size: 13px; }
+.chip:hover { border-color: var(--accent); }
+.tool { background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; padding: 5px 11px; font-size: 13px; min-width: 38px; }
+.tool:hover { border-color: var(--accent); }
+.apply { background: var(--accent); color: var(--accent-fg); border: 0; border-radius: 6px; padding: 8px 14px; font-weight: 600; font-size: 13px; white-space: nowrap; }
+.apply:hover { filter: brightness(1.08); }
+.btn { background: var(--accent); color: var(--accent-fg); border: 0; border-radius: 6px; padding: 9px 18px; font-weight: 600; }
+.btn:hover { filter: brightness(1.08); }
+.btn:disabled { opacity: .45; cursor: not-allowed; filter: none; }
+.hint { font-size: 13px; color: var(--muted); margin: 0; }
+.ok { color: var(--accent); font-weight: 600; font-size: 13px; min-height: 1em; }
+.codehead { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.row2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.check { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--fg); font-weight: 500; margin: 0; }
+.check input { accent-color: var(--accent); width: 16px; height: 16px; }
+.swatches { display: flex; flex-wrap: wrap; gap: 8px; }
+.sw { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--line); padding: 0; }
+.sw:hover { border-color: var(--accent); transform: scale(1.08); }
+.line2 { display: flex; gap: 10px; align-items: flex-end; flex-wrap: wrap; }
+.line2 > div { flex: 1; min-width: 90px; }
+.line2 > input[type=color] { flex: 1; min-width: 90px; }
+.scene {
+  background-color: var(--scene); border-radius: 8px; min-height: 200px; padding: 18px; display: flex; align-items: center; justify-content: center; overflow: hidden;
+  background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+.pv { white-space: pre-wrap; overflow-wrap: anywhere; max-width: 100%; line-height: 1.2; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 28px; color: #ffffff; }
+.pv .st { paint-order: stroke fill; }
+.emojis { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; }
+.emojis[hidden] { display: none; }
+.emtabs { display: flex; gap: 2px; padding: 6px; border-bottom: 1px solid var(--line); overflow-x: auto; }
+.emgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(38px, 1fr)); gap: 4px; padding: 8px; height: 220px; overflow-y: auto; align-content: start; }
+.emojis button { background: transparent; border: 0; border-radius: 6px; font-size: 22px; line-height: 1; padding: 6px 0; }
+.emtab { flex: 0 0 auto; padding: 6px 10px !important; }
+.emtab[aria-pressed="true"] { background: var(--surface) !important; box-shadow: inset 0 -2px 0 var(--accent); border-radius: 6px 6px 0 0 !important; }
+.emojis button:hover { background: var(--surface); }
+.estado { font-size: 13px; min-height: 1.2em; margin: 0; }
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="kicker">The Corner · Perfil</span>
+    <h1>Bienvenido al editor de texto de The Corner para tu perfil</h1>
+    <p>Escribe tu texto, elige cómo se ve y copia el texto transformado para pegarlo en tu perfil. Tienes hasta 350 caracteres.</p>
+  </header>
+
+  <div class="grid">
+    <div class="col">
+      <section class="panel">
+        <h2>Tu texto</h2>
+        <p class="hint">Escribe aquí como siempre, sin códigos. Para dar estilo, selecciona una parte y usa los botones de abajo o los estilos de la derecha.</p>
+        <textarea id="texto" aria-label="Tu texto" placeholder="Escribe aquí lo que quieres poner en tu perfil"></textarea>
+        <div class="chips">
+          <button class="tool" id="emojiBtn" type="button" title="Añadir emoji" aria-label="Añadir emoji" aria-expanded="false" aria-controls="emojiPanel">😀</button>
+          <button class="tool" data-tag="b" title="Negrita"><b>B</b></button>
+          <button class="tool" data-tag="i" title="Cursiva"><i>I</i></button>
+          <button class="tool" data-tag="u" title="Subrayado"><u>U</u></button>
+          <button class="tool" data-tag="s" title="Tachado"><s>S</s></button>
+          <button class="tool" data-tag="uppercase" title="Todo en mayúsculas">AA</button>
+          <button class="tool" data-tag="smallcaps" title="Versalitas">Versalitas</button>
+          <button class="tool" id="limpiar" title="Quita todos los estilos de la parte seleccionada">Borrar estilos</button>
+          <button class="tool" id="deshacer">Deshacer</button>
+          <button class="tool" id="optimizar" type="button" title="Reduce el código sin cambiar cómo se ve, para que quepa en 350 caracteres">Optimizar</button>
+        </div>
+        <div class="emojis" id="emojiPanel" hidden></div>
+        <div>
+          <span class="lab">Ejemplos para empezar</span>
+          <div class="chips" id="ejemplos"></div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="codehead">
+          <h2>Texto transformado</h2>
+          <span class="hint" id="largo"></span>
+        </div>
+        <p class="hint">Este es el texto con código que tienes que copiar y pegar en tu perfil. Se escribe solo a partir de Tu texto.</p>
+        <textarea id="codigo" readonly spellcheck="false" aria-label="Texto transformado"></textarea>
+        <p class="estado" id="estado" aria-live="polite"></p>
+        <div class="codehead">
+          <button class="btn" id="copiar">Copiar texto</button>
+          <span class="ok" id="ok" aria-live="polite"></span>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Vista previa</h2>
+        <div class="scene"><div class="pv" id="pv"></div></div>
+        <p class="hint">Así se verá tu texto. Algunas fuentes pueden verse un poco distintas dentro del juego.</p>
+      </section>
+    </div>
+
+    <div class="col">
+      <section class="panel">
+        <h2>Estilos</h2>
+        <p class="hint">Rellena lo que quieras y pulsa Aplicar: todo se aplica junto a la parte seleccionada de Tu texto (o a todo el texto). Lo que dejes vacío no cambia. Se suma a lo que ya tenga esa parte (color, negrita, etc.); para quitar estilos usa Borrar estilos.</p>
+        <div class="row2">
+          <div><label for="fFace">Fuente</label><select id="fFace"></select></div>
+          <div><label for="fSize">Tamaño</label><input type="number" id="fSize" min="1" max="200" step="1" placeholder="Ej. 32"></div>
+        </div>
+        <div>
+          <label for="fTransp">Transparencia del texto (%)</label>
+          <input type="number" id="fTransp" min="0" max="100" step="any" placeholder="Ej. 35">
+        </div>
+        <div class="row2">
+          <div><label for="sGrosor">Grosor del borde</label><input type="number" id="sGrosor" min="0" max="200" step="any" placeholder="Ej. 34"></div>
+          <div><label for="sColor">Color del borde</label><input type="color" id="sColor" value="#000000"></div>
+        </div>
+        <label class="check"><input type="checkbox" id="mOn"> Poner fondo de color</label>
+        <div class="row2">
+          <div><label for="mColor">Color del fondo</label><input type="color" id="mColor" value="#000000"></div>
+          <div><label for="mTransp">Transparencia del fondo (%)</label><input type="number" id="mTransp" min="0" max="100" step="any" value="40"></div>
+        </div>
+        <button class="btn" id="aplicar">Aplicar</button>
+      </section>
+
+      <section class="panel">
+        <h2>1 color</h2>
+        <div class="swatches">
+          <button class="sw" data-set="#FFFFFF" style="background:#FFFFFF" title="Blanco" aria-label="Blanco"></button>
+          <button class="sw" data-set="#F5C518" style="background:#F5C518" title="Amarillo" aria-label="Amarillo"></button>
+          <button class="sw" data-set="#FF8A1F" style="background:#FF8A1F" title="Naranja" aria-label="Naranja"></button>
+          <button class="sw" data-set="#E5383B" style="background:#E5383B" title="Rojo" aria-label="Rojo"></button>
+          <button class="sw" data-set="#FF5FA2" style="background:#FF5FA2" title="Rosa" aria-label="Rosa"></button>
+          <button class="sw" data-set="#8E5BFF" style="background:#8E5BFF" title="Morado" aria-label="Morado"></button>
+          <button class="sw" data-set="#3FA7FF" style="background:#3FA7FF" title="Azul" aria-label="Azul"></button>
+          <button class="sw" data-set="#3FC4A2" style="background:#3FC4A2" title="Verde" aria-label="Verde"></button>
+          <button class="sw" data-set="#000000" style="background:#000000" title="Negro" aria-label="Negro"></button>
+        </div>
+        <div class="line2">
+          <input type="color" id="fColor" value="#f5c518" aria-label="Color">
+          <button class="apply" data-act="color">Aplicar color</button>
+        </div>
+        <p class="hint">Elige un color (o pulsa uno de arriba para elegirlo) y luego pulsa Aplicar color. Solo cambia el color: no borra los demás estilos de esa parte.</p>
+      </section>
+
+      <section class="panel">
+        <h2>2 colores (degradado)</h2>
+        <div class="line2">
+          <div><label for="gA">Inicio</label><input type="color" id="gA" value="#f5c518"></div>
+          <div><label for="gB">Final</label><input type="color" id="gB" value="#e5383b"></div>
+          <button class="apply" data-act="grad">Aplicar degradado</button>
+        </div>
+        <div class="chips"><button class="tool" data-act="rainbow">Texto arcoíris</button></div>
+        <p class="hint">El degradado y el arcoíris solo cambian el color: no borran los demás estilos de la parte seleccionada.</p>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+  /* Las fuentes se cargan sin bloquear la página: se ve al instante y las letras se ajustan al llegar. */
+  (function () {
+    var l = document.createElement("link");
+    l.rel = "stylesheet"; l.href = "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&family=Montserrat:wght@400;500;700;900&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Bangers&family=Creepster&family=Fredoka:wght@500;700&family=Luckiest+Guy&family=Permanent+Marker&family=Oswald:wght@500;700&family=Merriweather:wght@400;700&family=Nunito:wght@500;800&family=Special+Elite&family=Michroma&family=Roboto:wght@400;700&family=Roboto+Mono&family=Indie+Flower&family=Patrick+Hand&family=Amatic+SC:wght@700&family=Orbitron:wght@500;800&family=Press+Start+2P&family=Ubuntu:wght@400;700&family=Titillium+Web:wght@400;700&family=Josefin+Sans:wght@400;700&family=Kalam&family=Jura:wght@500;700&family=Libre+Bodoni&family=EB+Garamond&family=MedievalSharp&family=IM+Fell+English&family=Denk+One&family=Fondamento&family=Grenze+Gotisch&family=Roboto+Condensed&family=Sarpanch:wght@500&family=Barlow:wght@400;500;700;800&family=Arimo:wght@400;700&display=swap";
+    document.head.appendChild(l);
+  })();
+
+(function () {
+  var LIMITE = 350;
+  var FUENTES = [
+    ["Legacy", "Arimo", 400], ["Arial", "Arimo", 400], ["ArialBold", "Arimo", 700],
+    ["SourceSans", "Source Sans 3", 400], ["SourceSansBold", "Source Sans 3", 700], ["SourceSansLight", "Source Sans 3", 300],
+    ["SourceSansItalic", "Source Sans 3", 400, 1], ["SourceSansSemibold", "Source Sans 3", 600],
+    ["Bodoni", "Libre Bodoni", 400], ["Garamond", "EB Garamond", 400], ["Cartoon", "Fredoka", 500], ["Code", "Roboto Mono", 400],
+    ["Highway", "Oswald", 700], ["SciFi", "Orbitron", 500], ["Arcade", "Press Start 2P", 400], ["Fantasy", "MedievalSharp", 400],
+    ["Antique", "IM Fell English", 400],
+    ["Gotham", "Montserrat", 400], ["GothamMedium", "Montserrat", 500], ["GothamBold", "Montserrat", 700], ["GothamBlack", "Montserrat", 900],
+    ["AmaticSC", "Amatic SC", 700], ["Bangers", "Bangers", 400], ["Creepster", "Creepster", 400], ["DenkOne", "Denk One", 400],
+    ["Fondamento", "Fondamento", 400], ["FredokaOne", "Fredoka", 700], ["GrenzeGotisch", "Grenze Gotisch", 400],
+    ["IndieFlower", "Indie Flower", 400], ["JosefinSans", "Josefin Sans", 400], ["Jura", "Jura", 500], ["Kalam", "Kalam", 400],
+    ["LuckiestGuy", "Luckiest Guy", 400], ["Merriweather", "Merriweather", 400], ["Michroma", "Michroma", 400], ["Nunito", "Nunito", 500],
+    ["Oswald", "Oswald", 500], ["PatrickHand", "Patrick Hand", 400], ["PermanentMarker", "Permanent Marker", 400],
+    ["Roboto", "Roboto", 400], ["RobotoCondensed", "Roboto Condensed", 400], ["RobotoMono", "Roboto Mono", 400],
+    ["Sarpanch", "Sarpanch", 500], ["SpecialElite", "Special Elite", 400], ["TitilliumWeb", "Titillium Web", 400], ["Ubuntu", "Ubuntu", 400],
+    ["BuilderSans", "Barlow", 400], ["BuilderSansMedium", "Barlow", 500], ["BuilderSansBold", "Barlow", 700], ["BuilderSansExtraBold", "Barlow", 800],
+    ["Arimo", "Arimo", 400], ["ArimoBold", "Arimo", 700]
+  ];
+  var MAPA = {}; FUENTES.forEach(function (f) { MAPA[f[0].toLowerCase()] = f; });
+
+  /* Cada ejemplo es una lista de trozos [texto, estilo]. */
+  var EJEMPLOS = [
+    ["Presentación", [["Hola, soy ", null], ["tu nombre", { face: "GothamBold", color: "#F5C518" }], ["\nMe encanta conocer gente nueva en The Corner. ¡Háblame!", null]]],
+    ["Busco amigos", [["Busco amigos nuevos", { b: true }], ["\n", null], ["Escríbeme y charlamos un rato.", { color: "#3FC4A2" }]]],
+    ["Mis gustos", [["Me gusta: ", null], ["Charlar y hacer amigos", { face: "GothamBlack", size: 30, color: "#F5C518" }], ["\nEscríbeme cuando quieras", null]]],
+    ["Buen rollo", [["Aquí se respeta a todos.", { b: true }], ["\nSolo buen rollo: sin insultos y sin spam.", null]]],
+    ["Mi lema", [["La reputación se gana siendo amable", { face: "Bangers", size: 32, color: "#E5383B", stroke: { c: "#000000", t: 2 } }]]],
+    ["Comentarios", [["Un comentario bonito se os agradece", { mark: { c: "#000000", t: 0.4 } }]]]
+  ];
+  var BIENVENIDA = [["Bienvenido al editor de texto de ", null], ["The Corner", { face: "GothamBold", color: "#F5C518" }], [" para tu perfil", null]];
+
+  var $ = function (id) { return document.getElementById(id); };
+  var el = {};
+  ["texto","codigo","largo","estado","ok","copiar","deshacer","limpiar","ejemplos","pv","fFace","fSize","fTransp","sGrosor","sColor","mOn","mColor","mTransp","aplicar","fColor","gA","gB"].forEach(function (k) { el[k] = $(k); });
+
+  var ph = document.createElement("option"); ph.value = ""; ph.textContent = "Sin cambiar"; el.fFace.appendChild(ph);
+  FUENTES.forEach(function (f) { var o = document.createElement("option"); o.value = f[0]; o.textContent = f[0]; el.fFace.appendChild(o); });
+
+  /* ---------- estado: un estilo por cada letra del texto ---------- */
+  var estilos = [];
+  var prevTexto = "";
+  var historial = [];
+
+  /* GEN-INI */
+  function norm(st) {
+    if (!st) return null;
+    var out = {}, any = false;
+    Object.keys(st).forEach(function (k) {
+      var v = st[k];
+      if (v === undefined || v === null || v === false) return;
+      out[k] = v; any = true;
+    });
+    return any ? out : null;
+  }
+  var ORDEN = ["mark", "stroke", "face", "size", "transp", "color", "b", "i", "u", "s", "up", "sc"];
+  function clave(st) {
+    if (!st) return "";
+    var k = [];
+    ORDEN.forEach(function (n) {
+      var v = st[n];
+      if (v === undefined || v === null || v === false) return;
+      k.push(n + ":" + JSON.stringify(v));
+    });
+    return k.join("|");
+  }
+  function esc2(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function abrirTags(st) {
+    var o = "", c = "";
+    if (st.mark) { o += '<mark color="' + st.mark.c + '" transparency="' + st.mark.t + '">'; c = "</mark>" + c; }
+    if (st.stroke) { o += '<stroke color="' + st.stroke.c + '" thickness="' + st.stroke.t + '">'; c = "</stroke>" + c; }
+    var at = [];
+    if (st.face) at.push('face="' + st.face + '"');
+    if (st.size) at.push('size="' + st.size + '"');
+    if (st.color) at.push('color="' + st.color + '"');
+    if (st.transp !== undefined && st.transp !== null) at.push('transparency="' + st.transp + '"');
+    if (at.length) { o += "<font " + at.join(" ") + ">"; c = "</font>" + c; }
+    [["b", "b"], ["i", "i"], ["u", "u"], ["s", "s"], ["up", "uppercase"], ["sc", "smallcaps"]].forEach(function (p) {
+      if (st[p[0]]) { o += "<" + p[1] + ">"; c = "</" + p[1] + ">" + c; }
+    });
+    return [o, c];
+  }
+  function generarCodigo(texto, est) {
+    var out = "", run = "", key = null, cur = null;
+    function volcar() {
+      if (run === "") return;
+      if (cur) { var t = abrirTags(cur); out += t[0] + esc2(run) + t[1]; } else out += esc2(run);
+      run = "";
+    }
+    for (var i = 0; i < texto.length; i++) {
+      var ch = texto.charAt(i);
+      if (ch === "\n") { volcar(); out += "\n"; key = null; cur = null; continue; }
+      var st = est[i] || null, k = clave(st);
+      if (k !== key) { volcar(); key = k; cur = k ? st : null; }
+      run += ch;
+    }
+    volcar();
+    return out;
+  }
+  /* GEN-FIN */
+
+  /* OPT-INI */
+  /* Optimizador: primero reduce sin cambiar cómo se ve; si aún no cabe, agrupa el degradado en menos colores. */
+  function sinPerdida(s) {
+    var prev;
+    s = s.replace(/<!--[\s\S]*?-->/g, "").replace(/<br\s*\/?>/gi, "\n");
+    do {
+      prev = s;
+      s = s.replace(/<(font|stroke|mark|b|i|u|s|uppercase|smallcaps)(?:\s[^>]*)?><\/\1>/gi, "");
+      s = s.replace(/<(font|stroke|b|i|uppercase|smallcaps)(?:\s[^>]*)?>(\s+)<\/\1>/gi, "$2");
+      s = s.replace(/<font ([^>]*)>([^<]*)<\/font>(\s*)<font \1>/gi, "<font $1>$2$3");
+      s = s.replace(/<stroke ([^>]*)>([^<]*)<\/stroke>(\s*)<stroke \1>/gi, "<stroke $1>$2$3");
+      s = s.replace(/<(b|i|uppercase|smallcaps)>([^<]*)<\/\1>(\s*)<\1>/gi, "<$1>$2$3");
+      s = s.replace(/<(u|s)>([^<]*)<\/\1><\1>/gi, "<$1>$2");
+      s = s.replace(/<mark ([^>]*)>([^<]*)<\/mark><mark \1>/gi, "<mark $1>$2");
+      s = s.replace(/[ \t]+\n/g, "\n");
+    } while (s !== prev);
+    return s.replace(/^\s+|\s+$/g, "");
+  }
+  var TOK = /<font color="(#[0-9A-Fa-f]{6})">(&(?:lt|gt|amp|quot|apos);|[^<\s&])<\/font>(\s*)/g;
+  var RUN = /(?:<font color="#[0-9A-Fa-f]{6}">(?:&(?:lt|gt|amp|quot|apos);|[^<\s&])<\/font>\s*){2,}/g;
+  function agrupar(k) {
+    return function (run) {
+      var toks = [], m, re = new RegExp(TOK.source, "g");
+      while ((m = re.exec(run))) toks.push({ c: m[1], t: m[2], w: m[3] });
+      var out = "";
+      for (var i = 0; i < toks.length; i += k) {
+        var g = toks.slice(i, i + k);
+        var mid = g[Math.floor((g.length - 1) / 2)].c;
+        var txt = g.map(function (x, j) { return x.t + (j < g.length - 1 ? x.w : ""); }).join("");
+        out += '<font color="' + mid + '">' + txt + "</font>" + g[g.length - 1].w;
+      }
+      return out;
+    };
+  }
+  function optimizar(s) {
+    s = sinPerdida(s);
+    if (s.length <= LIMITE) return s;
+    var base = s, out = s;
+    for (var k = 2; k <= 16; k++) {
+      out = base.replace(RUN, agrupar(k));
+      if (out.length <= LIMITE) break;
+    }
+    return sinPerdida(out);
+  }
+  /* OPT-FIN */
+
+  /* Optimizador con estilos combinados: si no cabe, junta las letras de color (degradado/arcoíris)
+     en bloques del mismo color, sin tocar fuente, tamaño, borde, negrita, etc. */
+  function agruparEstilos(est, texto, k) {
+    var res = est.slice(), toks = [];
+    function cerrar() {
+      for (var a = 0; a < toks.length; a += k) {
+        var g = toks.slice(a, a + k), mid = g[Math.floor((g.length - 1) / 2)].c;
+        for (var p = g[0].i; p < g[g.length - 1].i + g[g.length - 1].n; p++) {
+          if (texto.charAt(p) === "\n") continue;
+          var st = Object.assign({}, est[p] || {}); st.color = mid; res[p] = norm(st);
+        }
+      }
+      toks = [];
+    }
+    for (var i = 0; i < texto.length; ) {
+      var n = texto.codePointAt(i) > 0xFFFF ? 2 : 1, ch = texto.substr(i, n);
+      if (ch === "\n") cerrar();
+      else if (!/^\s$/.test(ch)) {
+        var c = est[i] && est[i].color;
+        if (c) toks.push({ i: i, n: n, c: c }); else cerrar();
+      }
+      i += n;
+    }
+    cerrar();
+    return res;
+  }
+  function codigoOptimo(texto, est) {
+    var mejor = sinPerdida(generarCodigo(texto, est));
+    if (mejor.length <= LIMITE) return mejor;
+    for (var k = 2; k <= 16; k++) {
+      var c = sinPerdida(generarCodigo(texto, agruparEstilos(est, texto, k)));
+      if (c.length < mejor.length) mejor = c;
+      if (c.length <= LIMITE) return c;
+    }
+    return mejor;
+  }
+
+  /* ---------- color ---------- */
+  function hex2rgb(h) { return [parseInt(h.slice(1,3),16), parseInt(h.slice(3,5),16), parseInt(h.slice(5,7),16)]; }
+  function rgb2hex(c) { return "#" + c.map(function (x) { return ("0" + Math.round(x).toString(16)).slice(-2); }).join("").toUpperCase(); }
+  function hsl2hex(h, s, l) {
+    var a = s * Math.min(l, 1 - l);
+    function f(n) { var k = (n + h / 30) % 12; return l - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)); }
+    return rgb2hex([f(0) * 255, f(8) * 255, f(4) * 255]);
+  }
+
+  /* ---------- vista previa del código ---------- */
+  function esc(s) { return s.replace(/&(?!(?:lt|gt|amp|quot|apos);)/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+  function colorOk(c) { return /^#[0-9a-fA-F]{3,8}$/.test(c) || /^rgb\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}\s*\)$/i.test(c); }
+  function conAlfa(c, transp) {
+    var a = 1 - (isNaN(transp) ? 0 : Math.max(0, Math.min(1, transp)));
+    if (/^#[0-9a-fA-F]{6}$/.test(c)) { var x = hex2rgb(c); return "rgba(" + x.join(",") + "," + a + ")"; }
+    return c;
+  }
+  var PERMITIDAS = { b: 1, i: 1, u: 1, s: 1, font: 1, stroke: 1, mark: 1, uppercase: 1, smallcaps: 1 };
+  function renderizar(src) {
+    src = src.replace(/<!--[\s\S]*?-->/g, "");
+    var partes = src.split(/(<[^>]*>)/), out = "", pila = [];
+    partes.forEach(function (p) {
+      if (!p) return;
+      var m = p.match(/^<\s*(\/)?\s*([a-zA-Z]+)([^>]*)>$/);
+      if (!m) { out += esc(p); return; }
+      var name = m[2].toLowerCase(), cierra = !!m[1];
+      if (name === "br") { if (!cierra) out += "\n"; return; }
+      if (!PERMITIDAS[name]) { out += esc(p); return; }
+      if (cierra) {
+        var idx = pila.lastIndexOf(name);
+        if (idx < 0) return;
+        while (pila.length > idx) { pila.pop(); out += "</span>"; }
+        return;
+      }
+      if (/\/\s*>$/.test(p)) return;
+      var at = {}, re = /([a-zA-Z]+)\s*=\s*(?:"([^"]*)"|'([^']*)')/g, q;
+      while ((q = re.exec(m[3]))) at[q[1].toLowerCase()] = q[2] !== undefined ? q[2] : q[3];
+      var st = "", cls = "";
+      if (name === "b") st = "font-weight:700;";
+      else if (name === "i") st = "font-style:italic;";
+      else if (name === "u") st = "text-decoration:underline;";
+      else if (name === "s") st = "text-decoration:line-through;";
+      else if (name === "uppercase") st = "text-transform:uppercase;";
+      else if (name === "smallcaps") st = "font-variant:small-caps;";
+      else if (name === "font") {
+        if (at.color && colorOk(at.color)) st += "color:" + at.color + ";";
+        if (at.size && /^\d{1,3}$/.test(at.size)) st += "font-size:" + at.size + "px;";
+        var fc = at.face && MAPA[at.face.toLowerCase()];
+        if (fc) st += "font-family:" + fc[1] + ",sans-serif;font-weight:" + fc[2] + ";" + (fc[3] ? "font-style:italic;" : "");
+        if (at.transparency && !isNaN(parseFloat(at.transparency))) st += "opacity:" + (1 - Math.max(0, Math.min(1, parseFloat(at.transparency)))) + ";";
+      } else if (name === "stroke") {
+        var col = at.color && colorOk(at.color) ? at.color : "#000000";
+        var th = parseFloat(at.thickness); if (isNaN(th)) th = 1;
+        st = "-webkit-text-stroke:" + (th * 2) + "px " + col + ";"; cls = ' class="st"';
+      } else if (name === "mark") {
+        var mc = at.color && colorOk(at.color) ? at.color : "#FFFF00";
+        st = "background-color:" + conAlfa(mc, parseFloat(at.transparency)) + ";";
+      }
+      pila.push(name);
+      out += "<span" + cls + ' style="' + st + '">';
+    });
+    while (pila.length) { pila.pop(); out += "</span>"; }
+    return out;
+  }
+
+  /* ---------- actualizar todo ---------- */
+  var tAviso = null;
+  function aviso(m) { el.ok.textContent = m; clearTimeout(tAviso); tAviso = setTimeout(function () { el.ok.textContent = ""; }, 2600); }
+
+  function refrescar() {
+    var bruto = generarCodigo(el.texto.value, estilos);
+    var opt = codigoOptimo(el.texto.value, estilos), n = opt.length;
+    el.codigo.value = opt;
+    el.largo.textContent = n + " / " + LIMITE + " caracteres" + (n > LIMITE ? " · pasa por " + (n - LIMITE) : "");
+    el.largo.style.color = n > LIMITE ? "var(--amber)" : "";
+    el.largo.style.fontWeight = n > LIMITE ? "600" : "";
+    var msg = "";
+    if (n > LIMITE) msg = "No cabe aunque se optimice: acorta el texto o quita estilos.";
+    else if (bruto.length > LIMITE) msg = "Se optimizó solo para que quepa: " + bruto.length + " → " + n + " caracteres.";
+    el.estado.textContent = msg;
+    el.estado.style.color = n > LIMITE ? "var(--amber)" : "var(--muted)";
+    el.copiar.disabled = n > LIMITE || n === 0;
+    el.pv.innerHTML = renderizar(opt);
+    prevTexto = el.texto.value;
+  }
+
+  /* Cuando escribes, los estilos de las letras se ajustan al cambio. */
+  function reconciliar(viejo, nuevo) {
+    var p = 0, max = Math.min(viejo.length, nuevo.length);
+    while (p < max && viejo.charAt(p) === nuevo.charAt(p)) p++;
+    var sv = viejo.length, sn = nuevo.length;
+    while (sv > p && sn > p && viejo.charAt(sv - 1) === nuevo.charAt(sn - 1)) { sv--; sn--; }
+    var her = p > 0 ? estilos[p - 1] : (sv < viejo.length ? estilos[sv] : null);
+    var nuevos = [];
+    for (var k = p; k < sn; k++) nuevos.push(her || null);
+    estilos = estilos.slice(0, p).concat(nuevos, estilos.slice(sv));
+  }
+  el.texto.addEventListener("input", function () {
+    reconciliar(prevTexto, el.texto.value);
+    refrescar();
+  });
+
+  /* ---------- historial ---------- */
+  function guardar() {
+    historial.push({ texto: el.texto.value, estilos: estilos.slice() });
+    if (historial.length > 60) historial.shift();
+  }
+  el.deshacer.addEventListener("click", function () {
+    var h = historial.pop();
+    if (!h) { aviso("Nada que deshacer"); return; }
+    estilos = h.estilos.slice();
+    reconciliar(h.texto, el.texto.value);
+    refrescar();
+  });
+
+  /* ---------- botón Optimizar ---------- */
+  $("optimizar").addEventListener("click", function () {
+    if (!el.texto.value) { aviso("Escribe algún texto primero"); return; }
+    var bruto = generarCodigo(el.texto.value, estilos), o = codigoOptimo(el.texto.value, estilos);
+    refrescar();
+    if (o.length > LIMITE) aviso("Optimizado a " + o.length + ", pero aún pasa por " + (o.length - LIMITE) + " caracteres. Acorta el texto.");
+    else if (o.length >= bruto.length) aviso("Ya está optimizado: " + o.length + " / " + LIMITE + " caracteres");
+    else aviso("Optimizado: " + bruto.length + " → " + o.length + " caracteres");
+  });
+
+  /* ---------- operaciones sobre la parte seleccionada ---------- */
+  function rango() {
+    var t = el.texto, s = t.selectionStart, e = t.selectionEnd;
+    if (s === e) { s = 0; e = t.value.length; }
+    return [s, e];
+  }
+  function sobreRango(fn) {
+    var r = rango();
+    if (r[0] === r[1]) { aviso("Escribe algún texto primero"); return; }
+    guardar();
+    for (var i = r[0]; i < r[1]; i++) estilos[i] = norm(fn(estilos[i] || null, i));
+    refrescar();
+  }
+  var TAGS = { b: "b", i: "i", u: "u", s: "s", uppercase: "up", smallcaps: "sc" };
+  document.querySelectorAll("[data-tag]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var k = TAGS[b.getAttribute("data-tag")], r = rango(), t = el.texto.value, todos = true, i;
+      if (r[0] === r[1]) { aviso("Escribe algún texto primero"); return; }
+      for (i = r[0]; i < r[1]; i++) {
+        if (t.charAt(i) !== "\n" && !(estilos[i] && estilos[i][k])) { todos = false; break; }
+      }
+      sobreRango(function (old) {
+        var n = Object.assign({}, old || {});
+        if (todos) delete n[k]; else n[k] = true;
+        return n;
+      });
+    });
+  });
+  el.limpiar.addEventListener("click", function () { sobreRango(function () { return null; }); });
+
+  function numero(campo, min, max) {
+    var t = String(campo.value).replace(",", ".").replace("%", "").trim();
+    if (t === "") return null;
+    var n = parseFloat(t);
+    if (isNaN(n)) return null;
+    return Math.max(min, Math.min(max, n));
+  }
+  function estiloDelPanel() {
+    var st = {};
+    if (el.fFace.value) st.face = el.fFace.value;
+    var tam = numero(el.fSize, 1, 200); if (tam) st.size = Math.round(tam);
+    var tr = numero(el.fTransp, 0, 100); if (tr !== null) st.transp = tr / 100;
+    var g = numero(el.sGrosor, 0, 200); if (g) st.stroke = { c: el.sColor.value.toUpperCase(), t: g };
+    if (el.mOn.checked) {
+      var mt = numero(el.mTransp, 0, 100); if (mt === null) mt = 40;
+      st.mark = { c: el.mColor.value.toUpperCase(), t: mt / 100 };
+    }
+    return st;
+  }
+  el.aplicar.addEventListener("click", function () {
+    var st = estiloDelPanel();
+    if (!norm(st)) { aviso("Rellena al menos un estilo y pulsa Aplicar"); return; }
+    sobreRango(function (old) { return Object.assign({}, old || {}, st); });
+  });
+  ["mColor", "mTransp"].forEach(function (k) { el[k].addEventListener("input", function () { el.mOn.checked = true; }); });
+
+  function colorPorLetra(colorDe) {
+    var r = rango(), t = el.texto.value;
+    if (r[0] === r[1]) { aviso("Escribe algún texto primero"); return; }
+    guardar();
+    var pos = [], i = r[0];
+    while (i < r[1]) {
+      var len = t.codePointAt(i) > 0xFFFF ? 2 : 1;
+      pos.push([i, len, /^\s$/.test(t.substr(i, len))]);
+      i += len;
+    }
+    var vis = pos.filter(function (x) { return !x[2]; }).length, n = 0;
+    pos.forEach(function (x) {
+      var col = null;
+      if (!x[2]) { col = colorDe(n, vis); n++; }
+      for (var k = 0; k < x[1]; k++) {
+        var st = Object.assign({}, estilos[x[0] + k] || {});
+        if (col) st.color = col; else delete st.color;
+        estilos[x[0] + k] = norm(st);
+      }
+    });
+    refrescar();
+  }
+  var ACC = {
+    color: function () { var c = el.fColor.value.toUpperCase(); sobreRango(function (old) { return Object.assign({}, old || {}, { color: c }); }); },
+    grad: function () {
+      var a = hex2rgb(el.gA.value), b = hex2rgb(el.gB.value);
+      colorPorLetra(function (i, tot) {
+        var t = tot > 1 ? i / (tot - 1) : 0;
+        return rgb2hex([a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t]);
+      });
+    },
+    rainbow: function () {
+      colorPorLetra(function (i, tot) { return hsl2hex(tot > 1 ? (i / (tot - 1)) * 300 : 0, 0.9, 0.58); });
+    }
+  };
+  document.querySelectorAll("[data-act]").forEach(function (b) {
+    b.addEventListener("click", function () { ACC[b.getAttribute("data-act")](); });
+  });
+  document.querySelectorAll("[data-set]").forEach(function (b) {
+    b.addEventListener("click", function () { el.fColor.value = b.getAttribute("data-set"); });
+  });
+
+  /* ---------- emojis ---------- */
+  var EMOJI_GRUPOS = [["Caras", "😀 😃 😄 😁 😆 😅 🤣 😂 🙂 🙃 🫠 😉 😊 😇 🥰 😍 🤩 😘 😗 ☺️ 😚 😙 🥲 😋 😛 😜 🤪 😝 🤑 🤗 🤭 🫢 🫣 🤫 🤔 🫡 🤐 🤨 😐 😑 😶 🫥 😶‍🌫️ 😏 😒 🙄 😬 😮‍💨 🤥 🫨 🙂‍↔️ 🙂‍↕️ 😌 😔 😪 🤤 😴 🫩 😷 🤒 🤕 🤢 🤮 🤧 🥵 🥶 🥴 😵 😵‍💫 🤯 🤠 🥳 🥸 😎 🤓 🧐 😕 🫤 😟 🙁 ☹️ 😮 😯 😲 😳 🫪 🥺 🥹 😦 😧 😨 😰 😥 😢 😭 😱 😖 😣 😞 😓 😩 😫 🥱 😤 😡 😠 🤬 😈 👿 💀 ☠️ 💩 🤡 👹 👺 👻 👽 👾 🤖 😺 😸 😹 😻 😼 😽 🙀 😿 😾 🙈 🙉 🙊 💌 💘 💝 💖 💗 💓 💞 💕 💟 ❣️ 💔 ❤️‍🔥 ❤️‍🩹 ❤️ 🩷 🧡 💛 💚 💙 🩵 💜 🤎 🖤 🩶 🤍 💋 💯 💢 🫯 💥 💫 💦 💨 🕳️ 💬 👁️‍🗨️ 🗨️ 🗯️ 💭 💤"], ["Personas", "👋 🤚 🖐️ ✋ 🖖 🫱 🫲 🫳 🫴 🫷 🫸 👌 🤌 🤏 ✌️ 🤞 🫰 🤟 🤘 🤙 👈 👉 👆 🖕 👇 ☝️ 🫵 👍 👎 ✊ 👊 🤛 🤜 👏 🙌 🫶 👐 🤲 🤝 🙏 ✍️ 💅 🤳 💪 🦾 🦿 🦵 🦶 👂 🦻 👃 🧠 🫀 🫁 🦷 🦴 👀 👁️ 👅 👄 🫦 👶 🧒 👦 👧 🧑 👱 👨 🧔 🧔‍♂️ 🧔‍♀️ 👨‍🦰 👨‍🦱 👨‍🦳 👨‍🦲 👩 👩‍🦰 🧑‍🦰 👩‍🦱 🧑‍🦱 👩‍🦳 🧑‍🦳 👩‍🦲 🧑‍🦲 👱‍♀️ 👱‍♂️ 🧓 👴 👵 🙍 🙍‍♂️ 🙍‍♀️ 🙎 🙎‍♂️ 🙎‍♀️ 🙅 🙅‍♂️ 🙅‍♀️ 🙆 🙆‍♂️ 🙆‍♀️ 💁 💁‍♂️ 💁‍♀️ 🙋 🙋‍♂️ 🙋‍♀️ 🧏 🧏‍♂️ 🧏‍♀️ 🙇 🙇‍♂️ 🙇‍♀️ 🤦 🤦‍♂️ 🤦‍♀️ 🤷 🤷‍♂️ 🤷‍♀️ 🧑‍⚕️ 👨‍⚕️ 👩‍⚕️ 🧑‍🎓 👨‍🎓 👩‍🎓 🧑‍🏫 👨‍🏫 👩‍🏫 🧑‍⚖️ 👨‍⚖️ 👩‍⚖️ 🧑‍🌾 👨‍🌾 👩‍🌾 🧑‍🍳 👨‍🍳 👩‍🍳 🧑‍🔧 👨‍🔧 👩‍🔧 🧑‍🏭 👨‍🏭 👩‍🏭 🧑‍💼 👨‍💼 👩‍💼 🧑‍🔬 👨‍🔬 👩‍🔬 🧑‍💻 👨‍💻 👩‍💻 🧑‍🎤 👨‍🎤 👩‍🎤 🧑‍🎨 👨‍🎨 👩‍🎨 🧑‍✈️ 👨‍✈️ 👩‍✈️ 🧑‍🚀 👨‍🚀 👩‍🚀 🧑‍🚒 👨‍🚒 👩‍🚒 👮 👮‍♂️ 👮‍♀️ 🕵️ 🕵️‍♂️ 🕵️‍♀️ 💂 💂‍♂️ 💂‍♀️ 🥷 👷 👷‍♂️ 👷‍♀️ 🫅 🤴 👸 👳 👳‍♂️ 👳‍♀️ 👲 🧕 🤵 🤵‍♂️ 🤵‍♀️ 👰 👰‍♂️ 👰‍♀️ 🤰 🫃 🫄 🤱 👩‍🍼 👨‍🍼 🧑‍🍼 👼 🎅 🤶 🧑‍🎄 🦸 🦸‍♂️ 🦸‍♀️ 🦹 🦹‍♂️ 🦹‍♀️ 🧙 🧙‍♂️ 🧙‍♀️ 🧚 🧚‍♂️ 🧚‍♀️ 🧛 🧛‍♂️ 🧛‍♀️ 🧜 🧜‍♂️ 🧜‍♀️ 🧝 🧝‍♂️ 🧝‍♀️ 🧞 🧞‍♂️ 🧞‍♀️ 🧟 🧟‍♂️ 🧟‍♀️ 🧌 🫈 💆 💆‍♂️ 💆‍♀️ 💇 💇‍♂️ 💇‍♀️ 🚶 🚶‍♂️ 🚶‍♀️ 🚶‍➡️ 🚶‍♀️‍➡️ 🚶‍♂️‍➡️ 🧍 🧍‍♂️ 🧍‍♀️ 🧎 🧎‍♂️ 🧎‍♀️ 🧎‍➡️ 🧎‍♀️‍➡️ 🧎‍♂️‍➡️ 🧑‍🦯 🧑‍🦯‍➡️ 👨‍🦯 👨‍🦯‍➡️ 👩‍🦯 👩‍🦯‍➡️ 🧑‍🦼 🧑‍🦼‍➡️ 👨‍🦼 👨‍🦼‍➡️ 👩‍🦼 👩‍🦼‍➡️ 🧑‍🦽 🧑‍🦽‍➡️ 👨‍🦽 👨‍🦽‍➡️ 👩‍🦽 👩‍🦽‍➡️ 🏃 🏃‍♂️ 🏃‍♀️ 🏃‍➡️ 🏃‍♀️‍➡️ 🏃‍♂️‍➡️ 🧑‍🩰 💃 🕺 🕴️ 👯 👯‍♂️ 👯‍♀️ 🧖 🧖‍♂️ 🧖‍♀️ 🧗 🧗‍♂️ 🧗‍♀️ 🤺 🏇 ⛷️ 🏂 🏌️ 🏌️‍♂️ 🏌️‍♀️ 🏄 🏄‍♂️ 🏄‍♀️ 🚣 🚣‍♂️ 🚣‍♀️ 🏊 🏊‍♂️ 🏊‍♀️ ⛹️ ⛹️‍♂️ ⛹️‍♀️ 🏋️ 🏋️‍♂️ 🏋️‍♀️ 🚴 🚴‍♂️ 🚴‍♀️ 🚵 🚵‍♂️ 🚵‍♀️ 🤸 🤸‍♂️ 🤸‍♀️ 🤼 🤼‍♂️ 🤼‍♀️ 🤽 🤽‍♂️ 🤽‍♀️ 🤾 🤾‍♂️ 🤾‍♀️ 🤹 🤹‍♂️ 🤹‍♀️ 🧘 🧘‍♂️ 🧘‍♀️ 🛀 🛌 🧑‍🤝‍🧑 👭 👫 👬 💏 👩‍❤️‍💋‍👨 👨‍❤️‍💋‍👨 👩‍❤️‍💋‍👩 💑 👩‍❤️‍👨 👨‍❤️‍👨 👩‍❤️‍👩 👨‍👩‍👦 👨‍👩‍👧 👨‍👩‍👧‍👦 👨‍👩‍👦‍👦 👨‍👩‍👧‍👧 👨‍👨‍👦 👨‍👨‍👧 👨‍👨‍👧‍👦 👨‍👨‍👦‍👦 👨‍👨‍👧‍👧 👩‍👩‍👦 👩‍👩‍👧 👩‍👩‍👧‍👦 👩‍👩‍👦‍👦 👩‍👩‍👧‍👧 👨‍👦 👨‍👦‍👦 👨‍👧 👨‍👧‍👦 👨‍👧‍👧 👩‍👦 👩‍👦‍👦 👩‍👧 👩‍👧‍👦 👩‍👧‍👧 🗣️ 👤 👥 🫂 👪 🧑‍🧑‍🧒 🧑‍🧑‍🧒‍🧒 🧑‍🧒 🧑‍🧒‍🧒 👣 🫆"], ["Animales", "🐵 🐒 🦍 🦧 🐶 🐕 🦮 🐕‍🦺 🐩 🐺 🦊 🦝 🐱 🐈 🐈‍⬛ 🦁 🐯 🐅 🐆 🐴 🫎 🫏 🐎 🦄 🦓 🦌 🦬 🐮 🐂 🐃 🐄 🐷 🐖 🐗 🐽 🐏 🐑 🐐 🐪 🐫 🦙 🦒 🐘 🦣 🦏 🦛 🐭 🐁 🐀 🐹 🐰 🐇 🐿️ 🦫 🦔 🦇 🐻 🐻‍❄️ 🐨 🐼 🦥 🦦 🦨 🦘 🦡 🐾 🦃 🐔 🐓 🐣 🐤 🐥 🐦 🐧 🕊️ 🦅 🦆 🦢 🦉 🦤 🪶 🦩 🦚 🦜 🪽 🐦‍⬛ 🪿 🐦‍🔥 🐸 🐊 🐢 🦎 🐍 🐲 🐉 🦕 🦖 🐳 🐋 🐬 🫍 🦭 🐟 🐠 🐡 🦈 🐙 🐚 🪸 🪼 🦀 🦞 🦐 🦑 🦪 🐌 🦋 🐛 🐜 🐝 🪲 🐞 🦗 🪳 🕷️ 🕸️ 🦂 🦟 🪰 🪱 🦠 💐 🌸 💮 🪷 🏵️ 🌹 🥀 🌺 🌻 🌼 🌷 🪻 🌱 🪴 🌲 🌳 🌴 🌵 🌾 🌿 ☘️ 🍀 🍁 🍂 🍃 🪹 🪺 🍄 🪾"], ["Comida", "🍇 🍈 🍉 🍊 🍋 🍋‍🟩 🍌 🍍 🥭 🍎 🍏 🍐 🍑 🍒 🍓 🫐 🥝 🍅 🫒 🥥 🥑 🍆 🥔 🥕 🌽 🌶️ 🫑 🥒 🥬 🥦 🧄 🧅 🥜 🫘 🌰 🫚 🫛 🍄‍🟫 🫜 🍞 🥐 🥖 🫓 🥨 🥯 🥞 🧇 🧀 🍖 🍗 🥩 🥓 🍔 🍟 🍕 🌭 🥪 🌮 🌯 🫔 🥙 🧆 🥚 🍳 🥘 🍲 🫕 🥣 🥗 🍿 🧈 🧂 🥫 🍱 🍘 🍙 🍚 🍛 🍜 🍝 🍠 🍢 🍣 🍤 🍥 🥮 🍡 🥟 🥠 🥡 🍦 🍧 🍨 🍩 🍪 🎂 🍰 🧁 🥧 🍫 🍬 🍭 🍮 🍯 🍼 🥛 ☕ 🫖 🍵 🍶 🍾 🍷 🍸 🍹 🍺 🍻 🥂 🥃 🫗 🥤 🧋 🧃 🧉 🧊 🥢 🍽️ 🍴 🥄 🔪 🫙 🏺"], ["Viajes", "🌍 🌎 🌏 🌐 🗺️ 🗾 🧭 🏔️ ⛰️ 🛘 🌋 🗻 🏕️ 🏖️ 🏜️ 🏝️ 🏞️ 🏟️ 🏛️ 🏗️ 🧱 🪨 🪵 🛖 🏘️ 🏚️ 🏠 🏡 🏢 🏣 🏤 🏥 🏦 🏨 🏩 🏪 🏫 🏬 🏭 🏯 🏰 💒 🗼 🗽 ⛪ 🕌 🛕 🕍 ⛩️ 🕋 ⛲ ⛺ 🌁 🌃 🏙️ 🌄 🌅 🌆 🌇 🌉 ♨️ 🎠 🛝 🎡 🎢 💈 🎪 🚂 🚃 🚄 🚅 🚆 🚇 🚈 🚉 🚊 🚝 🚞 🚋 🚌 🚍 🚎 🚐 🚑 🚒 🚓 🚔 🚕 🚖 🚗 🚘 🚙 🛻 🚚 🚛 🚜 🏎️ 🏍️ 🛵 🦽 🦼 🛺 🚲 🛴 🛹 🛼 🚏 🛣️ 🛤️ 🛢️ ⛽ 🛞 🚨 🚥 🚦 🛑 🚧 ⚓ 🛟 ⛵ 🛶 🚤 🛳️ ⛴️ 🛥️ 🚢 ✈️ 🛩️ 🛫 🛬 🪂 💺 🚁 🚟 🚠 🚡 🛰️ 🚀 🛸 🛎️ 🧳 ⌛ ⏳ ⌚ ⏰ ⏱️ ⏲️ 🕰️ 🕛 🕧 🕐 🕜 🕑 🕝 🕒 🕞 🕓 🕟 🕔 🕠 🕕 🕡 🕖 🕢 🕗 🕣 🕘 🕤 🕙 🕥 🕚 🕦 🌑 🌒 🌓 🌔 🌕 🌖 🌗 🌘 🌙 🌚 🌛 🌜 🌡️ ☀️ 🌝 🌞 🪐 ⭐ 🌟 🌠 🌌 ☁️ ⛅ ⛈️ 🌤️ 🌥️ 🌦️ 🌧️ 🌨️ 🌩️ 🌪️ 🌫️ 🌬️ 🌀 🌈 🌂 ☂️ ☔ ⛱️ ⚡ ❄️ ☃️ ⛄ ☄️ 🔥 💧 🌊"], ["Actividades", "🎃 🎄 🎆 🎇 🧨 ✨ 🎈 🎉 🎊 🎋 🎍 🎎 🎏 🎐 🎑 🧧 🎀 🎁 🎗️ 🎟️ 🎫 🎖️ 🏆 🏅 🥇 🥈 🥉 ⚽ ⚾ 🥎 🏀 🏐 🏈 🏉 🎾 🥏 🎳 🏏 🏑 🏒 🥍 🏓 🏸 🥊 🥋 🥅 ⛳ ⛸️ 🎣 🤿 🎽 🎿 🛷 🥌 🎯 🪀 🪁 🔫 🎱 🔮 🪄 🎮 🕹️ 🎰 🎲 🧩 🧸 🪅 🪩 🪆 ♠️ ♥️ ♦️ ♣️ ♟️ 🃏 🀄 🎴 🎭 🖼️ 🎨 🧵 🪡 🧶 🪢"], ["Objetos", "👓 🕶️ 🥽 🥼 🦺 👔 👕 👖 🧣 🧤 🧥 🧦 👗 👘 🥻 🩱 🩲 🩳 👙 👚 🪭 👛 👜 👝 🛍️ 🎒 🩴 👞 👟 🥾 🥿 👠 👡 🩰 👢 🪮 👑 👒 🎩 🎓 🧢 🪖 ⛑️ 📿 💄 💍 💎 🔇 🔈 🔉 🔊 📢 📣 📯 🔔 🔕 🎼 🎵 🎶 🎙️ 🎚️ 🎛️ 🎤 🎧 📻 🎷 🎺 🪊 🪗 🎸 🎹 🎻 🪕 🥁 🪘 🪇 🪈 🪉 📱 📲 ☎️ 📞 📟 📠 🔋 🪫 🔌 💻 🖥️ 🖨️ ⌨️ 🖱️ 🖲️ 💽 💾 💿 📀 🧮 🎥 🎞️ 📽️ 🎬 📺 📷 📸 📹 📼 🔍 🔎 🕯️ 💡 🔦 🏮 🪔 📔 📕 📖 📗 📘 📙 📚 📓 📒 📃 📜 📄 📰 🗞️ 📑 🔖 🏷️ 🪙 💰 🪎 💴 💵 💶 💷 💸 💳 🧾 💹 ✉️ 📧 📨 📩 📤 📥 📦 📫 📪 📬 📭 📮 🗳️ ✏️ ✒️ 🖋️ 🖊️ 🖌️ 🖍️ 📝 💼 📁 📂 🗂️ 📅 📆 🗒️ 🗓️ 📇 📈 📉 📊 📋 📌 📍 📎 🖇️ 📏 📐 ✂️ 🗃️ 🗄️ 🗑️ 🔒 🔓 🔏 🔐 🔑 🗝️ 🔨 🪓 ⛏️ ⚒️ 🛠️ 🗡️ ⚔️ 💣 🪃 🏹 🛡️ 🪚 🔧 🪛 🔩 ⚙️ 🗜️ ⚖️ 🦯 🔗 ⛓️‍💥 ⛓️ 🪝 🧰 🧲 🪜 🪏 ⚗️ 🧪 🧫 🧬 🔬 🔭 📡 💉 🩸 💊 🩹 🩼 🩺 🩻 🚪 🛗 🪞 🪟 🛏️ 🛋️ 🪑 🚽 🪠 🚿 🛁 🪤 🪒 🧴 🧷 🧹 🧺 🧻 🪣 🧼 🫧 🪥 🧽 🧯 🛒 🚬 ⚰️ 🪦 ⚱️ 🧿 🪬 🗿 🪧 🪪"], ["Símbolos", "🏧 🚮 🚰 ♿ 🚹 🚺 🚻 🚼 🚾 🛂 🛃 🛄 🛅 ⚠️ 🚸 ⛔ 🚫 🚳 🚭 🚯 🚱 🚷 📵 🔞 ☢️ ☣️ ⬆️ ↗️ ➡️ ↘️ ⬇️ ↙️ ⬅️ ↖️ ↕️ ↔️ ↩️ ↪️ ⤴️ ⤵️ 🔃 🔄 🔙 🔚 🔛 🔜 🔝 🛐 ⚛️ 🕉️ ✡️ ☸️ ☯️ ✝️ ☦️ ☪️ ☮️ 🕎 🔯 🪯 ♈ ♉ ♊ ♋ ♌ ♍ ♎ ♏ ♐ ♑ ♒ ♓ ⛎ 🔀 🔁 🔂 ▶️ ⏩ ⏭️ ⏯️ ◀️ ⏪ ⏮️ 🔼 ⏫ 🔽 ⏬ ⏸️ ⏹️ ⏺️ ⏏️ 🎦 🔅 🔆 📶 🛜 📳 📴 ♀️ ♂️ ⚧️ ✖️ ➕ ➖ ➗ 🟰 ♾️ ‼️ ⁉️ ❓ ❔ ❕ ❗ 〰️ 💱 💲 ⚕️ ♻️ ⚜️ 🔱 📛 🔰 ⭕ ✅ ☑️ ✔️ ❌ ❎ ➰ ➿ 〽️ ✳️ ✴️ ❇️ ©️ ®️ ™️ 🫟 #️⃣ *️⃣ 0️⃣ 1️⃣ 2️⃣ 3️⃣ 4️⃣ 5️⃣ 6️⃣ 7️⃣ 8️⃣ 9️⃣ 🔟 🔠 🔡 🔢 🔣 🔤 🅰️ 🆎 🅱️ 🆑 🆒 🆓 ℹ️ 🆔 Ⓜ️ 🆕 🆖 🅾️ 🆗 🅿️ 🆘 🆙 🆚 🈁 🈂️ 🈷️ 🈶 🈯 🉐 🈹 🈚 🈲 🉑 🈸 🈴 🈳 ㊗️ ㊙️ 🈺 🈵 🔴 🟠 🟡 🟢 🔵 🟣 🟤 ⚫ ⚪ 🟥 🟧 🟨 🟩 🟦 🟪 🟫 ⬛ ⬜ ◼️ ◻️ ◾ ◽ ▪️ ▫️ 🔶 🔷 🔸 🔹 🔺 🔻 💠 🔘 🔳 🔲"], ["Banderas", "🏁 🚩 🎌 🏴 🏳️ 🏳️‍🌈 🏳️‍⚧️ 🏴‍☠️ 🇦🇨 🇦🇩 🇦🇪 🇦🇫 🇦🇬 🇦🇮 🇦🇱 🇦🇲 🇦🇴 🇦🇶 🇦🇷 🇦🇸 🇦🇹 🇦🇺 🇦🇼 🇦🇽 🇦🇿 🇧🇦 🇧🇧 🇧🇩 🇧🇪 🇧🇫 🇧🇬 🇧🇭 🇧🇮 🇧🇯 🇧🇱 🇧🇲 🇧🇳 🇧🇴 🇧🇶 🇧🇷 🇧🇸 🇧🇹 🇧🇻 🇧🇼 🇧🇾 🇧🇿 🇨🇦 🇨🇨 🇨🇩 🇨🇫 🇨🇬 🇨🇭 🇨🇮 🇨🇰 🇨🇱 🇨🇲 🇨🇳 🇨🇴 🇨🇵 🇨🇶 🇨🇷 🇨🇺 🇨🇻 🇨🇼 🇨🇽 🇨🇾 🇨🇿 🇩🇪 🇩🇬 🇩🇯 🇩🇰 🇩🇲 🇩🇴 🇩🇿 🇪🇦 🇪🇨 🇪🇪 🇪🇬 🇪🇭 🇪🇷 🇪🇸 🇪🇹 🇪🇺 🇫🇮 🇫🇯 🇫🇰 🇫🇲 🇫🇴 🇫🇷 🇬🇦 🇬🇧 🇬🇩 🇬🇪 🇬🇫 🇬🇬 🇬🇭 🇬🇮 🇬🇱 🇬🇲 🇬🇳 🇬🇵 🇬🇶 🇬🇷 🇬🇸 🇬🇹 🇬🇺 🇬🇼 🇬🇾 🇭🇰 🇭🇲 🇭🇳 🇭🇷 🇭🇹 🇭🇺 🇮🇨 🇮🇩 🇮🇪 🇮🇱 🇮🇲 🇮🇳 🇮🇴 🇮🇶 🇮🇷 🇮🇸 🇮🇹 🇯🇪 🇯🇲 🇯🇴 🇯🇵 🇰🇪 🇰🇬 🇰🇭 🇰🇮 🇰🇲 🇰🇳 🇰🇵 🇰🇷 🇰🇼 🇰🇾 🇰🇿 🇱🇦 🇱🇧 🇱🇨 🇱🇮 🇱🇰 🇱🇷 🇱🇸 🇱🇹 🇱🇺 🇱🇻 🇱🇾 🇲🇦 🇲🇨 🇲🇩 🇲🇪 🇲🇫 🇲🇬 🇲🇭 🇲🇰 🇲🇱 🇲🇲 🇲🇳 🇲🇴 🇲🇵 🇲🇶 🇲🇷 🇲🇸 🇲🇹 🇲🇺 🇲🇻 🇲🇼 🇲🇽 🇲🇾 🇲🇿 🇳🇦 🇳🇨 🇳🇪 🇳🇫 🇳🇬 🇳🇮 🇳🇱 🇳🇴 🇳🇵 🇳🇷 🇳🇺 🇳🇿 🇴🇲 🇵🇦 🇵🇪 🇵🇫 🇵🇬 🇵🇭 🇵🇰 🇵🇱 🇵🇲 🇵🇳 🇵🇷 🇵🇸 🇵🇹 🇵🇼 🇵🇾 🇶🇦 🇷🇪 🇷🇴 🇷🇸 🇷🇺 🇷🇼 🇸🇦 🇸🇧 🇸🇨 🇸🇩 🇸🇪 🇸🇬 🇸🇭 🇸🇮 🇸🇯 🇸🇰 🇸🇱 🇸🇲 🇸🇳 🇸🇴 🇸🇷 🇸🇸 🇸🇹 🇸🇻 🇸🇽 🇸🇾 🇸🇿 🇹🇦 🇹🇨 🇹🇩 🇹🇫 🇹🇬 🇹🇭 🇹🇯 🇹🇰 🇹🇱 🇹🇲 🇹🇳 🇹🇴 🇹🇷 🇹🇹 🇹🇻 🇹🇼 🇹🇿 🇺🇦 🇺🇬 🇺🇲 🇺🇳 🇺🇸 🇺🇾 🇺🇿 🇻🇦 🇻🇨 🇻🇪 🇻🇬 🇻🇮 🇻🇳 🇻🇺 🇼🇫 🇼🇸 🇽🇰 🇾🇪 🇾🇹 🇿🇦 🇿🇲 🇿🇼 🏴󠁧󠁢󠁥󠁮󠁧󠁿 🏴󠁧󠁢󠁳󠁣󠁴󠁿 🏴󠁧󠁢󠁷󠁬󠁳󠁿"]];
+  var panelEmoji = $("emojiPanel"), btnEmoji = $("emojiBtn");
+  var tabsEmoji = document.createElement("div"); tabsEmoji.className = "emtabs";
+  var gridEmoji = document.createElement("div"); gridEmoji.className = "emgrid";
+  panelEmoji.appendChild(tabsEmoji); panelEmoji.appendChild(gridEmoji);
+  function insertarEmoji(em) {
+    var t = el.texto, v = t.value, s0 = t.selectionStart, e0 = t.selectionEnd;
+    if (typeof s0 !== "number") { s0 = e0 = v.length; }
+    guardar();
+    t.value = v.slice(0, s0) + em + v.slice(e0);
+    reconciliar(v, t.value);
+    var pos = s0 + em.length;
+    try { t.setSelectionRange(pos, pos); } catch (x) {}
+    refrescar();
+  }
+  function mostrarGrupo(n) {
+    Array.prototype.forEach.call(tabsEmoji.children, function (b, k) { b.setAttribute("aria-pressed", k === n ? "true" : "false"); });
+    var html = "";
+    EMOJI_GRUPOS[n][1].split(" ").forEach(function (em) {
+      html += '<button type="button" aria-label="Emoji ' + em + '">' + em + "</button>";
+    });
+    gridEmoji.innerHTML = html; gridEmoji.scrollTop = 0;
+  }
+  gridEmoji.addEventListener("click", function (ev) {
+    var b = ev.target.closest("button");
+    if (b && gridEmoji.contains(b)) insertarEmoji(b.textContent);
+  });
+  EMOJI_GRUPOS.forEach(function (g, n) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "emtab"; b.title = g[0]; b.setAttribute("aria-label", g[0]);
+    b.textContent = g[1].split(" ")[0];
+    b.addEventListener("click", function () { mostrarGrupo(n); });
+    tabsEmoji.appendChild(b);
+  });
+  var emojiListo = false;
+  function emojiPanel(abrir) {
+    if (abrir && !emojiListo) { emojiListo = true; mostrarGrupo(0); }
+    panelEmoji.hidden = !abrir;
+    btnEmoji.setAttribute("aria-expanded", abrir ? "true" : "false");
+  }
+  btnEmoji.addEventListener("click", function () { emojiPanel(panelEmoji.hidden); });
+  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && !panelEmoji.hidden) { emojiPanel(false); btnEmoji.focus(); } });
+  document.addEventListener("click", function (ev) {
+    if (!panelEmoji.hidden && !panelEmoji.contains(ev.target) && !btnEmoji.contains(ev.target)) emojiPanel(false);
+  });
+
+  /* ---------- ejemplos ---------- */
+  function cargar(segmentos, conHistorial) {
+    var t = "", st = [];
+    segmentos.forEach(function (p) {
+      var s = norm(p[1]);
+      for (var k = 0; k < p[0].length; k++) st.push(s);
+      t += p[0];
+    });
+    if (conHistorial) guardar();
+    el.texto.value = t;
+    estilos = st;
+    refrescar();
+  }
+  EJEMPLOS.forEach(function (ej) {
+    var b = document.createElement("button"); b.className = "chip"; b.textContent = ej[0];
+    b.addEventListener("click", function () { cargar(ej[1], true); });
+    el.ejemplos.appendChild(b);
+  });
+
+  /* ---------- copiar ---------- */
+  el.copiar.addEventListener("click", function () {
+    var txt = el.codigo.value;
+    if (!txt || txt.length > LIMITE) return;
+    function respaldo() { el.codigo.focus(); el.codigo.select(); aviso("Seleccionado: pulsa Ctrl+C"); }
+    try { navigator.clipboard.writeText(txt).then(function () { aviso("Copiado"); }, respaldo); }
+    catch (err) { respaldo(); }
+  });
+
+  cargar(BIENVENIDA, false);
+})();
+</script>
+
+</body></html>
