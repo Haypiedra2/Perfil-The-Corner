@@ -301,21 +301,40 @@ button { font: inherit; cursor: pointer; }
     });
     return [o, c];
   }
+  function sinColor(st) { if (!st) return null; var o = Object.assign({}, st); delete o.color; return norm(o); }
   function generarCodigo(texto, est) {
-    var out = "", run = "", key = null, cur = null;
-    function volcar() {
-      if (run === "") return;
-      if (cur) { var t = abrirTags(cur); out += t[0] + esc2(run) + t[1]; } else out += esc2(run);
-      run = "";
+    /* Los estilos comunes (borde, fuente, tamaño...) se escriben UNA vez por tramo y,
+       dentro, solo cambia <font color>. Así el degradado conserva un color por letra. */
+    var out = "", tramo = [], kBase = null, base = null;
+    function volcarTramo() {
+      if (!tramo.length) return;
+      var runs = [], i;
+      tramo.forEach(function (x) {
+        var last = runs[runs.length - 1];
+        if (last && last.c === x.c) last.t += x.ch; else runs.push({ c: x.c, t: x.ch });
+      });
+      if (runs.length === 1) {
+        var st = Object.assign({}, base || {}); if (runs[0].c) st.color = runs[0].c;
+        st = norm(st);
+        if (st) { var t = abrirTags(st); out += t[0] + esc2(runs[0].t) + t[1]; } else out += esc2(runs[0].t);
+      } else {
+        var o = base ? abrirTags(base) : ["", ""];
+        out += o[0];
+        for (i = 0; i < runs.length; i++) {
+          out += runs[i].c ? '<font color="' + runs[i].c + '">' + esc2(runs[i].t) + "</font>" : esc2(runs[i].t);
+        }
+        out += o[1];
+      }
+      tramo = [];
     }
     for (var i = 0; i < texto.length; i++) {
       var ch = texto.charAt(i);
-      if (ch === "\n") { volcar(); out += "\n"; key = null; cur = null; continue; }
-      var st = est[i] || null, k = clave(st);
-      if (k !== key) { volcar(); key = k; cur = k ? st : null; }
-      run += ch;
+      if (ch === "\n") { volcarTramo(); out += "\n"; kBase = null; base = null; continue; }
+      var st = est[i] || null, bs = sinColor(st), k = clave(bs);
+      if (k !== kBase) { volcarTramo(); kBase = k; base = bs; }
+      tramo.push({ ch: ch, c: st && st.color ? st.color : null });
     }
-    volcar();
+    volcarTramo();
     return out;
   }
   /* GEN-FIN */
@@ -392,9 +411,57 @@ button { font: inherit; cursor: pointer; }
     cerrar();
     return res;
   }
+  /* Fusiona de uno en uno los colores vecinos más parecidos, solo hasta que el código quepa. */
+  function reducirColores(est, texto) {
+    var seqs = [], cur = [], i, n, ch;
+    function cerrar() { if (cur.length) seqs.push(cur); cur = []; }
+    for (i = 0; i < texto.length; ) {
+      n = texto.codePointAt(i) > 0xFFFF ? 2 : 1; ch = texto.substr(i, n);
+      if (ch === "\n") cerrar();
+      else if (!/^\s$/.test(ch)) {
+        var c = est[i] && est[i].color;
+        if (c) cur.push({ a: i, b: i + n, c: hex2rgb(c), w: 1 }); else cerrar();
+      }
+      i += n;
+    }
+    cerrar();
+    function dist(x, y) { return Math.pow(x[0]-y[0],2) + Math.pow(x[1]-y[1],2) + Math.pow(x[2]-y[2],2); }
+    var mejor = null;
+    for (;;) {
+      var res = est.slice();
+      seqs.forEach(function (sq) {
+        sq.forEach(function (g) {
+          var hx = rgb2hex(g.c);
+          for (var p = g.a; p < g.b; p++) {
+            if (texto.charAt(p) === "\n") continue;
+            var st = Object.assign({}, est[p] || {}); st.color = hx; res[p] = norm(st);
+          }
+        });
+      });
+      var code = sinPerdida(generarCodigo(texto, res));
+      if (!mejor || code.length < mejor.length) mejor = code;
+      if (code.length <= LIMITE) return code;
+      var bs = -1, bi = -1, bd = Infinity;
+      seqs.forEach(function (sq, si) {
+        for (var j = 0; j < sq.length - 1; j++) {
+          var d = dist(sq[j].c, sq[j + 1].c);
+          if (d < bd) { bd = d; bs = si; bi = j; }
+        }
+      });
+      if (bs < 0) return mejor;
+      var A = seqs[bs][bi], B = seqs[bs][bi + 1], w = A.w + B.w;
+      seqs[bs].splice(bi, 2, {
+        a: A.a, b: B.b, w: w,
+        c: [0, 1, 2].map(function (k) { return (A.c[k] * A.w + B.c[k] * B.w) / w; })
+      });
+    }
+  }
   function codigoOptimo(texto, est) {
     var mejor = sinPerdida(generarCodigo(texto, est));
     if (mejor.length <= LIMITE) return mejor;
+    var fino = reducirColores(est, texto);
+    if (fino.length <= LIMITE) return fino;
+    if (fino.length < mejor.length) mejor = fino;
     for (var k = 2; k <= 16; k++) {
       var c = sinPerdida(generarCodigo(texto, agruparEstilos(est, texto, k)));
       if (c.length < mejor.length) mejor = c;
