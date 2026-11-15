@@ -155,7 +155,7 @@ button { font: inherit; cursor: pointer; }
     <div class="col">
       <section class="panel">
         <h2>Estilos</h2>
-        <p class="hint">Rellena lo que quieras y pulsa Aplicar: todo se aplica junto a la parte seleccionada de Tu texto (o a todo el texto). Lo que dejes vacío no cambia. Se suma a lo que ya tenga esa parte (color, negrita, etc.); para quitar estilos usa Borrar estilos.</p>
+        <p class="hint">Rellena lo que quieras y pulsa Aplicar: todo se aplica junto a la parte seleccionada de Tu texto (o a todo el texto). Lo que dejes vacío no cambia. Se suma a lo que ya tenga esa parte (color, negrita, etc.); para quitar todo usa Borrar estilos. Para quitar solo el borde pon 0 en su grosor, y para quitar solo el fondo desmarca «Poner fondo de color» y pulsa Aplicar.</p>
         <div class="row2">
           <div><label for="fFace">Fuente</label><select id="fFace"></select></div>
           <div><label for="fSize">Tamaño</label><input type="number" id="fSize" min="1" max="200" step="1" placeholder="Ej. 32"></div>
@@ -270,6 +270,7 @@ button { font: inherit; cursor: pointer; }
     Object.keys(st).forEach(function (k) {
       var v = st[k];
       if (v === undefined || v === null || v === false) return;
+      if (k === "transp" && v === 0) return;
       out[k] = v; any = true;
     });
     return any ? out : null;
@@ -340,7 +341,7 @@ button { font: inherit; cursor: pointer; }
   /* GEN-FIN */
 
   /* OPT-INI */
-  /* Optimizador: primero reduce sin cambiar cómo se ve; si aún no cabe, agrupa el degradado en menos colores. */
+  /* Optimizador: primero reduce sin cambiar cómo se ve; si aún no cabe, fusiona los colores más parecidos del degradado. */
   function sinPerdida(s) {
     var prev;
     s = s.replace(/<!--[\s\S]*?-->/g, "").replace(/<br\s*\/?>/gi, "\n");
@@ -357,60 +358,8 @@ button { font: inherit; cursor: pointer; }
     } while (s !== prev);
     return s.replace(/^\s+|\s+$/g, "");
   }
-  var TOK = /<font color="(#[0-9A-Fa-f]{6})">(&(?:lt|gt|amp|quot|apos);|[^<\s&])<\/font>(\s*)/g;
-  var RUN = /(?:<font color="#[0-9A-Fa-f]{6}">(?:&(?:lt|gt|amp|quot|apos);|[^<\s&])<\/font>\s*){2,}/g;
-  function agrupar(k) {
-    return function (run) {
-      var toks = [], m, re = new RegExp(TOK.source, "g");
-      while ((m = re.exec(run))) toks.push({ c: m[1], t: m[2], w: m[3] });
-      var out = "";
-      for (var i = 0; i < toks.length; i += k) {
-        var g = toks.slice(i, i + k);
-        var mid = g[Math.floor((g.length - 1) / 2)].c;
-        var txt = g.map(function (x, j) { return x.t + (j < g.length - 1 ? x.w : ""); }).join("");
-        out += '<font color="' + mid + '">' + txt + "</font>" + g[g.length - 1].w;
-      }
-      return out;
-    };
-  }
-  function optimizar(s) {
-    s = sinPerdida(s);
-    if (s.length <= LIMITE) return s;
-    var base = s, out = s;
-    for (var k = 2; k <= 16; k++) {
-      out = base.replace(RUN, agrupar(k));
-      if (out.length <= LIMITE) break;
-    }
-    return sinPerdida(out);
-  }
   /* OPT-FIN */
 
-  /* Optimizador con estilos combinados: si no cabe, junta las letras de color (degradado/arcoíris)
-     en bloques del mismo color, sin tocar fuente, tamaño, borde, negrita, etc. */
-  function agruparEstilos(est, texto, k) {
-    var res = est.slice(), toks = [];
-    function cerrar() {
-      for (var a = 0; a < toks.length; a += k) {
-        var g = toks.slice(a, a + k), mid = g[Math.floor((g.length - 1) / 2)].c;
-        for (var p = g[0].i; p < g[g.length - 1].i + g[g.length - 1].n; p++) {
-          if (texto.charAt(p) === "\n") continue;
-          var st = Object.assign({}, est[p] || {}); st.color = mid; res[p] = norm(st);
-        }
-      }
-      toks = [];
-    }
-    for (var i = 0; i < texto.length; ) {
-      var n = texto.codePointAt(i) > 0xFFFF ? 2 : 1, ch = texto.substr(i, n);
-      if (ch === "\n") cerrar();
-      else if (!/^\s$/.test(ch)) {
-        var c = est[i] && est[i].color;
-        if (c) toks.push({ i: i, n: n, c: c }); else cerrar();
-      }
-      i += n;
-    }
-    cerrar();
-    return res;
-  }
   /* Fusiona de uno en uno los colores vecinos más parecidos, solo hasta que el código quepa. */
   function reducirColores(est, texto) {
     var seqs = [], cur = [], i, n, ch;
@@ -444,7 +393,8 @@ button { font: inherit; cursor: pointer; }
       var bs = -1, bi = -1, bd = Infinity;
       seqs.forEach(function (sq, si) {
         for (var j = 0; j < sq.length - 1; j++) {
-          var d = dist(sq[j].c, sq[j + 1].c);
+          /* Criterio de Ward: prefiere fusionar grupos pequeños, así la pérdida se reparte por igual. */
+          var d = dist(sq[j].c, sq[j + 1].c) * (sq[j].w * sq[j + 1].w) / (sq[j].w + sq[j + 1].w);
           if (d < bd) { bd = d; bs = si; bi = j; }
         }
       });
@@ -458,16 +408,10 @@ button { font: inherit; cursor: pointer; }
   }
   function codigoOptimo(texto, est) {
     var mejor = sinPerdida(generarCodigo(texto, est));
-    if (mejor.length <= LIMITE) return mejor;
+    /* Si el texto es enorme no se gasta tiempo optimizando en cada tecla: no va a caber igualmente. */
+    if (mejor.length <= LIMITE || texto.length > LIMITE * 3) return mejor;
     var fino = reducirColores(est, texto);
-    if (fino.length <= LIMITE) return fino;
-    if (fino.length < mejor.length) mejor = fino;
-    for (var k = 2; k <= 16; k++) {
-      var c = sinPerdida(generarCodigo(texto, agruparEstilos(est, texto, k)));
-      if (c.length < mejor.length) mejor = c;
-      if (c.length <= LIMITE) return c;
-    }
-    return mejor;
+    return fino.length < mejor.length ? fino : mejor;
   }
 
   /* ---------- color ---------- */
@@ -557,31 +501,41 @@ button { font: inherit; cursor: pointer; }
   }
 
   /* Cuando escribes, los estilos de las letras se ajustan al cambio. */
-  function reconciliar(viejo, nuevo) {
-    var p = 0, max = Math.min(viejo.length, nuevo.length);
-    while (p < max && viejo.charAt(p) === nuevo.charAt(p)) p++;
-    var sv = viejo.length, sn = nuevo.length;
-    while (sv > p && sn > p && viejo.charAt(sv - 1) === nuevo.charAt(sn - 1)) { sv--; sn--; }
+  function reconciliar(viejo, nuevo, caret) {
+    while (estilos.length < viejo.length) estilos.push(null);
+    if (estilos.length > viejo.length) estilos.length = viejo.length;
+    var p = 0, sv = viejo.length, sn = nuevo.length, resto = nuevo.length - caret;
+    if (typeof caret === "number" && caret >= 0 && resto >= 0 && resto <= viejo.length &&
+        viejo.slice(viejo.length - resto) === nuevo.slice(caret)) {
+      /* El cambio acaba en el cursor: así se sabe cuál de dos letras iguales ("ll", "ee") se tocó. */
+      sv = viejo.length - resto; sn = caret;
+      var max2 = Math.min(sv, sn);
+      while (p < max2 && viejo.charAt(p) === nuevo.charAt(p)) p++;
+    } else {
+      var max = Math.min(viejo.length, nuevo.length);
+      while (p < max && viejo.charAt(p) === nuevo.charAt(p)) p++;
+      while (sv > p && sn > p && viejo.charAt(sv - 1) === nuevo.charAt(sn - 1)) { sv--; sn--; }
+    }
     var her = p > 0 ? estilos[p - 1] : (sv < viejo.length ? estilos[sv] : null);
     var nuevos = [];
     for (var k = p; k < sn; k++) nuevos.push(her || null);
     estilos = estilos.slice(0, p).concat(nuevos, estilos.slice(sv));
   }
   el.texto.addEventListener("input", function () {
-    reconciliar(prevTexto, el.texto.value);
+    reconciliar(prevTexto, el.texto.value, el.texto.selectionStart);
     refrescar();
   });
 
   /* ---------- historial ---------- */
-  function guardar() {
-    historial.push({ texto: el.texto.value, estilos: estilos.slice() });
+  function guardar(completo) {
+    historial.push({ texto: el.texto.value, estilos: estilos.slice(), completo: !!completo });
     if (historial.length > 60) historial.shift();
   }
   el.deshacer.addEventListener("click", function () {
     var h = historial.pop();
     if (!h) { aviso("Nada que deshacer"); return; }
-    estilos = h.estilos.slice();
-    reconciliar(h.texto, el.texto.value);
+    if (h.completo) { el.texto.value = h.texto; estilos = h.estilos.slice(); }
+    else { estilos = h.estilos.slice(); reconciliar(h.texto, el.texto.value); }
     refrescar();
   });
 
@@ -632,34 +586,46 @@ button { font: inherit; cursor: pointer; }
     if (isNaN(n)) return null;
     return Math.max(min, Math.min(max, n));
   }
+  /* Una casilla sin marcar normalmente significa "no cambiar"; solo quita el fondo si la desmarcas tú. */
+  var quitarFondo = false;
+  el.mOn.addEventListener("change", function () { quitarFondo = !el.mOn.checked; });
   function estiloDelPanel() {
     var st = {};
     if (el.fFace.value) st.face = el.fFace.value;
     var tam = numero(el.fSize, 1, 200); if (tam) st.size = Math.round(tam);
-    var tr = numero(el.fTransp, 0, 100); if (tr !== null) st.transp = tr / 100;
-    var g = numero(el.sGrosor, 0, 200); if (g) st.stroke = { c: el.sColor.value.toUpperCase(), t: g };
+    var tr = numero(el.fTransp, 0, 100); if (tr !== null) st.transp = Math.round(tr * 100) / 10000;
+    var g = numero(el.sGrosor, 0, 200);
+    if (g) st.stroke = { c: el.sColor.value.toUpperCase(), t: g };
+    else if (g === 0) st.stroke = null;            /* grosor 0 = quitar el borde */
     if (el.mOn.checked) {
       var mt = numero(el.mTransp, 0, 100); if (mt === null) mt = 40;
-      st.mark = { c: el.mColor.value.toUpperCase(), t: mt / 100 };
-    }
+      st.mark = { c: el.mColor.value.toUpperCase(), t: Math.round(mt * 100) / 10000 };
+    } else if (quitarFondo) st.mark = null;        /* casilla desmarcada a propósito = quitar el fondo */
     return st;
   }
   el.aplicar.addEventListener("click", function () {
     var st = estiloDelPanel();
-    if (!norm(st)) { aviso("Rellena al menos un estilo y pulsa Aplicar"); return; }
+    if (!Object.keys(st).length) { aviso("Rellena al menos un estilo y pulsa Aplicar"); return; }
     sobreRango(function (old) { return Object.assign({}, old || {}, st); });
+    if (el.texto.value) quitarFondo = false;
   });
-  ["mColor", "mTransp"].forEach(function (k) { el[k].addEventListener("input", function () { el.mOn.checked = true; }); });
+  ["mColor", "mTransp"].forEach(function (k) { el[k].addEventListener("input", function () { el.mOn.checked = true; quitarFondo = false; }); });
 
   function colorPorLetra(colorDe) {
     var r = rango(), t = el.texto.value;
     if (r[0] === r[1]) { aviso("Escribe algún texto primero"); return; }
     guardar();
     var pos = [], i = r[0];
-    while (i < r[1]) {
-      var len = t.codePointAt(i) > 0xFFFF ? 2 : 1;
-      pos.push([i, len, /^\s$/.test(t.substr(i, len))]);
-      i += len;
+    if (typeof Intl !== "undefined" && Intl.Segmenter) {
+      Array.from(new Intl.Segmenter(undefined, { granularity: "grapheme" }).segment(t.slice(r[0], r[1]))).forEach(function (sg) {
+        pos.push([r[0] + sg.index, sg.segment.length, /^\s+$/.test(sg.segment)]);
+      });
+    } else {
+      while (i < r[1]) {
+        var len = t.codePointAt(i) > 0xFFFF ? 2 : 1;
+        pos.push([i, len, /^\s$/.test(t.substr(i, len))]);
+        i += len;
+      }
     }
     var vis = pos.filter(function (x) { return !x[2]; }).length, n = 0;
     pos.forEach(function (x) {
@@ -702,9 +668,8 @@ button { font: inherit; cursor: pointer; }
   function insertarEmoji(em) {
     var t = el.texto, v = t.value, s0 = t.selectionStart, e0 = t.selectionEnd;
     if (typeof s0 !== "number") { s0 = e0 = v.length; }
-    guardar();
     t.value = v.slice(0, s0) + em + v.slice(e0);
-    reconciliar(v, t.value);
+    reconciliar(v, t.value, s0 + em.length);
     var pos = s0 + em.length;
     try { t.setSelectionRange(pos, pos); } catch (x) {}
     refrescar();
@@ -748,7 +713,7 @@ button { font: inherit; cursor: pointer; }
       for (var k = 0; k < p[0].length; k++) st.push(s);
       t += p[0];
     });
-    if (conHistorial) guardar();
+    if (conHistorial) guardar(true);
     el.texto.value = t;
     estilos = st;
     refrescar();
