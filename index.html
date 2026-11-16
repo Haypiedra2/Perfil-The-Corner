@@ -388,6 +388,39 @@ details.ayuda > .in { padding: 0 12px 12px; display: flex; flex-direction: colum
     ["Mi lema", [["La reputación se gana siendo amable", { face: "Bangers", size: 32, color: "#E5383B", stroke: { c: "#000000", t: 2 } }]]],
     ["Comentarios", [["Un comentario bonito se os agradece", { mark: { c: "#F5C518" } }]]]
   ];
+  var EJEMPLOS_I18N = [
+    [
+      ["Presentación", "Introduction", "Vorstellung", "Представление", "自己紹介", "自我介绍", "Pagpapakilala"],
+      ["Hola, soy ", "Hi, I'm ", "Hallo, ich bin ", "Привет, я ", "こんにちは、", "你好，我是", "Kumusta, ako si "],
+      ["tu nombre", "your name", "dein Name", "ваше имя", "あなたの名前", "你的名字", "pangalan mo"],
+      ["\nMe encanta conocer gente nueva en The Corner. ¡Háblame!", "\nI love meeting new people on The Corner. Say hi!", "\nIch lerne gern neue Leute bei The Corner kennen. Schreib mir!", "\nМне нравится знакомиться с новыми людьми в The Corner. Напиши мне!", "\nThe Cornerで新しい人と知り合うのが好きです。気軽に話しかけてね！", "\n我喜欢在 The Corner 认识新朋友。欢迎来找我聊天！", "\nGusto kong makakilala ng mga bagong tao sa The Corner. Kumustahin mo ako!"]
+    ],
+    [
+      ["Busco amigos", "Looking for friends", "Suche Freunde", "Ищу друзей", "友だち募集", "寻找朋友", "Naghahanap ng kaibigan"],
+      ["Busco amigos nuevos", "I'm looking for new friends", "Ich suche neue Freunde", "Ищу новых друзей", "新しい友だちを探しています", "我想认识新朋友", "Naghahanap ako ng mga bagong kaibigan"],
+      ["\n", "\n", "\n", "\n", "\n", "\n", "\n"],
+      ["Escríbeme y charlamos un rato.", "Message me and let's chat for a while.", "Schreib mir, dann können wir ein bisschen plaudern.", "Напиши мне, поболтаем.", "メッセージを送ってね。少しおしゃべりしよう！", "给我发消息，一起聊聊天吧。", "Mag-message ka sa akin at magkuwentuhan tayo."]
+    ],
+    [
+      ["Mis gustos", "My interests", "Meine Interessen", "Мои интересы", "好きなこと", "我的兴趣", "Mga gusto ko"],
+      ["Me gusta: ", "I like: ", "Ich mag: ", "Мне нравится: ", "好きなこと：", "我喜欢：", "Gusto ko: "],
+      ["Charlar y hacer amigos", "Chatting and making friends", "Plaudern und Freunde finden", "Общаться и заводить друзей", "おしゃべりと友だち作り", "聊天和交朋友", "Makipagkuwentuhan at magkaroon ng mga kaibigan"],
+      ["\nEscríbeme cuando quieras", "\nMessage me anytime", "\nSchreib mir jederzeit", "\nПиши мне в любое время", "\nいつでもメッセージしてね", "\n随时给我发消息", "\nMag-message ka anumang oras"]
+    ],
+    [
+      ["Buen rollo", "Good vibes", "Gute Stimmung", "Хорошая атмосфера", "仲良くしよう", "友好相处", "Good vibes"],
+      ["Aquí se respeta a todos.", "Everyone is respected here.", "Hier wird jeder respektiert.", "Здесь уважают каждого.", "ここではみんなを尊重します。", "这里尊重每一个人。", "Nirerespeto ang lahat dito."],
+      ["\nSolo buen rollo: sin insultos y sin spam.", "\nGood vibes only: no insults or spam.", "\nNur gute Stimmung: keine Beleidigungen und kein Spam.", "\nТолько позитив: без оскорблений и спама.", "\n楽しく過ごそう。悪口やスパムは禁止です。", "\n只传递友善，不辱骂、不刷屏。", "\nGood vibes lang: walang insulto at spam."]
+    ],
+    [
+      ["Mi lema", "My motto", "Mein Motto", "Мой девиз", "私のモットー", "我的座右铭", "Motto ko"],
+      ["La reputación se gana siendo amable", "A good reputation is earned by being kind", "Einen guten Ruf verdient man sich durch Freundlichkeit", "Добрую репутацию заслуживают добротой", "親切にすることで良い評判が得られます", "善良友善才能赢得好口碑", "Nakakamit ang magandang reputasyon sa pagiging mabait"]
+    ],
+    [
+      ["Comentarios", "Comments", "Kommentare", "Комментарии", "コメント", "评论", "Mga komento"],
+      ["Un comentario bonito se os agradece", "A kind comment is always appreciated", "Über einen netten Kommentar freuen wir uns", "Будем рады доброму комментарию", "温かいコメントをいただけるとうれしいです", "欢迎留下友善的评论", "Pinahahalagahan ang mabubuting komento"]
+    ]
+  ];
   var BIENVENIDA = [["Bienvenido al editor de perfil de ", null], ["The Corner", { face: "GothamBold", color: "#F5C518" }]];
 
   var $ = function (id) { return document.getElementById(id); };
@@ -1349,9 +1382,23 @@ details.ayuda > .in { padding: 0 12px 12px; display: flex; flex-direction: colum
     selEd = null; selPend = null;
     refrescar();
   }
-  EJEMPLOS.forEach(function (ej) {
-    var b = document.createElement("button"); b.className = "chip"; b.textContent = ej[0];
-    b.addEventListener("click", function () { cargar(ej[1], true); });
+  var IDX_EJEMPLOS = { es: 0, en: 1, de: 2, ru: 3, ja: 4, zh: 5, fil: 6 };
+  function actualizarEjemplosIdioma(idioma) {
+    var idx = IDX_EJEMPLOS[idioma]; if (idx === undefined) idx = 0;
+    Array.prototype.forEach.call(el.ejemplos.children, function (b, i) {
+      b.textContent = EJEMPLOS_I18N[i][0][idx] || EJEMPLOS_I18N[i][0][0];
+    });
+  }
+  window.actualizarEjemplosPerfil = actualizarEjemplosIdioma;
+  EJEMPLOS.forEach(function (ej, ei) {
+    var b = document.createElement("button"); b.className = "chip";
+    var idioma = document.documentElement.lang || "es", idx = IDX_EJEMPLOS[idioma]; if (idx === undefined) idx = 0;
+    b.textContent = EJEMPLOS_I18N[ei][0][idx] || ej[0];
+    b.addEventListener("click", function () {
+      var idiomaActual = document.documentElement.lang || "es", idxActual = IDX_EJEMPLOS[idiomaActual]; if (idxActual === undefined) idxActual = 0;
+      var partes = ej[1].map(function (p, pi) { return [EJEMPLOS_I18N[ei][pi + 1][idxActual] || p[0], p[1]]; });
+      cargar(partes, true);
+    });
     el.ejemplos.appendChild(b);
   });
 
@@ -1609,6 +1656,7 @@ function setLang(l){
   document.documentElement.lang={fil:"fil"}[l]||l;
   $("langBtn").textContent="🌐 "+NAMES[l];
   actualizaEtiquetaTema();
+  if(typeof window.actualizarEjemplosPerfil==="function")window.actualizarEjemplosPerfil(l);
   Array.prototype.forEach.call($("langMenu").children,function(li){li.setAttribute("aria-selected",li.getAttribute("data-l")===l?"true":"false");});
   apply();
 }
