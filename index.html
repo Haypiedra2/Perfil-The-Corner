@@ -1,9 +1,19 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Texto The Corner</title>
+<!doctype html><html lang="es" data-theme="dark"><head><meta charset="utf-8"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><script>(function(){var t=null;try{if(window.AndroidTheme&&typeof window.AndroidTheme.getTheme==="function")t=window.AndroidTheme.getTheme();}catch(e){}if(t!=="light"&&t!=="dark"){try{t=localStorage.getItem("tc-theme");}catch(e){}}if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);})();</script><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}.topbar{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end;align-items:flex-start}
+.langw{position:relative}
+#langMenu{position:absolute;right:0;top:calc(100% + 6px);z-index:50;margin:0;padding:6px;list-style:none;min-width:190px;background:#1b2126;color:#eef2f4;border:1px solid #2f3a3f;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+#langMenu li{padding:10px 14px;border-radius:8px;cursor:pointer;font-size:15px}
+#langMenu li:hover,#langMenu li:focus-visible{background:#2a333a;outline:0}
+#langMenu li[aria-selected="true"]{background:#262f37;font-weight:600}
+#tutOv{position:fixed;inset:0;z-index:10000;overflow:hidden}
+.tut-hl{position:fixed;border-radius:10px;box-shadow:0 0 0 100vmax rgba(8,14,26,.66),0 0 0 3px #4f8ff7;pointer-events:none;transition:left .18s,top .18s,width .18s,height .18s}
+.tut-card{position:fixed;width:min(340px,calc(100vw - 16px));background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 12px 32px rgba(0,0,0,.4);display:flex;flex-direction:column;gap:8px}
+.tut-n{font-size:12px;color:var(--muted)}.tut-p{margin:0;font-size:14px;line-height:1.45}
+.tut-b{display:flex;gap:8px;align-items:center}.tut-b span{flex:1}
+</style>
+<title>Editor de perfil · The Corner</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&family=Montserrat:wght@400;500;700;900&family=Source+Sans+3:ital,wght@0,300;0,400;0,600;0,700;1,400&family=Bangers&family=Creepster&family=Fredoka:wght@500;700&family=Luckiest+Guy&family=Permanent+Marker&family=Oswald:wght@500;700&family=Merriweather:wght@400;700&family=Nunito:wght@500;800&family=Special+Elite&family=Michroma&family=Roboto:wght@400;700&family=Roboto+Mono&family=Indie+Flower&family=Patrick+Hand&family=Amatic+SC:wght@700&family=Orbitron:wght@500;800&family=Press+Start+2P&family=Ubuntu:wght@400;700&family=Titillium+Web:wght@400;700&family=Josefin+Sans:wght@400;700&family=Kalam&family=Jura:wght@500;700&family=Libre+Bodoni&family=EB+Garamond&family=MedievalSharp&family=IM+Fell+English&family=Denk+One&family=Fondamento&family=Grenze+Gotisch&family=Roboto+Condensed&family=Sarpanch:wght@500&family=Barlow:wght@400;500;700;800&family=Arimo:wght@400;700&display=swap"></noscript>
 <style>
 /* Layout: a la izquierda Tu texto, Texto transformado (con Copiar texto debajo) y Vista previa; a la derecha los estilos. Una columna en móvil. */
 :root {
@@ -12,7 +22,7 @@
   --fg: #1d2326;
   --muted: #5d676c;
   --line: #d3d8da;
-  --accent: #0b6b57;
+  --accent: #1d4ed8;
   --accent-fg: #ffffff;
   --amber: #b45f06;
   --scene: #1b2125;
@@ -22,15 +32,13 @@
   --font-body: "Inter", system-ui, sans-serif;
   --font-code: "JetBrains Mono", ui-monospace, monospace;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #141a1d; --surface: #1d2428; --fg: #e6ecee; --muted: #93a0a6; --line: #2f3a3f;
-    --accent: #3fc4a2; --accent-fg: #07231c; --amber: #e8a54b; --code-bg: #0e1214; color-scheme: dark;
-  }
+:root[data-theme="light"] {
+  --bg: #eceeef; --surface: #ffffff; --fg: #1d2326; --muted: #5d676c; --line: #d3d8da;
+  --accent: #1d4ed8; --accent-fg: #ffffff; --amber: #b45f06; --code-bg: #14191c; --code-fg: #d9e4e1; color-scheme: light;
 }
 :root[data-theme="dark"] {
   --bg: #141a1d; --surface: #1d2428; --fg: #e6ecee; --muted: #93a0a6; --line: #2f3a3f;
-  --accent: #3fc4a2; --accent-fg: #07231c; --amber: #e8a54b; --code-bg: #0e1214; color-scheme: dark;
+  --accent: #60a5fa; --accent-fg: #08162e; --amber: #e8a54b; --code-bg: #0e1214; --code-fg: #d9e4e1; color-scheme: dark;
 }
 * { box-sizing: border-box; }
 body {
@@ -50,7 +58,7 @@ header p { margin: 0; color: var(--muted); max-width: 64ch; }
 .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
 .panel h2 { font-family: var(--font-display); font-size: 16px; margin: 0; }
 label, .lab { font-size: 12.5px; font-weight: 600; color: var(--muted); display: block; margin-bottom: 4px; }
-textarea, select, input[type=number] {
+textarea, select, input[type=number], input[type=text] {
   width: 100%; font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line);
   border-radius: 6px; padding: 8px 10px;
 }
@@ -72,6 +80,7 @@ button { font: inherit; cursor: pointer; }
 .hint { font-size: 13px; color: var(--muted); margin: 0; }
 .ok { color: var(--accent); font-weight: 600; font-size: 13px; min-height: 1em; }
 .codehead { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.code-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .row2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
 .check { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--fg); font-weight: 500; margin: 0; }
 .check input { accent-color: var(--accent); width: 16px; height: 16px; }
@@ -82,12 +91,55 @@ button { font: inherit; cursor: pointer; }
 .line2 > div { flex: 1; min-width: 90px; }
 .line2 > input[type=color] { flex: 1; min-width: 90px; }
 .scene {
-  background-color: var(--scene); border-radius: 8px; min-height: 200px; padding: 18px; display: flex; align-items: center; justify-content: center; overflow: hidden;
+  border-radius: 8px; min-height: 200px; padding: 18px; display: flex; align-items: flex-start; justify-content: safe center; overflow: auto;
+  background-color: #0d1115;
   background-image: linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-size: 22px 22px;
 }
-.pv { white-space: pre-wrap; overflow-wrap: anywhere; max-width: 100%; line-height: 1.2; font-family: "Montserrat", sans-serif; font-weight: 700; font-size: 28px; color: #ffffff; }
+/* Tarjeta de perfil con marcadores de posición (foto, banner, etiquetas…) */
+.perfil { width: 268px; flex: 0 0 auto; font-family: "Source Sans 3", "Barlow", system-ui, sans-serif; font-weight: 400; color: #111; --pbg: #ffffff; --pban: #16202b; }
+.p-card { background: var(--pbg); overflow: hidden; border-radius: 10px; border: 2px solid #2b3945; box-shadow: 0 2px 10px rgba(0,0,0,.5); }
+.p-top { position: relative; height: 56px; background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(0,0,0,.25)), var(--pban); border-bottom: 1px dashed rgba(255,255,255,.3); }
+.p-banner-lbl { position: absolute; top: 8px; right: 10px; font-size: 10px; font-weight: 700; letter-spacing: .09em; color: #8fe3ff; }
+.p-avatar { position: absolute; left: 10px; top: 7px; width: 64px; height: 64px; border-radius: 50%; border: 2px solid #aab6c2; background: radial-gradient(circle at 35% 30%, #6c7a89, #27303a); z-index: 2; display: flex; align-items: center; justify-content: center; }
+.p-avatar span { font-size: 10px; font-weight: 700; letter-spacing: .06em; color: #8fe3ff; background: rgba(0,0,0,.6); padding: 2px 6px; border-radius: 4px; }
+.p-badges { display: flex; align-items: center; gap: 5px; padding: 5px 8px 0 70px; position: relative; z-index: 1; }
+.p-ico { flex: 0 0 auto; width: 24px; height: 24px; border-radius: 5px; border: 1px solid #aab6c2; background: #3a4654; }
+.p-ph { display: flex; align-items: center; gap: 5px; flex: 1 1 0; min-width: 0; background: #f1f1f1; border: 1px solid #b4b4b4; border-radius: 6px; padding: 6px 7px; pointer-events: auto; user-select: none; }
+.p-ph b { flex: 0 0 auto; width: 12px; height: 12px; border-radius: 3px; background: #b9b9b9; }
+.p-ph i { flex: 1; height: 7px; border-radius: 4px; background: #d3d3d3; min-width: 12px; }
+.p-bio { position: relative; z-index: 0; height: 140px; padding: 5px; overflow: visible; }  /* el juego deja ~5 px de margen propio */
+.p-tags, .p-foot { position: relative; z-index: 1; pointer-events: none; padding: 0 6px 6px; }
+.p-tags:empty { padding: 0; }
+.p-trow { display: flex; gap: 5px; margin-bottom: 5px; }
+.p-trow:last-child { margin-bottom: 0; }
+.p-foot { display: flex; align-items: center; gap: 5px; }
+.p-foot .p-ph { flex: 0 0 auto; }
+.p-foot .grow { flex: 1; }
+.p-dots { background: #fff; border: 1px solid #c4c4c4; border-radius: 6px; padding: 4px 9px; font-size: 11px; line-height: 1; letter-spacing: 1px; color: #111; pointer-events: auto; user-select: none; }
+.pv:empty::before { content: attr(data-ph); opacity: .65; pointer-events: none; }
+.pv ::selection, .pv::selection { background: rgba(255, 214, 0, .55); }
+.pv[contenteditable="false"] { cursor: default; }
+.p-card:focus-within { box-shadow: 0 0 0 2px #ffd400, 0 1px 6px rgba(0,0,0,.45); }
+.quick { display: flex; flex-wrap: wrap; gap: 8px 10px; align-items: center; }
+.tool.on { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+.qs-row { display: flex; flex-wrap: wrap; gap: 5px; }
+.qs { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--line); padding: 0; }
+.qs:hover { border-color: var(--accent); transform: scale(1.1); }
+.qpick { display: inline-flex; align-items: center; gap: 6px; margin: 0; }
+.qpick input[type=color] { width: 40px; min-width: 40px; height: 28px; }
+.fp { position: relative; }
+.fp-btn { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px; font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 8px 10px; text-align: left; min-height: 38px; }
+.fp-btn:hover { border-color: var(--accent); }
+.fp-btn span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 16px; line-height: 1.2; }
+.fp-list { position: absolute; left: 0; right: 0; top: calc(100% + 4px); max-height: 280px; overflow-y: auto; margin: 0; padding: 4px; list-style: none; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; box-shadow: 0 10px 28px rgba(0,0,0,.28); z-index: 40; }
+.fp-list[hidden] { display: none; }
+.fp-list li { padding: 6px 9px; border-radius: 5px; cursor: pointer; font-size: 18px; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fp-list li.act { background: var(--bg); }
+.fp-list li[aria-selected="true"] { box-shadow: inset 3px 0 0 var(--accent); }
+.pv { cursor: text; min-height: 130px; outline: none; caret-color: var(--caret, #fff); white-space: pre-wrap; overflow-wrap: anywhere; max-width: 100%; line-height: 1.2; font-family: "Source Sans 3", "Barlow", system-ui, sans-serif; font-weight: 400; font-size: 14px; color: #000000; }
 .pv .st { paint-order: stroke fill; }
+.pv .ss { -webkit-text-stroke: calc(var(--sth) * 2em) var(--stc); paint-order: stroke fill; }
 .emojis { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; display: flex; flex-direction: column; overflow: hidden; }
 .emojis[hidden] { display: none; }
 .emtabs { display: flex; gap: 2px; padding: 6px; border-bottom: 1px solid var(--line); overflow-x: auto; }
@@ -96,88 +148,165 @@ button { font: inherit; cursor: pointer; }
 .emtab { flex: 0 0 auto; padding: 6px 10px !important; }
 .emtab[aria-pressed="true"] { background: var(--surface) !important; box-shadow: inset 0 -2px 0 var(--accent); border-radius: 6px 6px 0 0 !important; }
 .emojis button:hover { background: var(--surface); }
+.hexrow { display: flex; gap: 6px; margin-top: 6px; }
+.hex { flex: 1 1 0; min-width: 0; font-family: var(--font-code); text-transform: uppercase; }
 .estado { font-size: 13px; min-height: 1.2em; margin: 0; }
-</style>
+header { gap: 10px; margin-bottom: 24px; }
+.pasos { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; margin: 6px 0 0; padding: 0; counter-reset: paso; }
+.pasos li { counter-increment: paso; display: flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 5px 14px 5px 5px; font-size: 13.5px; }
+.pasos li::before { content: counter(paso); display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: var(--accent-fg); font-weight: 700; font-size: 12px; }
+details.ayuda { border: 1px solid var(--line); border-radius: 8px; background: var(--bg); }
+details.ayuda > summary { cursor: pointer; padding: 9px 12px; font-size: 13.5px; font-weight: 600; }
+details.ayuda > .in { padding: 0 12px 12px; display: flex; flex-direction: column; gap: 12px; }
+#codigo { min-height: 96px; }
+#codigo.manual-code { min-height: 180px; border-color: var(--accent); }
+.scene { min-height: 260px; justify-content: center; }
+/* Botones en azul */
+.btn, .apply { background: linear-gradient(180deg, #4f8ff7, #1d4ed8); color: #fff; border: 0; border-radius: 10px; padding: 10px 20px; font-weight: 600; box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 4px 10px rgba(29,78,216,.35); transition: transform .12s, box-shadow .12s, filter .12s; }
+.apply { padding: 9px 16px; }
+.btn:hover:not(:disabled), .apply:hover { filter: brightness(1.08); transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 6px 14px rgba(29,78,216,.4); }
+.btn:active:not(:disabled), .apply:active { transform: translateY(0); box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 2px 5px rgba(29,78,216,.35); }
+.tool, .chip { background: #eef4ff; color: #1e3a8a; border: 1px solid #c3d6fb; border-radius: 10px; padding: 6px 12px; font-weight: 500; transition: background .12s, border-color .12s, color .12s; }
+.tool:hover, .chip:hover { background: #dbe8ff; border-color: #3b82f6; }
+.tool.on, .tool[aria-pressed="true"] { background: #1d4ed8; color: #fff; border-color: #1d4ed8; }
+.theme-control { display: inline-flex; align-items: center; gap: 8px; padding: 0 3px; }
+.theme-emoji { font-size: 24px; line-height: 1; user-select: none; }
+.theme-toggle { position: relative; display: inline-flex; align-items: center; width: 64px; height: 36px; padding: 3px; border: 1px solid #c8d0d7; border-radius: 999px; background: #e3e8ec; cursor: pointer; transition: background .2s, border-color .2s; }
+.theme-knob { display: block; width: 28px; height: 28px; border-radius: 50%; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.24); transform: translateX(0); transition: transform .22s cubic-bezier(.2,.75,.25,1); }
+.theme-toggle[aria-checked="true"] { background: #527cac; border-color: #527cac; }
+.theme-toggle[aria-checked="true"] .theme-knob { transform: translateX(28px); }
+.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.sw:hover { border-color: #3b82f6; }
+ :root[data-theme="dark"] .tool, :root[data-theme="dark"] .chip { background: #1a2740; color: #cfe0ff; border-color: #2f4a7a; }
+:root[data-theme="dark"] .tool:hover, :root[data-theme="dark"] .chip:hover { background: #22345a; border-color: #60a5fa; }
+:root[data-theme="dark"] .tool.on { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+</style></head><body>
 
 <div class="wrap">
   <header>
-    <span class="kicker">The Corner · Perfil</span>
-    <h1>Bienvenido al editor de texto de The Corner para tu perfil</h1>
-    <p>Escribe tu texto, elige cómo se ve y copia el texto transformado para pegarlo en tu perfil. Tienes hasta 350 caracteres.</p>
+    <div class="topbar"><button type="button" class="tool" id="tutBtn">Tutorial</button><div class="theme-control" id="temaGrupo" role="group" aria-label="Tema"><span class="theme-emoji" aria-hidden="true">🌙</span><button type="button" class="theme-toggle" id="temaToggle" role="switch" aria-label="Tema" title="Tema oscuro" aria-checked="false"><span class="theme-knob"></span></button><span class="theme-emoji" aria-hidden="true">☀️</span></div><div class="langw"><button type="button" class="tool" id="langBtn" aria-haspopup="listbox" aria-expanded="false">🌐 Español</button><ul id="langMenu" role="listbox" hidden></ul></div></div>
+    <h1>Editor de perfil de The Corner</h1>
+    <p>Personaliza tu biografía: escribe dentro de la tarjeta, dale estilo y copia el código para pegarlo en tu perfil. Máximo 350 caracteres.</p>
+    <ol class="pasos"><li><b>Escribe</b> en la tarjeta</li><li><b>Dale estilo</b> con los botones</li><li><b>Copia</b> el código y pégalo en tu perfil</li></ol>
   </header>
 
   <div class="grid">
     <div class="col">
       <section class="panel">
-        <h2>Tu texto</h2>
-        <p class="hint">Escribe aquí como siempre, sin códigos. Para dar estilo, selecciona una parte y usa los botones de abajo o los estilos de la derecha.</p>
-        <textarea id="texto" aria-label="Tu texto" placeholder="Escribe aquí lo que quieres poner en tu perfil"></textarea>
-        <div class="chips">
-          <button class="tool" id="emojiBtn" type="button" title="Añadir emoji" aria-label="Añadir emoji" aria-expanded="false" aria-controls="emojiPanel">😀</button>
-          <button class="tool" data-tag="b" title="Negrita"><b>B</b></button>
-          <button class="tool" data-tag="i" title="Cursiva"><i>I</i></button>
-          <button class="tool" data-tag="u" title="Subrayado"><u>U</u></button>
-          <button class="tool" data-tag="s" title="Tachado"><s>S</s></button>
-          <button class="tool" data-tag="uppercase" title="Todo en mayúsculas">AA</button>
-          <button class="tool" data-tag="smallcaps" title="Versalitas">Versalitas</button>
-          <button class="tool" id="limpiar" title="Quita todos los estilos de la parte seleccionada">Borrar estilos</button>
-          <button class="tool" id="deshacer">Deshacer</button>
-          <button class="tool" id="optimizar" type="button" title="Reduce el código sin cambiar cómo se ve, para que quepa en 350 caracteres">Optimizar</button>
+        <h2>Tu perfil</h2>
+        <div class="quick" id="quick">
+          <div class="qs-row" id="qSwatches" role="group" aria-label="Colores rápidos para el texto seleccionado"></div>
+          <label class="qpick" title="Cualquier color para las letras seleccionadas">Color <input type="color" id="qColor" value="#e5383b" aria-label="Color para las letras seleccionadas"></label>
+          <span class="chips">
+            <button class="tool" data-tag="b" type="button" title="Negrita"><b>B</b></button>
+            <button class="tool" data-tag="i" type="button" title="Cursiva"><i>I</i></button>
+            <button class="tool" data-tag="u" type="button" title="Subrayado"><u>U</u></button>
+            <button class="tool" data-tag="s" type="button" title="Tachado"><s>S</s></button>
+          </span>
+          <span class="chips">
+            <button class="tool" id="emojiBtn" type="button" title="Añadir emoji" aria-label="Añadir emoji" aria-expanded="false" aria-controls="emojiPanel">😀</button>
+            <button class="tool" data-tag="uppercase" type="button" title="Todo en mayúsculas">AA</button>
+            <button class="tool" data-tag="smallcaps" type="button" title="Versalitas">Versalitas</button>
+            <button class="tool" id="limpiar" type="button" title="Quita todos los estilos de la parte seleccionada">Borrar estilos</button>
+            <button class="tool" id="deshacer" type="button">Deshacer</button>
+            <button class="tool" id="optimizar" type="button" title="Reduce el código sin cambiar cómo se ve, para que quepa en 350 caracteres">Optimizar</button>
+          </span>
+          <span class="chips" role="group" aria-label="Posición del texto">
+            <button class="tool" id="alIzq" type="button" title="Alinear a la izquierda">⬅ Izquierda</button>
+            <button class="tool" id="alCen" type="button" title="Centrar">↔ Centro</button>
+            <button class="tool" id="alDer" type="button" title="Alinear a la derecha">Derecha ➡</button>
+          </span>
         </div>
         <div class="emojis" id="emojiPanel" hidden></div>
+        <textarea id="texto" hidden aria-hidden="true" tabindex="-1"></textarea>
+        <details class="ayuda"><summary>¿Cómo se usa la tarjeta?</summary><div class="in"><p class="hint"><b>Escribe directamente dentro de la tarjeta.</b> Selecciona unas letras arrastrando con el ratón o usando Mayús + flechas; en móvil mantén pulsado el texto para seleccionarlo. Elige un color o estilo: solo cambian esas letras. Los botones de posición añaden espacios al inicio de la línea del cursor, y esos espacios cuentan en los 350 caracteres.</p></div></details>
         <div>
-          <span class="lab">Ejemplos para empezar</span>
+          <span class="lab">¿Sin ideas? Empieza con un ejemplo</span>
           <div class="chips" id="ejemplos"></div>
         </div>
+        <div class="scene">
+          <div class="perfil" id="perfil">
+            <div class="p-card">
+              <div class="p-top"><span class="p-banner-lbl">BANNER</span><div class="p-avatar"><span>FOTO</span></div></div>
+              <div class="p-badges"><span class="p-ico"></span><span class="p-ph"><i></i></span><span class="p-ph"><i></i></span></div>
+              <div class="p-bio"><div class="pv" id="pv" contenteditable="true" spellcheck="false" autocapitalize="off" role="textbox" aria-multiline="true" aria-label="Texto del perfil: escribe aquí" data-ph="Escribe aquí tu texto…"></div></div>
+              <div class="p-tags" id="pTags"></div>
+              <div class="p-foot"><span class="p-ph" style="flex:0 0 80px"><b></b><i></i></span><span class="grow"></span><span class="p-ph" style="flex:0 0 64px"><b></b><i></i></span><span class="p-dots">•••</span></div>
+            </div>
+          </div>
+        </div>
+        <p class="estado" id="estado" aria-live="polite"></p>
+        <details class="ayuda"><summary>Ajustes de la vista previa (fondo, cabecera, etiquetas)</summary><div class="in"><div class="row2">
+          <div><label for="pBg">Fondo del perfil</label><input type="color" id="pBg" value="#ffffff">
+            <div class="hexrow"><input type="text" class="hex" id="pBgHex" value="#FFFFFF" maxlength="7" spellcheck="false" autocomplete="off" aria-label="Código HEX del fondo del perfil"><button type="button" class="tool" data-copyhex="pBgHex">Copiar</button></div></div>
+          <div><label for="pBanner">Color de la cabecera</label><input type="color" id="pBanner" value="#16202b">
+            <div class="hexrow"><input type="text" class="hex" id="pBannerHex" value="#16202B" maxlength="7" spellcheck="false" autocomplete="off" aria-label="Código HEX del color de la cabecera"><button type="button" class="tool" data-copyhex="pBannerHex">Copiar</button></div></div>
+        </div>
+        <div><label for="pFilas">Filas de etiquetas</label><select id="pFilas"><option value="0">0</option><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option></select></div>
+        <p class="hint">Estos ajustes solo cambian cómo ves la tarjeta aquí; no van en el código. El recuadro del texto tiene alto fijo: lo que no cabe se sale por detrás de las etiquetas, como en el juego. Algunas fuentes pueden verse algo distintas dentro del juego.</p></div></details>
       </section>
 
       <section class="panel">
         <div class="codehead">
-          <h2>Texto transformado</h2>
+          <h2>Código para tu perfil</h2>
           <span class="hint" id="largo"></span>
         </div>
-        <p class="hint">Este es el texto con código que tienes que copiar y pegar en tu perfil. Se escribe solo a partir de Tu texto.</p>
-        <textarea id="codigo" readonly spellcheck="false" aria-label="Texto transformado"></textarea>
-        <p class="estado" id="estado" aria-live="polite"></p>
+        <p class="hint" id="ayudaCodigo">Se genera con tu tarjeta. Pulsa «Editar código» para escribir o pegar RichText manual.</p>
+        <textarea id="codigo" readonly spellcheck="false" aria-label="Código para pegar en tu perfil"></textarea>
         <div class="codehead">
-          <button class="btn" id="copiar">Copiar texto</button>
+          <div class="code-actions">
+            <button type="button" class="tool" id="editarCodigo">Editar código</button>
+            <button type="button" class="btn" id="volverDiseno" hidden>Volver al diseño</button>
+            <button class="btn" id="copiar">Copiar código</button>
+          </div>
           <span class="ok" id="ok" aria-live="polite"></span>
         </div>
-      </section>
-
-      <section class="panel">
-        <h2>Vista previa</h2>
-        <div class="scene"><div class="pv" id="pv"></div></div>
-        <p class="hint">Así se verá tu texto. Algunas fuentes pueden verse un poco distintas dentro del juego.</p>
       </section>
     </div>
 
     <div class="col">
       <section class="panel">
-        <h2>Estilos</h2>
-        <p class="hint">Rellena lo que quieras y pulsa Aplicar: todo se aplica junto a la parte seleccionada de Tu texto (o a todo el texto). Lo que dejes vacío no cambia. Se suma a lo que ya tenga esa parte (color, negrita, etc.); para quitar todo usa Borrar estilos. Para quitar solo el borde pon 0 en su grosor, y para quitar solo el fondo desmarca «Poner fondo de color» y pulsa Aplicar.</p>
+        <h2>Fuente, tamaño y Resaltado</h2>
+        <p class="hint">Rellena lo que quieras y pulsa Aplicar. Lo que dejes vacío no cambia. Para quitar todo usa «Borrar estilos».</p>
         <div class="row2">
-          <div><label for="fFace">Fuente</label><select id="fFace"></select></div>
+          <div class="fp">
+            <label id="fFaceLbl">Fuente</label>
+            <select id="fFace" hidden aria-hidden="true" tabindex="-1"></select>
+            <button type="button" class="fp-btn" id="fFaceBtn" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="fFaceLbl fFaceCur"><span id="fFaceCur">Sin cambiar</span><span aria-hidden="true">▾</span></button>
+            <ul class="fp-list" id="fFaceList" role="listbox" aria-labelledby="fFaceLbl" hidden></ul>
+          </div>
           <div><label for="fSize">Tamaño</label><input type="number" id="fSize" min="1" max="200" step="1" placeholder="Ej. 32"></div>
         </div>
         <div>
           <label for="fTransp">Transparencia del texto (%)</label>
           <input type="number" id="fTransp" min="0" max="100" step="any" placeholder="Ej. 35">
         </div>
+        <label class="check"><input type="checkbox" id="mOn"> Resaltado</label>
         <div class="row2">
-          <div><label for="sGrosor">Grosor del borde</label><input type="number" id="sGrosor" min="0" max="200" step="any" placeholder="Ej. 34"></div>
-          <div><label for="sColor">Color del borde</label><input type="color" id="sColor" value="#000000"></div>
-        </div>
-        <label class="check"><input type="checkbox" id="mOn"> Poner fondo de color</label>
-        <div class="row2">
-          <div><label for="mColor">Color del fondo</label><input type="color" id="mColor" value="#000000"></div>
-          <div><label for="mTransp">Transparencia del fondo (%)</label><input type="number" id="mTransp" min="0" max="100" step="any" value="40"></div>
+          <div><label for="mColor">Color del resaltado</label><input type="color" id="mColor" value="#f5c518"></div>
+          <div><label for="mTransp">Transparencia del fondo (%)</label><input type="number" id="mTransp" min="0" max="100" step="any" value="0"></div>
         </div>
         <button class="btn" id="aplicar">Aplicar</button>
       </section>
 
       <section class="panel">
-        <h2>1 color</h2>
+        <h2>Contorno</h2>
+        <label class="check"><input type="checkbox" id="oOn" checked> Activar contorno</label>
+        <div class="row2">
+          <div><label for="oColor">Color del contorno</label><input type="color" id="oColor" value="#000000"></div>
+          <div><label for="oModo">Modo</label><select id="oModo"><option value="fixed">Fijo (píxeles)</option><option value="scaled">Escalado con la letra</option></select></div>
+        </div>
+        <div class="row2">
+          <div><label for="oGrosor">Grosor</label><input type="number" id="oGrosor" min="0" max="10" step="0.5" value="2"></div>
+          <div><label for="oTransp">Transparencia del contorno (%)</label><input type="number" id="oTransp" min="0" max="100" step="5" value="0"></div>
+        </div>
+        <button class="btn" id="oAplicar">Aplicar contorno</button>
+        <p class="hint" id="ayudaContornoManual">En modo RichText manual, el contorno se aplica a todo el texto.</p>
+        <details class="ayuda"><summary>¿Cómo funciona el contorno?</summary><div class="in"><p class="hint">Elige el color, el grosor y la transparencia (0 % se ve del todo, 100 % es invisible) y pulsa «Aplicar contorno». La casilla viene activada; desmárcala para quitarlo. En RichText manual, se aplica a todo el texto. «Fijo» usa píxeles; «Escalado» hace el grosor proporcional al tamaño de la letra (0 a 0,5). La transparencia 0 no se escribe en el código.</p></div></details>
+      </section>
+
+      <section class="panel">
+        <h2>Color</h2>
         <div class="swatches">
           <button class="sw" data-set="#FFFFFF" style="background:#FFFFFF" title="Blanco" aria-label="Blanco"></button>
           <button class="sw" data-set="#F5C518" style="background:#F5C518" title="Amarillo" aria-label="Amarillo"></button>
@@ -193,11 +322,11 @@ button { font: inherit; cursor: pointer; }
           <input type="color" id="fColor" value="#f5c518" aria-label="Color">
           <button class="apply" data-act="color">Aplicar color</button>
         </div>
-        <p class="hint">Elige un color (o pulsa uno de arriba para elegirlo) y luego pulsa Aplicar color. Solo cambia el color: no borra los demás estilos de esa parte.</p>
+        <p class="hint">Pulsa un color o elige uno propio, y luego «Aplicar color». No borra los demás estilos.</p>
       </section>
 
       <section class="panel">
-        <h2>2 colores (degradado)</h2>
+        <h2>Degradado</h2>
         <div class="line2">
           <div><label for="gA">Inicio</label><input type="color" id="gA" value="#f5c518"></div>
           <div><label for="gB">Final</label><input type="color" id="gB" value="#e5383b"></div>
@@ -238,6 +367,7 @@ button { font: inherit; cursor: pointer; }
     ["BuilderSans", "Barlow", 400], ["BuilderSansMedium", "Barlow", 500], ["BuilderSansBold", "Barlow", 700], ["BuilderSansExtraBold", "Barlow", 800],
     ["Arimo", "Arimo", 400], ["ArimoBold", "Arimo", 700]
   ];
+  FUENTES.sort(function (a, b) { return a[0].toLowerCase() < b[0].toLowerCase() ? -1 : a[0].toLowerCase() > b[0].toLowerCase() ? 1 : 0; }); /* orden alfabético */
   var MAPA = {}; FUENTES.forEach(function (f) { MAPA[f[0].toLowerCase()] = f; });
 
   /* Cada ejemplo es una lista de trozos [texto, estilo]. */
@@ -247,16 +377,72 @@ button { font: inherit; cursor: pointer; }
     ["Mis gustos", [["Me gusta: ", null], ["Charlar y hacer amigos", { face: "GothamBlack", size: 30, color: "#F5C518" }], ["\nEscríbeme cuando quieras", null]]],
     ["Buen rollo", [["Aquí se respeta a todos.", { b: true }], ["\nSolo buen rollo: sin insultos y sin spam.", null]]],
     ["Mi lema", [["La reputación se gana siendo amable", { face: "Bangers", size: 32, color: "#E5383B", stroke: { c: "#000000", t: 2 } }]]],
-    ["Comentarios", [["Un comentario bonito se os agradece", { mark: { c: "#000000", t: 0.4 } }]]]
+    ["Comentarios", [["Un comentario bonito se os agradece", { mark: { c: "#F5C518" } }]]]
   ];
-  var BIENVENIDA = [["Bienvenido al editor de texto de ", null], ["The Corner", { face: "GothamBold", color: "#F5C518" }], [" para tu perfil", null]];
+  var BIENVENIDA = [["Bienvenido al editor de perfil de ", null], ["The Corner", { face: "GothamBold", color: "#F5C518" }]];
 
   var $ = function (id) { return document.getElementById(id); };
   var el = {};
-  ["texto","codigo","largo","estado","ok","copiar","deshacer","limpiar","ejemplos","pv","fFace","fSize","fTransp","sGrosor","sColor","mOn","mColor","mTransp","aplicar","fColor","gA","gB"].forEach(function (k) { el[k] = $(k); });
+  ["texto","codigo","largo","estado","ok","copiar","editarCodigo","ayudaCodigo","deshacer","limpiar","ejemplos","pv","fFace","fSize","fTransp","mOn","mColor","mTransp","aplicar","fColor","gA","gB"].forEach(function (k) { el[k] = $(k); });
 
   var ph = document.createElement("option"); ph.value = ""; ph.textContent = "Sin cambiar"; el.fFace.appendChild(ph);
   FUENTES.forEach(function (f) { var o = document.createElement("option"); o.value = f[0]; o.textContent = f[0]; el.fFace.appendChild(o); });
+
+  /* Selector de fuente: cada nombre se escribe con su propia tipografía (el <select> nativo no lo permite en móvil ni Safari). */
+  (function () {
+    var btn = $("fFaceBtn"), lista = $("fFaceList"), cur = $("fFaceCur"), items = [], act = 0, sel = 0;
+    var opciones = [["", "Sin cambiar", null]].concat(FUENTES.map(function (f) { return [f[0], f[0], f]; }));
+    function poner(node, f) {
+      node.style.fontFamily = f ? '"' + f[1] + '", system-ui, sans-serif' : "";
+      node.style.fontWeight = f ? f[2] : "";
+      node.style.fontStyle = f && f[3] ? "italic" : "";
+    }
+    opciones.forEach(function (o, i) {
+      var li = document.createElement("li");
+      li.setAttribute("role", "option"); li.id = "fFaceO" + i; li.textContent = o[1];
+      poner(li, o[2]); lista.appendChild(li); items.push(li);
+    });
+    function marcar(i) {
+      items[act].classList.remove("act");
+      act = Math.max(0, Math.min(items.length - 1, i));
+      items[act].classList.add("act");
+      btn.setAttribute("aria-activedescendant", items[act].id);
+      items[act].scrollIntoView({ block: "nearest" });
+    }
+    function abrir() {
+      lista.hidden = false; btn.setAttribute("aria-expanded", "true");
+      act = sel; items.forEach(function (li, i) { li.classList.toggle("act", i === act); });
+      items[act].scrollIntoView({ block: "center" });
+    }
+    function cerrar() { lista.hidden = true; btn.setAttribute("aria-expanded", "false"); btn.removeAttribute("aria-activedescendant"); }
+    function elegir(i) {
+      sel = i; el.fFace.value = opciones[i][0];
+      cur.textContent = opciones[i][1]; poner(cur, opciones[i][2]);
+      items.forEach(function (li, k) { li.setAttribute("aria-selected", String(k === i)); });
+      el.fFace.dispatchEvent(new Event("change", { bubbles: true }));
+      cerrar();
+    }
+    btn.addEventListener("click", function () { if (lista.hidden) abrir(); else cerrar(); });
+    btn.addEventListener("keydown", function (ev) {
+      var k = ev.key;
+      if (lista.hidden) {
+        if (k === "ArrowDown" || k === "ArrowUp" || k === "Enter" || k === " ") { ev.preventDefault(); abrir(); }
+        return;
+      }
+      if (k === "ArrowDown") { ev.preventDefault(); marcar(act + 1); }
+      else if (k === "ArrowUp") { ev.preventDefault(); marcar(act - 1); }
+      else if (k === "Home") { ev.preventDefault(); marcar(0); }
+      else if (k === "End") { ev.preventDefault(); marcar(items.length - 1); }
+      else if (k === "Enter" || k === " ") { ev.preventDefault(); elegir(act); }
+      else if (k === "Escape") { ev.preventDefault(); ev.stopPropagation(); cerrar(); }
+      else if (k === "Tab") cerrar();
+    });
+    lista.addEventListener("click", function (ev) {
+      var li = ev.target.closest("li"); if (li) elegir(items.indexOf(li));
+    });
+    document.addEventListener("click", function (ev) { if (!lista.hidden && !ev.target.closest(".fp")) cerrar(); });
+    items[0].setAttribute("aria-selected", "true");
+  })();
 
   /* ---------- estado: un estilo por cada letra del texto ---------- */
   var estilos = [];
@@ -288,9 +474,15 @@ button { font: inherit; cursor: pointer; }
   }
   function esc2(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
   function abrirTags(st) {
+    /* El tamaño va antes de los estilos de texto para que el subrayado y el tachado hereden su escala. */
     var o = "", c = "";
-    if (st.mark) { o += '<mark color="' + st.mark.c + '" transparency="' + st.mark.t + '">'; c = "</mark>" + c; }
-    if (st.stroke) { o += '<stroke color="' + st.stroke.c + '" thickness="' + st.stroke.t + '">'; c = "</stroke>" + c; }
+    if (st.stroke) {
+      var sa = 'color="' + st.stroke.c + '" th="' + st.stroke.t + '"';
+      if (st.stroke.tr) sa += ' transparency="' + st.stroke.tr + '"';
+      if (st.stroke.sz === "scaled") sa += ' sizing="scaled"';
+      o += "<stroke " + sa + ">"; c = "</stroke>" + c;
+    }
+    if (st.mark) { o += '<mark color="' + st.mark.c + '"' + (st.mark.t ? ' transparency="' + st.mark.t + '"' : "") + ">"; c = "</mark>" + c; }
     var at = [];
     if (st.face) at.push('face="' + st.face + '"');
     if (st.size) at.push('size="' + st.size + '"');
@@ -304,6 +496,34 @@ button { font: inherit; cursor: pointer; }
   }
   function sinColor(st) { if (!st) return null; var o = Object.assign({}, st); delete o.color; return norm(o); }
   function generarCodigo(texto, est) {
+    var strokeGlobal = null, sizeGlobal = null, strokeKey = null, sizeKey = null, hayTexto = false, strokeUniforme = true, sizeUniforme = true;
+    for (var g = 0; g < texto.length; g++) {
+      if (texto.charAt(g) === "\n") continue;
+      var gs = est[g] || null, gst = gs && gs.stroke ? gs.stroke : null;
+      var gsk = gst ? JSON.stringify(Object.keys(gst).sort().map(function (k) { return [k, gst[k]]; })) : "";
+      var gsz = gs && gs.size !== undefined && gs.size !== null ? String(gs.size) : "";
+      if (!hayTexto) {
+        hayTexto = true; strokeKey = gsk;
+        if (gst) strokeGlobal = Object.assign({}, gst);
+      } else {
+        if (gsk !== strokeKey) strokeUniforme = false;
+      }
+      if (gsz) {
+        if (sizeKey === null) { sizeKey = gsz; sizeGlobal = gs.size; }
+        else if (gsz !== sizeKey) sizeUniforme = false;
+      } else if (!/\s/.test(texto.charAt(g))) sizeUniforme = false;
+    }
+    if (!strokeUniforme || !strokeKey) strokeGlobal = null;
+    if (!strokeGlobal || !sizeUniforme || !sizeKey) sizeGlobal = null;
+    if (strokeGlobal || sizeGlobal !== null) {
+      est = est.map(function (x) {
+        if (!x) return x;
+        var y = Object.assign({}, x);
+        if (strokeGlobal) delete y.stroke;
+        if (sizeGlobal !== null) delete y.size;
+        return norm(y);
+      });
+    }
     /* Los estilos comunes (borde, fuente, tamaño...) se escriben UNA vez por tramo y,
        dentro, solo cambia <font color>. Así el degradado conserva un color por letra. */
     var out = "", tramo = [], kBase = null, base = null;
@@ -330,12 +550,19 @@ button { font: inherit; cursor: pointer; }
     }
     for (var i = 0; i < texto.length; i++) {
       var ch = texto.charAt(i);
-      if (ch === "\n") { volcarTramo(); out += "\n"; kBase = null; base = null; continue; }
+      if (ch === "\n") {
+        volcarTramo();
+        out += "\n";
+        kBase = null; base = null;
+        continue;
+      }
       var st = est[i] || null, bs = sinColor(st), k = clave(bs);
       if (k !== kBase) { volcarTramo(); kBase = k; base = bs; }
       tramo.push({ ch: ch, c: st && st.color ? st.color : null });
     }
     volcarTramo();
+    if (sizeGlobal !== null) { var ft = abrirTags({ size: sizeGlobal }); out = ft[0] + out + ft[1]; }
+    if (strokeGlobal) { var st = abrirTags({ stroke: strokeGlobal }); out = st[0] + out + st[1]; }
     return out;
   }
   /* GEN-FIN */
@@ -349,14 +576,14 @@ button { font: inherit; cursor: pointer; }
       prev = s;
       s = s.replace(/<(font|stroke|mark|b|i|u|s|uppercase|smallcaps)(?:\s[^>]*)?><\/\1>/gi, "");
       s = s.replace(/<(font|stroke|b|i|uppercase|smallcaps)(?:\s[^>]*)?>(\s+)<\/\1>/gi, "$2");
-      s = s.replace(/<font ([^>]*)>([^<]*)<\/font>(\s*)<font \1>/gi, "<font $1>$2$3");
-      s = s.replace(/<stroke ([^>]*)>([^<]*)<\/stroke>(\s*)<stroke \1>/gi, "<stroke $1>$2$3");
-      s = s.replace(/<(b|i|uppercase|smallcaps)>([^<]*)<\/\1>(\s*)<\1>/gi, "<$1>$2$3");
+      s = s.replace(/<font ([^>]*)>([^<]*)<\/font>([ \t]*)<font \1>/gi, "<font $1>$2$3");
+      s = s.replace(/<stroke ([^>]*)>([^<]*)<\/stroke>([ \t]*)<stroke \1>/gi, "<stroke $1>$2$3");
+      s = s.replace(/<(b|i|uppercase|smallcaps)>([^<]*)<\/\1>([ \t]*)<\1>/gi, "<$1>$2$3");
       s = s.replace(/<(u|s)>([^<]*)<\/\1><\1>/gi, "<$1>$2");
       s = s.replace(/<mark ([^>]*)>([^<]*)<\/mark><mark \1>/gi, "<mark $1>$2");
       s = s.replace(/[ \t]+\n/g, "\n");
     } while (s !== prev);
-    return s.replace(/^\s+|\s+$/g, "");
+    return s.replace(/\s+$/g, "");
   }
   /* OPT-FIN */
 
@@ -406,12 +633,54 @@ button { font: inherit; cursor: pointer; }
       });
     }
   }
-  function codigoOptimo(texto, est) {
-    var mejor = sinPerdida(generarCodigo(texto, est));
-    /* Si el texto es enorme no se gasta tiempo optimizando en cada tecla: no va a caber igualmente. */
-    if (mejor.length <= LIMITE || texto.length > LIMITE * 3) return mejor;
-    var fino = reducirColores(est, texto);
+  /* Los espacios no se ven: toman color, contorno y transparencia de la letra anterior para no cortar el código en trozos. */
+  function espaciosComodin(texto, est) {
+    var r = est.slice(), hay = false, prev = null;
+    for (var i = 0; i < texto.length; i++) {
+      var ch = texto.charAt(i);
+      if (ch === "\n") { hay = false; prev = null; continue; }
+      if (!/\s/.test(ch)) { hay = true; prev = est[i] || null; continue; }
+      var own = est[i] || {};
+      if (!hay || own.u || own.s || own.mark) continue;
+      var o = Object.assign({}, own);
+      ["color", "stroke", "transp"].forEach(function (k) {
+        if (prev && prev[k] !== undefined) o[k] = prev[k]; else delete o[k];
+      });
+      r[i] = norm(o);
+    }
+    return r;
+  }
+  function sinTocar(texto, est, bruto) {   /* nivel 1: sin pérdida; nivel 2: fusionar colores parecidos del degradado */
+    var a = sinPerdida(bruto || generarCodigo(texto, est));
+    var ew = espaciosComodin(texto, est), b = sinPerdida(generarCodigo(texto, ew));
+    var base = b.length < a.length ? ew : est, mejor = b.length < a.length ? b : a;
+    if (mejor.length <= LIMITE) return mejor;
+    var fino = reducirColores(base, texto);
     return fino.length < mejor.length ? fino : mejor;
+  }
+  /* Si aún no cabe, se van quitando detalles, del menos importante al más importante, hasta que quepa. */
+  var PASOS = [
+    /* No quitar la transparencia: hacerlo convertía un contorno semitransparente
+       en uno completamente opaco. Si falta espacio, se prioriza conservar
+       el contorno con su transparencia antes que los adornos secundarios. */
+    ["el fondo de color", function (st) { if (!st.mark) return st; var o = Object.assign({}, st); delete o.mark; return o; }],
+    ["el contorno", function (st) { if (!st.stroke) return st; var o = Object.assign({}, st); delete o.stroke; return o; }]
+  ];
+  var ultSimpl = "";   /* qué se quitó para que quepa (vacío si no hizo falta) */
+  function codigoOptimo(texto, est, bruto) {
+    ultSimpl = "";
+    var mejor = sinTocar(texto, est, bruto);
+    if (mejor.length <= LIMITE || texto.length > LIMITE * 3) return mejor;
+    var cur = est, quitados = [];
+    for (var i = 0; i < PASOS.length; i++) {
+      var nuevo = cur.map(function (st) { return st ? norm(PASOS[i][1](st)) : st; });
+      if (nuevo.every(function (st, k) { return clave(st) === clave(cur[k]); })) continue;
+      cur = nuevo; quitados.push(PASOS[i][0]);
+      var c = sinTocar(texto, cur);
+      if (c.length < mejor.length) mejor = c;
+      if (c.length <= LIMITE) { ultSimpl = quitados.join(", "); return c; }
+    }
+    return mejor;
   }
 
   /* ---------- color ---------- */
@@ -434,7 +703,7 @@ button { font: inherit; cursor: pointer; }
   var PERMITIDAS = { b: 1, i: 1, u: 1, s: 1, font: 1, stroke: 1, mark: 1, uppercase: 1, smallcaps: 1 };
   function renderizar(src) {
     src = src.replace(/<!--[\s\S]*?-->/g, "");
-    var partes = src.split(/(<[^>]*>)/), out = "", pila = [];
+    var partes = src.split(/(<[^>]*>)/), out = "", pila = [], pilaSc = [];
     partes.forEach(function (p) {
       if (!p) return;
       var m = p.match(/^<\s*(\/)?\s*([a-zA-Z]+)([^>]*)>$/);
@@ -445,16 +714,16 @@ button { font: inherit; cursor: pointer; }
       if (cierra) {
         var idx = pila.lastIndexOf(name);
         if (idx < 0) return;
-        while (pila.length > idx) { pila.pop(); out += "</span>"; }
+        while (pila.length > idx) { pila.pop(); pilaSc.pop(); out += "</span>"; }
         return;
       }
       if (/\/\s*>$/.test(p)) return;
       var at = {}, re = /([a-zA-Z]+)\s*=\s*(?:"([^"]*)"|'([^']*)')/g, q;
       while ((q = re.exec(m[3]))) at[q[1].toLowerCase()] = q[2] !== undefined ? q[2] : q[3];
-      var st = "", cls = "";
+      var st = "", cls = "", esSc = false;
       if (name === "b") st = "font-weight:700;";
       else if (name === "i") st = "font-style:italic;";
-      else if (name === "u") st = "text-decoration:underline;";
+      else if (name === "u") st = "text-decoration:underline;text-decoration-thickness:0.12em;text-underline-offset:0.08em;";
       else if (name === "s") st = "text-decoration:line-through;";
       else if (name === "uppercase") st = "text-transform:uppercase;";
       else if (name === "smallcaps") st = "font-variant:small-caps;";
@@ -462,43 +731,269 @@ button { font: inherit; cursor: pointer; }
         if (at.color && colorOk(at.color)) st += "color:" + at.color + ";";
         if (at.size && /^\d{1,3}$/.test(at.size)) st += "font-size:" + at.size + "px;";
         var fc = at.face && MAPA[at.face.toLowerCase()];
-        if (fc) st += "font-family:" + fc[1] + ",sans-serif;font-weight:" + fc[2] + ";" + (fc[3] ? "font-style:italic;" : "");
+        if (fc) st += "font-family:'" + fc[1] + "',sans-serif;font-weight:" + fc[2] + ";" + (fc[3] ? "font-style:italic;" : "");
         if (at.transparency && !isNaN(parseFloat(at.transparency))) st += "opacity:" + (1 - Math.max(0, Math.min(1, parseFloat(at.transparency)))) + ";";
       } else if (name === "stroke") {
         var col = at.color && colorOk(at.color) ? at.color : "#000000";
-        var th = parseFloat(at.thickness); if (isNaN(th)) th = 1;
-        st = "-webkit-text-stroke:" + (th * 2) + "px " + col + ";"; cls = ' class="st"';
+        var th = parseFloat(at.th !== undefined ? at.th : at.thickness); if (isNaN(th)) th = 1;
+        var trs = parseFloat(at.transparency), colA = conAlfa(col, isNaN(trs) ? 0 : trs);
+        if ((at.sizing || "").toLowerCase() === "scaled") { esSc = true; st = "--sth:" + th + ";--stc:" + colA + ";"; cls = ' class="st ss"'; }
+        else { st = "-webkit-text-stroke:" + (th * 2) + "px " + colA + ";"; cls = ' class="st"'; }
       } else if (name === "mark") {
         var mc = at.color && colorOk(at.color) ? at.color : "#FFFF00";
         st = "background-color:" + conAlfa(mc, parseFloat(at.transparency)) + ";";
       }
-      pila.push(name);
+      if (name !== "stroke" && pilaSc.indexOf(true) >= 0) cls = ' class="ss"';
+      pila.push(name); pilaSc.push(esSc);
       out += "<span" + cls + ' style="' + st + '">';
     });
-    while (pila.length) { pila.pop(); out += "</span>"; }
+    while (pila.length) { pila.pop(); pilaSc.pop(); out += "</span>"; }
     return out;
+  }
+
+  function importarRichText(src) {
+    src = src.replace(/<!--[\s\S]*?-->/g, "");
+    var partes = src.split(/(<[^>]*>)/), pila = [], texto = "", estilosImportados = [];
+    function decodificar(s) {
+      return s.replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+        .replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, "&")
+        .replace(/&#(\d+);/g, function (_, n) { return String.fromCharCode(parseInt(n, 10)); })
+        .replace(/&#x([\da-f]+);/gi, function (_, n) { return String.fromCharCode(parseInt(n, 16)); });
+    }
+    function clonar(st) {
+      var o = Object.assign({}, st || {});
+      if (o.mark) o.mark = Object.assign({}, o.mark);
+      if (o.stroke) o.stroke = Object.assign({}, o.stroke);
+      return o;
+    }
+    function agregar(s) {
+      s = decodificar(s);
+      for (var i = 0; i < s.length; i++) {
+        var ch = s.charAt(i), base = pila.length ? pila[pila.length - 1].st : null;
+        texto += ch;
+        estilosImportados.push(ch === "\n" ? null : norm(clonar(base)));
+      }
+    }
+    partes.forEach(function (p) {
+      if (!p) return;
+      var m = p.match(/^<\s*(\/)?\s*([a-zA-Z]+)([^>]*)>$/);
+      if (!m) { agregar(p); return; }
+      var name = m[2].toLowerCase(), cierre = !!m[1];
+      if (name === "br") { if (!cierre) agregar("\n"); return; }
+      if (!PERMITIDAS[name]) { agregar(p); return; }
+      if (cierre) {
+        var idx = -1;
+        for (var j = pila.length - 1; j >= 0; j--) if (pila[j].name === name) { idx = j; break; }
+        if (idx >= 0) pila.length = idx;
+        return;
+      }
+      if (/\/\s*>$/.test(p)) return;
+      var at = {}, re = /([a-zA-Z]+)\s*=\s*(?:"([^"]*)"|'([^']*)')/g, q;
+      while ((q = re.exec(m[3]))) at[q[1].toLowerCase()] = q[2] !== undefined ? q[2] : q[3];
+      var base = pila.length ? pila[pila.length - 1].st : null, st = clonar(base), n;
+      if (name === "b") st.b = true;
+      else if (name === "i") st.i = true;
+      else if (name === "u") st.u = true;
+      else if (name === "s") st.s = true;
+      else if (name === "uppercase") st.up = true;
+      else if (name === "smallcaps") st.sc = true;
+      else if (name === "font") {
+        if (at.face && MAPA[at.face.toLowerCase()]) st.face = MAPA[at.face.toLowerCase()][0];
+        if (at.size && /^\d{1,3}$/.test(at.size)) st.size = parseInt(at.size, 10);
+        if (at.color && colorOk(at.color)) st.color = at.color;
+        if (at.transparency !== undefined && !isNaN(parseFloat(at.transparency))) st.transp = Math.max(0, Math.min(1, parseFloat(at.transparency)));
+      } else if (name === "stroke") {
+        n = parseFloat(at.th !== undefined ? at.th : at.thickness); if (isNaN(n)) n = 1;
+        st.stroke = { c: at.color && colorOk(at.color) ? at.color : "#000000", t: n };
+        n = parseFloat(at.transparency); if (!isNaN(n) && n) st.stroke.tr = Math.max(0, Math.min(1, n));
+        if ((at.sizing || "").toLowerCase() === "scaled") st.stroke.sz = "scaled";
+      } else if (name === "mark") {
+        st.mark = { c: at.color && colorOk(at.color) ? at.color : "#FFFF00" };
+        n = parseFloat(at.transparency); if (!isNaN(n) && n) st.mark.t = Math.max(0, Math.min(1, n));
+      }
+      pila.push({ name: name, st: st });
+    });
+    return { texto: texto, estilos: estilosImportados };
   }
 
   /* ---------- actualizar todo ---------- */
   var tAviso = null;
   function aviso(m) { el.ok.textContent = m; clearTimeout(tAviso); tAviso = setTimeout(function () { el.ok.textContent = ""; }, 2600); }
 
-  function refrescar() {
+  function calcular() {
     var bruto = generarCodigo(el.texto.value, estilos);
-    var opt = codigoOptimo(el.texto.value, estilos), n = opt.length;
-    el.codigo.value = opt;
+    return [bruto, codigoOptimo(el.texto.value, estilos, bruto)];
+  }
+
+  var ultCC = null, modoCodigoManual = false, editandoCodigoManual = false, codigoManualGuardado = null;
+  var CLAVE_CODIGO_MANUAL = "tc-profile-richtext-v1", persistenciaLista = false;
+  function persistirCodigoManual() {
+    if (!persistenciaLista) return;
+    /* El diseño vive solo en memoria durante esta sesión; no se restaura al reabrir la página. */
+    try { localStorage.removeItem(CLAVE_CODIGO_MANUAL); } catch (e) {}
+  }
+  try { localStorage.removeItem(CLAVE_CODIGO_MANUAL); } catch (e) {}
+  function refrescar() {
+    var cc = ultCC = calcular(), bruto = cc[0], opt = cc[1], n = opt.length;
+    if (!modoCodigoManual) el.codigo.value = opt;
+    n = el.codigo.value.length;
     el.largo.textContent = n + " / " + LIMITE + " caracteres" + (n > LIMITE ? " · pasa por " + (n - LIMITE) : "");
     el.largo.style.color = n > LIMITE ? "var(--amber)" : "";
     el.largo.style.fontWeight = n > LIMITE ? "600" : "";
     var msg = "";
-    if (n > LIMITE) msg = "No cabe aunque se optimice: acorta el texto o quita estilos.";
-    else if (bruto.length > LIMITE) msg = "Se optimizó solo para que quepa: " + bruto.length + " → " + n + " caracteres.";
+    if (modoCodigoManual) msg = n > LIMITE ? "El código manual supera el límite de 350 caracteres." : "Código RichText manual. La vista previa muestra su interpretación.";
+    else if (n > LIMITE) msg = "No cabe aunque se optimice: acorta el texto o quita estilos.";
+    else if (ultSimpl) msg = "Para que quepa se quitó: " + ultSimpl + ". La tarjeta muestra tu texto completo; en el juego saldrá sin eso.";
+    else if (bruto.length > LIMITE) msg = "Se optimizó solo para que quepa: " + bruto.length + " → " + n + " caracteres. La tarjeta muestra tu texto completo; el juego recibirá la versión simplificada del degradado.";
     el.estado.textContent = msg;
     el.estado.style.color = n > LIMITE ? "var(--amber)" : "var(--muted)";
     el.copiar.disabled = n > LIMITE || n === 0;
-    el.pv.innerHTML = renderizar(opt);
+    pintarEditable();
     prevTexto = el.texto.value;
+    persistirCodigoManual();
   }
+
+  /* ---------- escribir directamente en la tarjeta ---------- */
+  var selEd = null;          /* última selección hecha dentro de la tarjeta: [desde, hasta] */
+  var selPend = null;        /* selección que hay que dejar puesta tras el próximo repintado */
+  var componiendo = false;   /* teclado con composición (móvil, acentos): no tocar el DOM hasta terminar */
+  var ultTecleo = 0, ultGuardado = 0;
+  var ed = el.pv, legacy = false;
+
+  /* La tarjeta se vuelve a pintar desde los datos (texto + estilos), así que el DOM nunca es la fuente de verdad. */
+  function leerTexto() {
+    var out = "";
+    (function rec(n) {
+      for (var c = n.firstChild; c; c = c.nextSibling) {
+        if (c.nodeType === 3) out += c.nodeValue;
+        else if (c.nodeType === 1) {
+          if (c.hasAttribute("data-fin")) continue;
+          if (c.tagName === "BR") out += "\n";
+          else {
+            if ((c.tagName === "DIV" || c.tagName === "P") && out && out.charAt(out.length - 1) !== "\n") out += "\n";
+            rec(c);
+          }
+        }
+      }
+    })(ed);
+    return out.replace(/\u00A0/g, " ");
+  }
+  function offsetDe(nodo, off) {
+    var r = document.createRange();
+    r.selectNodeContents(ed);
+    r.setEnd(nodo, off);
+    return r.toString().length;
+  }
+  function leerSel() {
+    var s = window.getSelection();
+    if (!s || !s.rangeCount || !s.anchorNode || !s.focusNode || !ed.contains(s.anchorNode) || !ed.contains(s.focusNode)) return null;
+    var a = offsetDe(s.anchorNode, s.anchorOffset), b = offsetDe(s.focusNode, s.focusOffset);
+    return [Math.min(a, b), Math.max(a, b)];
+  }
+  function selActual() {   /* la selección de la tarjeta, leída ahora mismo (el evento selectionchange llega tarde) */
+    var s = leerSel();
+    if (s) selEd = s;
+    return selEd;
+  }
+  function posDe(off) {
+    var w = document.createTreeWalker(ed, NodeFilter.SHOW_TEXT, null), n, acc = 0, last = null;
+    while ((n = w.nextNode())) {
+      var len = n.nodeValue.length;
+      if (off <= acc + len) return [n, off - acc];
+      acc += len; last = n;
+    }
+    return last ? [last, last.nodeValue.length] : [ed, 0];
+  }
+  function ponerSel(a, b) {
+    var sl = window.getSelection(); if (!sl) return;
+    var p = posDe(a), q = b === a ? p : posDe(b), r = document.createRange();
+    r.setStart(p[0], p[1]); r.setEnd(q[0], q[1]);
+    sl.removeAllRanges(); sl.addRange(r);
+  }
+  function pintarEditable() {
+    if (modoCodigoManual) {
+      ed.contentEditable = "false";
+      ed.innerHTML = el.codigo.value ? renderizar(el.codigo.value) : "";
+      return;
+    }
+    ed.contentEditable = "true";
+    var t = el.texto.value;
+    var sel = selPend || leerSel() || selEd;
+    selPend = null;
+    ed.innerHTML = t ? renderizar(generarCodigo(t, estilos)) + (t.charAt(t.length - 1) === "\n" ? "<br data-fin>" : "") : "";
+    if (sel) {
+      var a = Math.min(sel[0], t.length), b = Math.min(sel[1], t.length);
+      ponerSel(a, b); selEd = [a, b];
+    }
+  }
+  function desdeEditable() {
+    var nuevo = leerTexto(), sel = leerSel(), ahora = Date.now();
+    if (ahora - ultTecleo > 900) {   /* una "ráfaga" de teclas = un paso de deshacer */
+      historial.push({ texto: prevTexto, estilos: estilos.slice(), completo: true });
+      if (historial.length > 60) historial.shift();
+    }
+    ultTecleo = ahora;
+    reconciliar(prevTexto, nuevo, sel ? sel[1] : nuevo.length);
+    el.texto.value = nuevo;
+    if (sel) selEd = sel;
+    refrescar();
+  }
+  /* Sustituye la selección de la tarjeta por un texto (Enter, pegar). Se hace sobre los datos y no sobre el DOM:
+     Chrome, al pulsar Enter al final, añade por su cuenta un salto de línea de más. */
+  function insertarEnTarjeta(ins) {
+    var v = el.texto.value, sel = selActual() || [v.length, v.length];
+    var a = Math.min(sel[0], v.length), b = Math.min(sel[1], v.length), ahora = Date.now();
+    if (ahora - ultTecleo > 900) {
+      historial.push({ texto: v, estilos: estilos.slice(), completo: true });
+      if (historial.length > 60) historial.shift();
+    }
+    ultTecleo = ahora;
+    el.texto.value = v.slice(0, a) + ins + v.slice(b);
+    reconciliar(v, el.texto.value, a + ins.length);
+    selPend = [a + ins.length, a + ins.length];
+    refrescar();
+  }
+  try { ed.contentEditable = "plaintext-only"; } catch (x) {}
+  if (ed.contentEditable !== "plaintext-only") { legacy = true; ed.contentEditable = "true"; }   /* navegadores antiguos */
+  ed.addEventListener("keydown", function (ev) {
+    if (ev.key === "Enter" && !ev.isComposing && !componiendo) { ev.preventDefault(); insertarEnTarjeta("\n"); }
+  });
+  ed.addEventListener("paste", function (ev) {
+    ev.preventDefault();
+    var d = ev.clipboardData || window.clipboardData;
+    insertarEnTarjeta((d ? d.getData("text/plain") : "").replace(/\r\n?/g, "\n"));
+  });
+  ed.addEventListener("input", function () { if (!componiendo) desdeEditable(); });
+  ed.addEventListener("compositionstart", function () { componiendo = true; });
+  ed.addEventListener("compositionend", function () { componiendo = false; desdeEditable(); });
+  ["keyup", "mouseup", "touchend", "pointerup", "blur"].forEach(function (ev) { ed.addEventListener(ev, selActual); });
+  ed.addEventListener("drop", function (ev) { ev.preventDefault(); });
+  ed.addEventListener("beforeinput", function (ev) {   /* Ctrl+Z / Ctrl+Y usan el historial de la página */
+    if (ev.inputType === "historyUndo") { ev.preventDefault(); el.deshacer.click(); }
+    else if (ev.inputType === "historyRedo") ev.preventDefault();
+    else if (ev.inputType === "insertParagraph" || ev.inputType === "insertLineBreak") { ev.preventDefault(); if (!componiendo) insertarEnTarjeta("\n"); }
+  });
+  document.addEventListener("selectionchange", function () {
+    var sl = leerSel();
+    if (sl) selEd = sl;
+  });
+  /* barra rápida de la tarjeta: colores y formato sin perder la selección */
+  $("quick").addEventListener("mousedown", function (ev) {
+    if (ev.target.closest("button") && !ev.target.closest("input")) ev.preventDefault();
+  });
+  ["#FFFFFF", "#F5C518", "#FF8A1F", "#E5383B", "#FF5FA2", "#9B5DE5", "#3A86FF", "#00E5FF", "#2ECC71", "#111111", "#7A7A7A", "#8B5A2B"].forEach(function (c) {
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "qs"; b.style.background = c; b.title = c; b.setAttribute("aria-label", "Color " + c);
+    b.addEventListener("click", function () {
+      $("qColor").value = c.toLowerCase(); el.fColor.value = c.toLowerCase();
+      sobreRango(function (old) { return Object.assign({}, old || {}, { color: c }); });
+    });
+    $("qSwatches").appendChild(b);
+  });
+  $("qColor").addEventListener("input", function () {
+    var c = this.value.toUpperCase(); el.fColor.value = this.value;
+    sobreRango(function (old) { return Object.assign({}, old || {}, { color: c }); }, true);
+  });
 
   /* Cuando escribes, los estilos de las letras se ajustan al cambio. */
   function reconciliar(viejo, nuevo, caret) {
@@ -521,13 +1016,9 @@ button { font: inherit; cursor: pointer; }
     for (var k = p; k < sn; k++) nuevos.push(her || null);
     estilos = estilos.slice(0, p).concat(nuevos, estilos.slice(sv));
   }
-  el.texto.addEventListener("input", function () {
-    reconciliar(prevTexto, el.texto.value, el.texto.selectionStart);
-    refrescar();
-  });
-
   /* ---------- historial ---------- */
   function guardar(completo) {
+    ultGuardado = Date.now();
     historial.push({ texto: el.texto.value, estilos: estilos.slice(), completo: !!completo });
     if (historial.length > 60) historial.shift();
   }
@@ -542,8 +1033,8 @@ button { font: inherit; cursor: pointer; }
   /* ---------- botón Optimizar ---------- */
   $("optimizar").addEventListener("click", function () {
     if (!el.texto.value) { aviso("Escribe algún texto primero"); return; }
-    var bruto = generarCodigo(el.texto.value, estilos), o = codigoOptimo(el.texto.value, estilos);
     refrescar();
+    var bruto = ultCC[0], o = ultCC[1];
     if (o.length > LIMITE) aviso("Optimizado a " + o.length + ", pero aún pasa por " + (o.length - LIMITE) + " caracteres. Acorta el texto.");
     else if (o.length >= bruto.length) aviso("Ya está optimizado: " + o.length + " / " + LIMITE + " caracteres");
     else aviso("Optimizado: " + bruto.length + " → " + o.length + " caracteres");
@@ -551,14 +1042,16 @@ button { font: inherit; cursor: pointer; }
 
   /* ---------- operaciones sobre la parte seleccionada ---------- */
   function rango() {
-    var t = el.texto, s = t.selectionStart, e = t.selectionEnd;
-    if (s === e) { s = 0; e = t.value.length; }
+    var len = el.texto.value.length, s, e;
+    var se = selActual();
+    if (se) { s = Math.min(se[0], len); e = Math.min(se[1], len); } else { s = e = 0; }
+    if (s === e) { s = 0; e = len; }   /* sin selección: todo el texto */
     return [s, e];
   }
-  function sobreRango(fn) {
+  function sobreRango(fn, agrupar) {
     var r = rango();
     if (r[0] === r[1]) { aviso("Escribe algún texto primero"); return; }
-    guardar();
+    if (!(agrupar && Date.now() - ultGuardado < 1500)) guardar();   /* al arrastrar el selector de color no se llena el historial */
     for (var i = r[0]; i < r[1]; i++) estilos[i] = norm(fn(estilos[i] || null, i));
     refrescar();
   }
@@ -594,12 +1087,10 @@ button { font: inherit; cursor: pointer; }
     if (el.fFace.value) st.face = el.fFace.value;
     var tam = numero(el.fSize, 1, 200); if (tam) st.size = Math.round(tam);
     var tr = numero(el.fTransp, 0, 100); if (tr !== null) st.transp = Math.round(tr * 100) / 10000;
-    var g = numero(el.sGrosor, 0, 200);
-    if (g) st.stroke = { c: el.sColor.value.toUpperCase(), t: g };
-    else if (g === 0) st.stroke = null;            /* grosor 0 = quitar el borde */
     if (el.mOn.checked) {
-      var mt = numero(el.mTransp, 0, 100); if (mt === null) mt = 40;
-      st.mark = { c: el.mColor.value.toUpperCase(), t: Math.round(mt * 100) / 10000 };
+      var mt = numero(el.mTransp, 0, 100); if (mt === null) mt = 0;
+      st.mark = { c: el.mColor.value.toUpperCase() };
+      if (mt) st.mark.t = Math.round(mt * 100) / 10000;   /* 0 % no se escribe: el código queda como <mark color="…"> */
     } else if (quitarFondo) st.mark = null;        /* casilla desmarcada a propósito = quitar el fondo */
     return st;
   }
@@ -610,6 +1101,135 @@ button { font: inherit; cursor: pointer; }
     if (el.texto.value) quitarFondo = false;
   });
   ["mColor", "mTransp"].forEach(function (k) { el[k].addEventListener("input", function () { el.mOn.checked = true; quitarFondo = false; }); });
+
+  /* ---------- contorno ---------- */
+  var oModoPrev = "fixed";
+  $("oModo").addEventListener("change", function () {
+    var m = this.value, g = $("oGrosor"), v = parseFloat(String(g.value).replace(",", "."));
+    if (m === "scaled") { g.min = 0; g.max = 0.5; g.step = 0.01; if (!isNaN(v) && oModoPrev !== "scaled") g.value = String(Math.min(0.5, Math.round(v / 20 * 100) / 100)); }
+    else { g.min = 0; g.max = 10; g.step = 0.5; if (!isNaN(v) && oModoPrev !== "fixed") g.value = String(Math.min(10, Math.round(v * 20 * 2) / 2)); }
+    oModoPrev = m;
+  });
+  ["oColor", "oGrosor", "oTransp", "oModo"].forEach(function (id) {
+    $(id).addEventListener(id === "oModo" ? "change" : "input", function () { $("oOn").checked = true; });
+  });
+  $("oAplicar").addEventListener("click", function () {
+    var sc = $("oModo").value === "scaled";
+    var g = numero($("oGrosor"), 0, sc ? 0.5 : 10); if (g === null) g = sc ? 0.1 : 2;
+    var tr = numero($("oTransp"), 0, 100); tr = tr === null ? 0.75 : tr / 100;   /* 0 % = se ve del todo, 100 % = invisible */
+    var so = null;
+    if ($("oOn").checked && g !== 0) {
+      so = { c: $("oColor").value.toUpperCase(), t: Math.round(g * 100) / 100 };
+      tr = Math.round(tr * 100) / 100;
+      if (tr) so.tr = tr;
+      if (sc) so.sz = "scaled";
+    }
+    if (modoCodigoManual) {
+      var imp = importarRichText(el.codigo.value);
+      if (!imp.texto) { aviso("Escribe algún texto primero"); return; }
+      for (var i = 0; i < imp.texto.length; i++) {
+        if (imp.texto.charAt(i) === "\n") continue;
+        var old = Object.assign({}, imp.estilos[i] || {});
+        if (so) old.stroke = Object.assign({}, so); else delete old.stroke;
+        imp.estilos[i] = norm(old);
+      }
+      el.texto.value = imp.texto;
+      estilos = imp.estilos;
+      el.codigo.value = generarCodigo(el.texto.value, estilos);
+      codigoManualGuardado = el.codigo.value;
+      persistirCodigoManual();
+      refrescar();
+      return;
+    }
+    if (!so) {
+      sobreRango(function (old) { var n = Object.assign({}, old || {}); delete n.stroke; return n; });
+      return;
+    }
+    sobreRango(function (old) { return Object.assign({}, old || {}, { stroke: so }); });
+  });
+
+  /* ---------- posición: izquierda / centro / derecha con espacios ---------- */
+  var ANCHO_JUEGO = 254;   /* ancho útil del texto dentro del juego */
+  var ESP_ALINEA = /[ \t\u00A0\u2002\u2003\u3000]/;
+  function medirAncho(txt, est) {
+    var m = document.createElement("div");
+    m.className = "pv";
+    m.style.cssText = "position:absolute;left:-9999px;top:0;visibility:hidden;white-space:pre;width:auto;max-width:none;min-height:0;padding:0;overflow:visible;";
+    m.innerHTML = renderizar(generarCodigo(txt, est));
+    document.body.appendChild(m);
+    var w = m.getBoundingClientRect().width;
+    document.body.removeChild(m);
+    return w;
+  }
+  function estiloSangria(st) {   /* la sangría solo conserva lo que cambia el ancho (y el contorno, que en un espacio no se ve y ahorra etiquetas): sin fondo, subrayado, tachado ni color */
+    if (!st) return null;
+    var o = Object.assign({}, st); delete o.mark; delete o.u; delete o.s; delete o.color;
+    return norm(o);
+  }
+  function partirFilas(cont, est) {   /* reparte las palabras en filas que caben en la caja */
+    var lim = ANCHO_JUEGO - 1, pal = [], re = /\S+/g, m;
+    while ((m = re.exec(cont))) pal.push([m.index, m.index + m[0].length]);
+    if (!pal.length) return [[0, cont.length]];
+    var filas = [], ini = pal[0][0], fin = pal[0][1];
+    for (var i = 1; i < pal.length; i++) {
+      if (medirAncho(cont.slice(ini, pal[i][1]), est.slice(ini, pal[i][1])) <= lim) fin = pal[i][1];
+      else { filas.push([ini, fin]); ini = pal[i][0]; fin = pal[i][1]; }
+    }
+    filas.push([ini, fin]);
+    return filas;
+  }
+  function alinear(modo) {
+    var v = el.texto.value;
+    if (!v) { aviso("Escribe algún texto primero"); return; }
+    var sel = selActual() || [0, v.length];
+    var a = Math.min(sel[0], v.length), b = Math.min(sel[1], v.length);
+    var lineas = v.split("\n"), nv = "", ne = [], pos = 0, fin = 0;
+    lineas.forEach(function (ln, idx) {
+      var ini = pos, fn = pos + ln.length, k;
+      pos = fn + 1;
+      if (idx > 0) { nv += "\n"; ne.push(estilos[ini - 1] || null); }
+      var toca = a === b ? (a >= ini && a <= fn) : (a <= fn && b > ini);
+      var s0 = 0, e0 = ln.length;
+      if (toca) {
+        while (s0 < e0 && ESP_ALINEA.test(ln.charAt(s0))) s0++;
+        while (e0 > s0 && ESP_ALINEA.test(ln.charAt(e0 - 1))) e0--;
+      }
+      if (!toca || s0 === e0) {
+        nv += ln;
+        for (k = 0; k < ln.length; k++) ne.push(estilos[ini + k] || null);
+        if (toca) fin = nv.length;
+        return;
+      }
+      var cont = ln.slice(s0, e0), est = [], filas = [[0, cont.length]];
+      for (k = s0; k < e0; k++) est.push(estilos[ini + k] || null);
+      /* Si la línea es más ancha que la caja, se parte en filas (como haría el juego) y cada fila se alinea sola. */
+      if (modo !== "left" && medirAncho(cont, est) > ANCHO_JUEGO - 1) filas = partirFilas(cont, est);
+      filas.forEach(function (f, fi) {
+        var c2 = cont.slice(f[0], f[1]), e2 = est.slice(f[0], f[1]), n = 0, ind = null, q;
+        if (fi > 0) { nv += "\n"; ne.push(null); }
+        if (modo !== "left") {
+          ind = estiloSangria(e2[0]);
+          var arr = []; for (q = 0; q < 100; q++) arr.push(ind);
+          var sw = Math.max(0.1, medirAncho(new Array(101).join(" "), arr) / 100);
+          var libre = Math.max(0, ANCHO_JUEGO - 1 - medirAncho(c2, e2));   /* 1 px de margen para que no salte de línea */
+          var raw = (modo === "center" ? libre / 2 : libre) / sw;
+          n = Math.min(1000, Math.max(0, modo === "center" ? Math.round(raw) : Math.floor(raw)));
+        }
+        nv += new Array(n + 1).join(" ") + c2;
+        for (q = 0; q < n; q++) ne.push(ind);
+        for (q = 0; q < e2.length; q++) ne.push(e2[q]);
+      });
+      fin = nv.length;
+    });
+    if (nv === v) { aviso("Ya está en esa posición"); return; }
+    guardar(true);
+    el.texto.value = nv; estilos = ne;
+    selPend = [fin, fin];
+    refrescar();
+  }
+  $("alIzq").addEventListener("click", function () { alinear("left"); });
+  $("alCen").addEventListener("click", function () { alinear("center"); });
+  $("alDer").addEventListener("click", function () { alinear("right"); });
 
   function colorPorLetra(colorDe) {
     var r = rango(), t = el.texto.value;
@@ -666,12 +1286,13 @@ button { font: inherit; cursor: pointer; }
   var gridEmoji = document.createElement("div"); gridEmoji.className = "emgrid";
   panelEmoji.appendChild(tabsEmoji); panelEmoji.appendChild(gridEmoji);
   function insertarEmoji(em) {
-    var t = el.texto, v = t.value, s0 = t.selectionStart, e0 = t.selectionEnd;
-    if (typeof s0 !== "number") { s0 = e0 = v.length; }
-    t.value = v.slice(0, s0) + em + v.slice(e0);
-    reconciliar(v, t.value, s0 + em.length);
+    var v = el.texto.value, s0, e0;
+    var se = selActual();
+    if (se) { s0 = Math.min(se[0], v.length); e0 = Math.min(se[1], v.length); } else { s0 = e0 = v.length; }
+    el.texto.value = v.slice(0, s0) + em + v.slice(e0);
+    reconciliar(v, el.texto.value, s0 + em.length);
     var pos = s0 + em.length;
-    try { t.setSelectionRange(pos, pos); } catch (x) {}
+    selPend = [pos, pos];
     refrescar();
   }
   function mostrarGrupo(n) {
@@ -716,6 +1337,7 @@ button { font: inherit; cursor: pointer; }
     if (conHistorial) guardar(true);
     el.texto.value = t;
     estilos = st;
+    selEd = null; selPend = null;
     refrescar();
   }
   EJEMPLOS.forEach(function (ej) {
@@ -725,16 +1347,320 @@ button { font: inherit; cursor: pointer; }
   });
 
   /* ---------- copiar ---------- */
+  function cambiarModoCodigoManual(activo, editar, enfocar) {
+    if (activo && !modoCodigoManual && codigoManualGuardado !== null) el.codigo.value = codigoManualGuardado;
+    modoCodigoManual = activo;
+    editandoCodigoManual = activo && editar;
+    if (modoCodigoManual) codigoManualGuardado = el.codigo.value;
+    persistirCodigoManual();
+    el.codigo.readOnly = !editandoCodigoManual;
+    el.codigo.classList.toggle("manual-code", editandoCodigoManual);
+    el.editarCodigo.classList.toggle("on", editandoCodigoManual);
+    el.editarCodigo.textContent = editandoCodigoManual ? "Editando código" : "Editar código";
+    $("volverDiseno").hidden = !modoCodigoManual;
+    el.ayudaCodigo.textContent = !modoCodigoManual
+      ? "Se genera con tu tarjeta. Pulsa «Editar código» para escribir o pegar RichText manual."
+      : editandoCodigoManual
+        ? "Edita o pega tu RichText aquí. Se conserva mientras esta página esté abierta y la vista previa se actualiza. Al terminar, pulsa «Volver al diseño»: importará el código a la tarjeta y guardará el diseño."
+        : "RichText manual conservado durante esta sesión. La vista previa se mantiene. «Editar código» permite cambiarlo; «Volver al diseño» importa el RichText al editor visual y guarda el diseño.";
+    refrescar();
+    if (editandoCodigoManual && enfocar) { el.codigo.focus(); el.codigo.select(); }
+  }
+  el.editarCodigo.addEventListener("click", function () {
+    if (!modoCodigoManual) cambiarModoCodigoManual(true, true, true);
+    else if (!editandoCodigoManual) cambiarModoCodigoManual(true, true, true);
+    else el.codigo.focus();
+  });
+  $("volverDiseno").addEventListener("click", function () {
+    if (!modoCodigoManual) return;
+    var anterior = { texto: el.texto.value, estilos: estilos.slice(), completo: true };
+    var importado = importarRichText(el.codigo.value);
+    if (historial.length >= 60) historial.shift();
+    historial.push(anterior);
+    el.texto.value = importado.texto;
+    estilos = importado.estilos;
+    selEd = null; selPend = null;
+    codigoManualGuardado = null;
+    cambiarModoCodigoManual(false, false, false);
+    aviso("Diseño actualizado y guardado");
+  });
+  el.codigo.addEventListener("input", function () { if (modoCodigoManual) { codigoManualGuardado = el.codigo.value; persistirCodigoManual(); refrescar(); } });
   el.copiar.addEventListener("click", function () {
     var txt = el.codigo.value;
     if (!txt || txt.length > LIMITE) return;
     function respaldo() { el.codigo.focus(); el.codigo.select(); aviso("Seleccionado: pulsa Ctrl+C"); }
-    try { navigator.clipboard.writeText(txt).then(function () { aviso("Copiado"); }, respaldo); }
-    catch (err) { respaldo(); }
+    if (window.AndroidClipboard && typeof window.AndroidClipboard.copyText === "function") {
+      try { window.AndroidClipboard.copyText(txt); aviso("Copiado"); return; } catch (err) {}
+    }
+    try {
+      if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error("Clipboard no disponible");
+      navigator.clipboard.writeText(txt).then(function () { aviso("Copiado"); }, respaldo);
+    } catch (err) { respaldo(); }
   });
 
+  /* ---------- tarjeta de perfil de ejemplo ---------- */
+  var PATRON_BARRAS = ["72%", "55%", "64%"];
+  function pintarFilas() {
+    var n = parseInt($("pFilas").value, 10) || 0, h = "", i, k;
+    for (i = 0; i < n; i++) {
+      h += '<div class="p-trow">';
+      for (k = 0; k < 3; k++) h += '<span class="p-ph"><b></b><i style="flex:0 0 ' + PATRON_BARRAS[(i + k) % 3] + '"></i></span>';
+      h += "</div>";
+    }
+    $("pTags").innerHTML = h;
+  }
+  function pintarPerfil() {
+    var pf = $("perfil"), rgb = hex2rgb($("pBg").value);
+    pf.style.setProperty("--pbg", $("pBg").value);
+    pf.style.setProperty("--pban", $("pBanner").value);
+    ["pBg", "pBanner"].forEach(function (id) { var h = $(id + "Hex"); if (document.activeElement !== h) h.value = $(id).value.toUpperCase(); });
+    pf.style.setProperty("--caret", (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) > 150 ? "#000" : "#fff");
+  }
+  ["pBg", "pBanner"].forEach(function (id) { $(id).addEventListener("input", pintarPerfil); });
+  ["pBg", "pBanner"].forEach(function (id) {   /* escribir o pegar un HEX cambia el color */
+    $(id + "Hex").addEventListener("input", function () {
+      var v = this.value.trim(); if (v.charAt(0) !== "#") v = "#" + v;
+      if (/^#[0-9a-fA-F]{6}$/.test(v)) { $(id).value = v.toLowerCase(); pintarPerfil(); }
+    });
+  });
+  document.querySelectorAll("[data-copyhex]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var campo = $(b.getAttribute("data-copyhex")), t = b.textContent;
+      function listo(m) { b.textContent = m; setTimeout(function () { b.textContent = t; }, 1300); }
+      function respaldo() { campo.focus(); campo.select(); listo("Ctrl+C"); }
+      if (window.AndroidClipboard && typeof window.AndroidClipboard.copyText === "function") {
+        try { window.AndroidClipboard.copyText(campo.value); listo("¡Copiado!"); return; } catch (err) {}
+      }
+      try {
+        if (!navigator.clipboard || !navigator.clipboard.writeText) throw new Error("Clipboard no disponible");
+        navigator.clipboard.writeText(campo.value).then(function () { listo("¡Copiado!"); }, respaldo);
+      } catch (err) { respaldo(); }
+    });
+  });
+  $("pFilas").addEventListener("change", pintarFilas);
+  pintarFilas();
+  pintarPerfil();
+
   cargar(BIENVENIDA, false);
+  persistenciaLista = true;
+  persistirCodigoManual();
 })();
 </script>
 
+<script>
+(function(){
+"use strict";
+var R=[
+"Tutorial|Tutorial|Anleitung|Обучение|チュートリアル|教程|Tutorial",
+"Escribe aquí|Write here|Schreibe hier|Пишите здесь|ここに入力|在此输入|Isulat dito",
+"Barra rápida|Quick bar|Schnellleiste|Панель быстрых действий|クイックバー|快捷栏|Mabilis na bar",
+"Paso|Step|Schritt|Шаг|ステップ|步骤|Hakbang",
+"Ej. 32|e.g. 32|z. B. 32|напр. 32|例: 32|例如 32|hal. 32",
+"Ej. 35|e.g. 35|z. B. 35|напр. 35|例: 35|例如 35|hal. 35",
+"Editor de perfil de The Corner|The Corner Profile Editor|The Corner Profil-Editor|Редактор профиля The Corner|The Corner プロフィールエディター|The Corner 资料编辑器|The Corner Profile Editor",
+"Personaliza tu biografía: escribe dentro de la tarjeta, dale estilo y copia el código para pegarlo en tu perfil. Máximo 350 caracteres.|Customize your bio: write inside the card, style it and copy the code to paste in your profile. Max 350 characters.|Gestalte deine Bio: Schreibe in der Karte, style sie und kopiere den Code in dein Profil. Max. 350 Zeichen.|Настройте описание: пишите в карточке, оформляйте и копируйте код для профиля. Максимум 350 символов.|自己紹介をカスタマイズ：カード内に入力し、スタイルを付けてコードをコピーし、プロフィールに貼り付けます。最大350文字。|自定义你的简介：在卡片中输入、设置样式，然后复制代码粘贴到资料中。最多350个字符。|I-customize ang bio mo: sumulat sa card, lagyan ng style at kopyahin ang code para i-paste sa profile. Hanggang 350 character.",
+"Escribe|Write|Schreibe|Пишите|入力|输入|Sumulat",
+"en la tarjeta|in the card|in der Karte|в карточке|カード内に|在卡片中|sa card",
+"Dale estilo|Style it|Gestalte es|Оформите|スタイルを付ける|设置样式|Lagyan ng style",
+"con los botones|with the buttons|mit den Schaltflächen|кнопками|ボタンで|用按钮|gamit ang mga button",
+"Copia|Copy|Kopiere|Скопируйте|コピー|复制|Kopyahin",
+"el código y pégalo en tu perfil|the code and paste it in your profile|den Code und füge ihn in dein Profil ein|код и вставьте в профиль|コードをプロフィールに貼り付け|代码并粘贴到资料中|ang code at i-paste sa profile mo",
+"Tu perfil|Your profile|Dein Profil|Ваш профиль|プロフィール|你的资料|Iyong profile",
+"Color|Color|Farbe|Цвет|色|颜色|Kulay",
+"Versalitas|Small caps|Kapitälchen|Капитель|スモールキャップ|小型大写|Small caps",
+"Borrar estilos|Clear styles|Stile löschen|Сбросить стили|スタイル消去|清除样式|Burahin ang style",
+"Deshacer|Undo|Rückgängig|Отменить|元に戻す|撤销|I-undo",
+"Optimizar|Optimize|Optimieren|Оптимизировать|最適化|优化|I-optimize",
+"⬅ Izquierda|⬅ Left|⬅ Links|⬅ Слева|⬅ 左|⬅ 左|⬅ Kaliwa",
+"↔ Centro|↔ Center|↔ Mitte|↔ Центр|↔ 中央|↔ 居中|↔ Gitna",
+"Derecha ➡|Right ➡|Rechts ➡|Справа ➡|右 ➡|右 ➡|Kanan ➡",
+"¿Sin ideas? Empieza con un ejemplo|No ideas? Start with an example|Keine Ideen? Starte mit einem Beispiel|Нет идей? Начните с примера|アイデアがない？例から始めよう|没有灵感？从示例开始|Walang ideya? Magsimula sa halimbawa",
+"Ajustes de la vista previa (fondo, cabecera, etiquetas)|Preview settings (background, header, tags)|Vorschau-Einstellungen (Hintergrund, Kopfzeile, Tags)|Настройки превью (фон, шапка, теги)|プレビュー設定（背景・ヘッダー・タグ）|预览设置（背景、顶部、标签）|Mga setting ng preview (background, header, tags)",
+"¿Cómo se usa la tarjeta?|How do I use the card?|Wie benutze ich die Karte?|Как пользоваться карточкой?|カードの使い方は？|如何使用卡片？|Paano gamitin ang card?",
+"¿Cómo funciona el contorno?|How does the outline work?|Wie funktioniert die Kontur?|Как работает контур?|輪郭の使い方は？|轮廓如何使用？|Paano gumagana ang outline?",
+"Fondo del perfil|Profile background|Profilhintergrund|Фон профиля|プロフィール背景|资料背景|Background ng profile",
+"Color de la cabecera|Header color|Kopfzeilenfarbe|Цвет шапки|ヘッダーの色|顶部颜色|Kulay ng header",
+"Filas de etiquetas|Tag rows|Tag-Zeilen|Строки тегов|タグの行数|标签行数|Mga hilera ng tag",
+"Copiar|Copy|Kopieren|Копировать|コピー|复制|Kopyahin",
+"Código para tu perfil|Code for your profile|Code für dein Profil|Код для профиля|プロフィール用コード|资料代码|Code para sa profile mo",
+"Se genera con tu tarjeta. Pulsa «Editar código» para escribir o pegar RichText manual.|Generated from your card. Press “Edit code” to enter or paste custom RichText.|Wird aus deiner Karte erzeugt. Klicke auf „Code bearbeiten“, um eigenen RichText einzugeben oder einzufügen.|Создаётся по вашей карточке. Нажмите «Редактировать код», чтобы ввести или вставить свой RichText.|カードから生成されます。「コードを編集」を押して独自のRichTextを入力または貼り付けます。|根据你的卡片生成。点击“编辑代码”可输入或粘贴自己的 RichText。|Galing ito sa profile card mo. Pindutin ang “I-edit ang code” para maglagay o mag-paste ng sarili mong RichText.",
+"Edita o pega tu RichText aquí. «Volver al diseño» restaura el código generado.|Edit or paste your RichText here. “Back to design” restores the generated code.|Bearbeite oder füge hier deinen RichText ein. „Zurück zum Design“ stellt den generierten Code wieder her.|Измените или вставьте сюда свой RichText. «Вернуться к дизайну» восстановит созданный код.|ここでRichTextを編集または貼り付けます。「デザインに戻る」と生成コードに戻ります。|在此编辑或粘贴 RichText。点击“返回设计”可恢复生成的代码。|I-edit o i-paste rito ang RichText mo. Ibinabalik ng “Bumalik sa disenyo” ang generated na code.",
+"Copiar código|Copy code|Code kopieren|Копировать код|コードをコピー|复制代码|Kopyahin ang code",
+"Editar código|Edit code|Code bearbeiten|Редактировать код|コードを編集|编辑代码|I-edit ang code",
+"Guardar código|Save code|Code speichern|Сохранить код|コードを保存|保存代码|I-save ang code",
+"Editando código|Editing code|Code wird bearbeitet|Редактирование кода|コード編集中|正在编辑代码|Ini-edit ang code",
+"Código guardado en este navegador|Code saved in this browser|Code in diesem Browser gespeichert|Код сохранён в этом браузере|このブラウザーにコードを保存しました|代码已保存在此浏览器中|Na-save ang code sa browser na ito",
+"Edita o pega tu RichText aquí. Se conserva mientras esta página esté abierta y la vista previa se actualiza. Al terminar, pulsa «Volver al diseño»: importará el código a la tarjeta y guardará el diseño.|Edit or paste your RichText here. It stays available while this page is open, and the preview updates. When you’re done, press “Back to design” to import the code into the card and save the design.|Bearbeite oder füge hier deinen RichText ein. Er bleibt verfügbar, solange diese Seite geöffnet ist, und die Vorschau wird aktualisiert. Wenn du fertig bist, klicke auf „Zurück zum Design“, um den Code in die Karte zu importieren und das Design zu speichern.|Измените или вставьте сюда свой RichText. Он доступен, пока эта страница открыта, а предпросмотр обновляется. Закончив, нажмите «Вернуться к дизайну», чтобы импортировать код в карточку и сохранить оформление.|ここでRichTextを編集または貼り付けます。ページを開いている間は内容が保持され、プレビューも更新されます。完了したら「デザインに戻る」を押すと、コードがカードに読み込まれ、デザインが保存されます。|在此编辑或粘贴 RichText。只要此页面保持打开，内容就会保留，预览也会更新。完成后点击“返回设计”，即可将代码导入卡片并保存设计。|I-edit o i-paste rito ang RichText mo. Mananatili ito habang bukas ang page na ito, at maa-update ang preview. Kapag tapos ka na, pindutin ang “Bumalik sa disenyo” para i-import ang code sa card at i-save ang disenyo.",
+"RichText manual conservado durante esta sesión. La vista previa se mantiene. «Editar código» permite cambiarlo; «Volver al diseño» importa el RichText al editor visual y guarda el diseño.|Manual RichText kept for this session. The preview is preserved. “Edit code” lets you change it; “Back to design” imports the RichText into the visual editor and saves the design.|Manueller RichText bleibt während dieser Sitzung erhalten. Die Vorschau bleibt sichtbar. Mit „Code bearbeiten“ kannst du ihn ändern; „Zurück zum Design“ importiert den RichText in den visuellen Editor und speichert das Design.|Пользовательский RichText хранится в течение этого сеанса. Предпросмотр сохраняется. Нажмите «Редактировать код», чтобы изменить его, или «Вернуться к дизайну», чтобы импортировать RichText в визуальный редактор и сохранить оформление.|手動RichTextはこのセッション中保持されます。プレビューも維持されます。「コードを編集」で変更でき、「デザインに戻る」でRichTextをビジュアルエディターに読み込み、デザインを保存します。|手动 RichText 会在本次会话期间保留，预览也会保留。点击“编辑代码”可修改；点击“返回设计”会将 RichText 导入可视化编辑器并保存设计。|Mananatili ang manual na RichText sa session na ito. Nananatili rin ang preview. Pindutin ang “I-edit ang code” para baguhin ito; ini-import ng “Bumalik sa disenyo” ang RichText sa visual editor at sine-save ang disenyo.",
+"Diseño actualizado y guardado|Design updated and saved|Design aktualisiert und gespeichert|Дизайн обновлён и сохранён|デザインを更新して保存しました|设计已更新并保存|Na-update at na-save ang disenyo",
+"Volver al diseño|Back to design|Zurück zum Design|Вернуться к дизайну|デザインに戻る|返回设计|Bumalik sa disenyo",
+"Código RichText manual. La vista previa muestra su interpretación.|Manual RichText code. The preview shows its interpretation.|Manueller RichText-Code. Die Vorschau zeigt die Darstellung.|Пользовательский RichText. В предварительном просмотре показан его вид.|手動入力のRichTextです。プレビューに表示されます。|手动 RichText 代码。预览会显示其效果。|Manwal na RichText code. Ipinapakita ng preview ang hitsura nito.",
+"El código manual supera el límite de 350 caracteres.|The custom code exceeds the 350-character limit.|Der eigene Code überschreitet das Limit von 350 Zeichen.|Пользовательский код превышает лимит в 350 символов.|手動コードが350文字の上限を超えています。|自定义代码超过350字符限制。|Lampas sa 350 character na limit ang custom code mo.",
+"Fuente, tamaño y Resaltado|Font, size and highlight|Schrift, Größe und Hervorhebung|Шрифт, размер и выделение|フォント・サイズ・ハイライト|字体、大小和突出显示|Font, laki at highlight",
+"Rellena lo que quieras y pulsa Aplicar. Lo que dejes vacío no cambia. Para quitar todo usa «Borrar estilos».|Fill in what you want and press Apply. Empty fields stay unchanged. To remove everything use “Clear styles”.|Fülle aus, was du willst, und drücke Anwenden. Leere Felder bleiben unverändert. Zum Entfernen „Stile löschen“ nutzen.|Заполните нужное и нажмите «Применить». Пустые поля не меняются. Чтобы убрать всё, нажмите «Сбросить стили».|必要な項目を入力して「適用」を押します。空欄は変更されません。すべて消すには「スタイル消去」を使います。|填写需要的内容并点击“应用”。留空的项不会改变。要全部移除请用“清除样式”。|Punan ang gusto mo at pindutin ang Ilapat. Hindi magbabago ang iniwang blangko. Para alisin lahat, gamitin ang “Burahin ang style”.",
+"Fuente|Font|Schrift|Шрифт|フォント|字体|Font",
+"Sin cambiar|Unchanged|Unverändert|Без изменений|変更なし|不更改|Walang pagbabago",
+"Tamaño|Size|Größe|Размер|サイズ|大小|Laki",
+"Transparencia del texto (%)|Text transparency (%)|Texttransparenz (%)|Прозрачность текста (%)|文字の透明度 (%)|文字透明度 (%)|Transparency ng text (%)",
+"Resaltado|Highlight|Hervorhebung|Выделение|ハイライト|突出显示|Highlight",
+"Color del resaltado|Highlight color|Farbe der Hervorhebung|Цвет выделения|ハイライト色|突出显示颜色|Kulay ng highlight",
+"Transparencia del fondo (%)|Background transparency (%)|Hintergrundtransparenz (%)|Прозрачность фона (%)|背景の透明度 (%)|背景透明度 (%)|Transparency ng background (%)",
+"Aplicar|Apply|Anwenden|Применить|適用|应用|Ilapat",
+"Contorno|Outline|Kontur|Контур|輪郭|轮廓|Outline",
+"Activar contorno|Enable outline|Kontur aktivieren|Включить контур|輪郭を有効にする|启用轮廓|I-enable ang outline",
+"Color del contorno|Outline color|Konturfarbe|Цвет контура|輪郭の色|轮廓颜色|Kulay ng outline",
+"Modo|Mode|Modus|Режим|モード|模式|Mode",
+"Fijo (píxeles)|Fixed (pixels)|Fest (Pixel)|Фиксированный (пиксели)|固定（ピクセル）|固定（像素）|Fixed (pixels)",
+"Escalado con la letra|Scaled with the letter|Mit Buchstabe skaliert|Масштабируется с буквой|文字に合わせて拡大|随文字缩放|Sumusunod sa laki ng letra",
+"Grosor|Thickness|Stärke|Толщина|太さ|粗细|Kapal",
+"Transparencia del contorno (%)|Outline transparency (%)|Konturtransparenz (%)|Прозрачность контура (%)|輪郭の透明度 (%)|轮廓透明度 (%)|Transparency ng outline (%)",
+"Aplicar contorno|Apply outline|Kontur anwenden|Применить контур|輪郭を適用|应用轮廓|Ilapat ang outline",
+"En modo RichText manual, el contorno se aplica a todo el texto.|In manual RichText mode, the outline applies to all text.|Im manuellen RichText-Modus wird die Kontur auf den gesamten Text angewendet.|В ручном режиме RichText контур применяется ко всему тексту.|手動RichTextモードでは、輪郭がテキスト全体に適用されます。|在手动 RichText 模式下，轮廓会应用到全部文本。|Sa manual na RichText mode, inilalapat ang outline sa buong text.",
+"Aplicar color|Apply color|Farbe anwenden|Применить цвет|色を適用|应用颜色|Ilapat ang kulay",
+"Pulsa un color o elige uno propio, y luego «Aplicar color». No borra los demás estilos.|Tap a color or pick your own, then “Apply color”. It does not remove other styles.|Tippe auf eine Farbe oder wähle eine eigene, dann „Farbe anwenden“. Andere Stile bleiben erhalten.|Выберите цвет или свой, затем «Применить цвет». Другие стили не удаляются.|色を選ぶか自分で指定し、「色を適用」を押します。他のスタイルは消えません。|点击颜色或自选一个，然后点“应用颜色”。不会删除其他样式。|Pumili ng kulay o gumawa ng sarili, tapos “Ilapat ang kulay”. Hindi buburahin ang ibang style.",
+"Degradado|Gradient|Verlauf|Градиент|グラデーション|渐变|Gradient",
+"Inicio|Start|Start|Начало|開始|起点|Simula",
+"Final|End|Ende|Конец|終了|终点|Wakas",
+"Aplicar degradado|Apply gradient|Verlauf anwenden|Применить градиент|グラデーションを適用|应用渐变|Ilapat ang gradient",
+"Texto arcoíris|Rainbow text|Regenbogentext|Радужный текст|レインボー文字|彩虹文字|Rainbow na text",
+"El degradado y el arcoíris solo cambian el color: no borran los demás estilos de la parte seleccionada.|The gradient and rainbow only change the color; they don’t remove other styles from the selection.|Verlauf und Regenbogen ändern nur die Farbe; andere Stile der Auswahl bleiben.|Градиент и радуга меняют только цвет и не удаляют другие стили выделенного.|グラデーションとレインボーは色だけを変更し、他のスタイルは消えません。|渐变和彩虹只改变颜色，不会删除所选部分的其他样式。|Kulay lang ang binabago ng gradient at rainbow; hindi nito buburahin ang ibang style.",
+"Cancelar|Cancel|Abbrechen|Отмена|キャンセル|取消|Kanselahin",
+"Aceptar|OK|OK|ОК|OK|确定|OK",
+"Negrita|Bold|Fett|Жирный|太字|粗体|Bold",
+"Cursiva|Italic|Kursiv|Курсив|斜体|斜体|Italic",
+"Subrayado|Underline|Unterstrichen|Подчёркнутый|下線|下划线|Underline",
+"Tachado|Strikethrough|Durchgestrichen|Зачёркнутый|取り消し線|删除线|Strikethrough",
+"Escribe aquí tu texto…|Write your text here…|Schreibe hier deinen Text…|Пишите текст здесь…|ここにテキストを入力…|在此输入文字…|Isulat dito ang text mo…",
+"Saltar|Skip|Überspringen|Пропустить|スキップ|跳过|Laktawan",
+"Atrás|Back|Zurück|Назад|戻る|上一步|Bumalik",
+"Siguiente|Next|Weiter|Далее|次へ|下一步|Susunod",
+"Terminar|Finish|Fertig|Готово|完了|完成|Tapos",
+"Haz clic dentro de la tarjeta y escribe tu texto, igual que en tu perfil. Puedes usar hasta 350 caracteres y saltos de línea.|Click inside the card and type your text, just like in your profile. You can use up to 350 characters and line breaks.|Klicke in die Karte und tippe deinen Text, genau wie in deinem Profil. Bis zu 350 Zeichen und Zeilenumbrüche sind möglich.|Нажмите на карточку и введите текст, как в профиле. Доступно до 350 символов и переносы строк.|カード内をクリックして、プロフィールと同じようにテキストを入力します。350文字まで、改行も使えます。|点击卡片并输入文字，就像在资料中一样。最多350个字符，可以换行。|Mag-click sa loob ng card at isulat ang text mo, parang sa profile. Hanggang 350 character at puwede ang bagong linya.",
+"Selecciona las letras|Select the letters|Buchstaben auswählen|Выделите буквы|文字を選ぶ|选择文字|Piliin ang mga letra",
+"Arrástralas con el ratón o usa Mayús + flechas. En el móvil mantén pulsado el texto para seleccionarlo. Solo cambian las letras seleccionadas; si no seleccionas nada, el cambio afecta a todo el texto.|Drag over them with the mouse or use Shift + arrow keys. On mobile, press and hold the text to select it. Only the selected letters change; if nothing is selected, the change applies to the whole text.|Ziehe mit der Maus darüber oder nutze Umschalt + Pfeiltasten. Halte den Text auf dem Handy gedrückt, um ihn auszuwählen. Nur markierte Buchstaben ändern sich; ohne Auswahl gilt die Änderung für den gesamten Text.|Выделите их мышью или клавишами Shift + стрелки. На телефоне нажмите и удерживайте текст, чтобы выделить его. Меняются только выделенные буквы; без выделения изменение применяется ко всему тексту.|マウスでドラッグするか、Shift＋矢印キーで選択します。スマートフォンではテキストを長押しして選択します。選択した文字だけが変わり、何も選択していない場合は全体に適用されます。|用鼠标拖动或按 Shift + 方向键选择。在手机上长按文字即可选择。只会更改选中的字；未选择时会应用到全部文字。|I-drag ang text gamit ang mouse o gamitin ang Shift + arrow keys. Sa phone, pindutin nang matagal ang text para piliin ito. Ang napiling mga letra lang ang magbabago; kung walang napili, buong text ang maaapektuhan.",
+"Con las letras seleccionadas: elige un color, negrita (B), cursiva (I), subrayado (U), tachado (S), emojis, mayúsculas o versalitas. «Borrar estilos» limpia la selección, «Deshacer» vuelve atrás y «Optimizar» acorta el código si no cabe.|With letters selected: pick a color, bold (B), italic (I), underline (U), strikethrough (S), emojis, uppercase or small caps. “Clear styles” cleans the selection, “Undo” goes back and “Optimize” shortens the code if it doesn’t fit.|Mit markierten Buchstaben: Farbe, Fett (B), Kursiv (I), Unterstrichen (U), Durchgestrichen (S), Emojis, Großbuchstaben oder Kapitälchen. „Stile löschen“ räumt die Auswahl auf, „Rückgängig“ geht zurück, „Optimieren“ kürzt den Code, wenn er nicht passt.|С выделенными буквами: цвет, жирный (B), курсив (I), подчёркивание (U), зачёркивание (S), эмодзи, заглавные или капитель. «Сбросить стили» очищает выделение, «Отменить» возвращает назад, «Оптимизировать» сокращает код, если он не помещается.|選んだ文字に、色・太字(B)・斜体(I)・下線(U)・取り消し線(S)・絵文字・大文字・スモールキャップを設定できます。「スタイル消去」で選択部分をリセット、「元に戻す」で戻り、「最適化」でコードが長すぎるときに短くします。|对选中的文字：选颜色、粗体(B)、斜体(I)、下划线(U)、删除线(S)、表情、大写或小型大写。“清除样式”清理所选内容，“撤销”返回上一步，“优化”可在代码过长时缩短它。|Sa napiling letra: pumili ng kulay, bold (B), italic (I), underline (U), strikethrough (S), emoji, uppercase o small caps. Nililinis ng “Burahin ang style” ang napili, ibinabalik ng “I-undo” ang huling gawa, at pinaiikli ng “I-optimize” ang code kung hindi kasya.",
+"Posición del texto|Text position|Textposition|Положение текста|文字の位置|文字位置|Posisyon ng text",
+"Izquierda, Centro y Derecha mueven la línea donde está el cursor (o las líneas seleccionadas) añadiendo espacios al inicio. Roblox no tiene una etiqueta de alineación, y esos espacios cuentan en los 350 caracteres.|Left, Center and Right move the line with the cursor (or the selected lines) by adding spaces at its start. Roblox has no alignment tag, and those spaces count toward the 350 characters.|Links, Mitte und Rechts verschieben die Zeile mit dem Cursor (oder die markierten Zeilen), indem Leerzeichen am Anfang eingefügt werden. Roblox hat kein Ausrichtungs-Tag, und diese Leerzeichen zählen zu den 350 Zeichen.|«Слева», «Центр» и «Справа» сдвигают строку с курсором (или выделенные строки), добавляя пробелы в начале. В Roblox нет тега выравнивания, и эти пробелы входят в 350 символов.|「左」「中央」「右」は、カーソルのある行（または選択した行）の先頭にスペースを足して位置を動かします。Robloxには配置タグがなく、そのスペースも350文字に含まれます。|“左”“居中”“右”会在光标所在行（或所选行）开头添加空格来移动位置。Roblox 没有对齐标签，这些空格也计入350个字符。|Inililipat ng Kaliwa, Gitna at Kanan ang linya ng cursor (o ang mga napiling linya) sa pamamagitan ng mga space sa simula. Walang alignment tag ang Roblox, at kasama ang mga space na iyon sa 350 character.",
+"Elige la fuente, el tamaño, la transparencia y el color del resaltado del texto seleccionado. Rellena solo lo que quieras cambiar (lo vacío no se toca) y pulsa «Aplicar».|Choose the font, size, transparency and highlight color for the selected text. Fill in only what you want to change (empty fields are left alone) and press “Apply”.|Wähle Schrift, Größe, Transparenz und Hervorhebungsfarbe für den markierten Text. Fülle nur aus, was sich ändern soll (Leeres bleibt unberührt), und drücke „Anwenden“.|Выберите шрифт, размер, прозрачность и цвет выделения для выбранного текста. Заполняйте только то, что хотите изменить (пустое не меняется), и нажмите «Применить».|選択した文字のフォント・サイズ・透明度・ハイライト色を選びます。変更したい項目だけ入力し（空欄はそのまま）、「適用」を押します。|为选中文字选择字体、大小、透明度和突出显示颜色。只填写要更改的项（留空不变），然后点“应用”。|Piliin ang font, laki, transparency at kulay ng highlight para sa napiling text. Punan lang ang babaguhin (hindi gagalawin ang blangko) at pindutin ang “Ilapat”.",
+"Elige el color, el grosor y la transparencia (0 % se ve del todo, 100 % es invisible) y pulsa «Aplicar contorno». La casilla viene activada; desmárcala para quitarlo. En RichText manual, se aplica a todo el texto. «Fijo» usa píxeles; «Escalado» hace el grosor proporcional al tamaño de la letra (0 a 0,5). La transparencia 0 no se escribe en el código.|Choose the outline color, thickness and transparency (0% fully visible, 100% invisible), then press “Apply outline”. The box starts checked; untick it to remove the outline. In manual RichText mode, it applies to all text. “Fixed” uses pixels; “Scaled” makes thickness proportional to letter size (0 to 0.5). Transparency 0 is omitted from the code.|Wähle Farbe, Stärke und Transparenz (0 % vollständig sichtbar, 100 % unsichtbar) und drücke „Kontur anwenden“. Das Kästchen ist anfangs aktiviert; deaktiviere es, um die Kontur zu entfernen. Im manuellen RichText-Modus gilt sie für den gesamten Text. „Fest“ verwendet Pixel; „Skaliert“ macht die Stärke proportional zur Buchstabengröße (0 bis 0,5). Transparenz 0 wird nicht in den Code geschrieben.|Выберите цвет, толщину и прозрачность (0 % — полностью видно, 100 % — невидимо) и нажмите «Применить контур». Флажок включён по умолчанию; снимите его, чтобы убрать контур. В ручном режиме RichText контур применяется ко всему тексту. «Фиксированный» использует пиксели; «Масштабируемый» делает толщину пропорциональной размеру букв (от 0 до 0,5). Прозрачность 0 не записывается в код.|輪郭の色・太さ・透明度（0％は完全に表示、100％は非表示）を選び、「輪郭を適用」を押します。チェックは最初からオンです。輪郭を削除するにはオフにします。手動RichTextモードではテキスト全体に適用されます。「固定」はピクセル単位、「拡大」は文字サイズに比例した太さ（0～0.5）です。透明度0はコードに出力されません。|选择轮廓颜色、粗细和透明度（0% 完全可见，100% 不可见），然后点击“应用轮廓”。复选框默认勾选；取消勾选即可移除轮廓。手动 RichText 模式下会应用到全部文本。“固定”使用像素；“随文字缩放”会让粗细与字号成比例（0 到 0.5）。透明度为 0 时不会写入代码。|Piliin ang kulay, kapal at transparency ng outline (0% ay ganap na kita, 100% ay hindi nakikita), pagkatapos pindutin ang “Ilapat ang outline”. Naka-check ito bilang default; alisin ang check para tanggalin ang outline. Sa manual na RichText mode, ilalapat ito sa buong text. Gumagamit ng pixel ang “Fixed”; proporsyonal sa laki ng letra ang “Scaled” (0 hanggang 0.5). Hindi isinusulat sa code ang 0 na transparency.",
+"Pulsa uno de los colores o elige el tuyo con el selector y luego «Aplicar color». Solo cambia el color: no borra negrita, contorno ni los demás estilos.|Tap one of the colors or pick your own with the picker, then “Apply color”. It only changes the color: it does not remove bold, outline or other styles.|Tippe auf eine Farbe oder wähle mit dem Farbwähler eine eigene, dann „Farbe anwenden“. Es ändert nur die Farbe: Fett, Kontur und andere Stile bleiben.|Нажмите на цвет или выберите свой палитрой, затем «Применить цвет». Меняется только цвет: жирность, контур и другие стили сохраняются.|色をタップするか、カラーピッカーで好きな色を選び、「色を適用」を押します。変わるのは色だけで、太字や輪郭などは消えません。|点击一个颜色或用取色器自选，然后点“应用颜色”。只改变颜色，不会删除粗体、轮廓等其他样式。|Pindutin ang isang kulay o pumili ng sarili gamit ang color picker, tapos “Ilapat ang kulay”. Kulay lang ang magbabago: hindi buburahin ang bold, outline at iba pang style.",
+"Un degradado mezcla dos colores a lo largo del texto: la primera letra usa el color de «Inicio», la última el de «Final» y las del medio cambian poco a poco entre ambos. Selecciona el texto, elige los dos colores y pulsa «Aplicar degradado». «Texto arcoíris» pinta las letras con todos los colores del arcoíris. Solo cambian el color, pero el código crece porque cada letra lleva su propio color: vigila el límite de 350 y usa «Optimizar» si hace falta.|A gradient blends two colors across the text: the first letter uses the “Start” color, the last one the “End” color, and the letters in between shift gradually from one to the other. Select the text, pick both colors and press “Apply gradient”. “Rainbow text” paints the letters with all the colors of the rainbow. They only change the color, but the code grows because each letter carries its own color: watch the 350 limit and use “Optimize” if needed.|Ein Verlauf mischt zwei Farben über den Text: der erste Buchstabe hat die „Start“-Farbe, der letzte die „Ende“-Farbe, dazwischen wechseln die Buchstaben schrittweise. Markiere den Text, wähle beide Farben und drücke „Verlauf anwenden“. „Regenbogentext“ färbt die Buchstaben in allen Regenbogenfarben. Es ändert nur die Farbe, doch der Code wird länger, weil jeder Buchstabe eine eigene Farbe trägt: Achte auf das Limit von 350 und nutze bei Bedarf „Optimieren“.|Градиент плавно смешивает два цвета по тексту: первая буква получает цвет «Начало», последняя — «Конец», а буквы между ними постепенно меняются от одного к другому. Выделите текст, выберите оба цвета и нажмите «Применить градиент». «Радужный текст» красит буквы во все цвета радуги. Меняется только цвет, но код становится длиннее, ведь у каждой буквы свой цвет: следите за лимитом 350 и при необходимости используйте «Оптимизировать».|グラデーションは、テキスト全体で2色を混ぜます。最初の文字は「開始」の色、最後の文字は「終了」の色になり、間の文字は少しずつ変わります。テキストを選び、2色を決めて「グラデーションを適用」を押します。「レインボー文字」は虹の全色で文字を染めます。変わるのは色だけですが、文字ごとに色が付くのでコードが長くなります。350文字の上限に注意し、必要なら「最適化」を使ってください。|渐变会在文字上混合两种颜色：第一个字使用“起点”颜色，最后一个字使用“终点”颜色，中间的字逐渐过渡。选中文字，选好两种颜色，点“应用渐变”。“彩虹文字”会用彩虹的所有颜色给文字上色。它只改变颜色，但每个字都带自己的颜色，所以代码会变长：请留意350字符上限，必要时使用“优化”。|Pinaghahalo ng gradient ang dalawang kulay sa buong text: ang unang letra ay kulay ng “Simula”, ang huli ay kulay ng “Wakas”, at unti-unting nagbabago ang mga nasa gitna. Piliin ang text, pumili ng dalawang kulay at pindutin ang “Ilapat ang gradient”. Kinukulayan ng “Rainbow na text” ang mga letra ng lahat ng kulay ng bahaghari. Kulay lang ang nagbabago, pero humahaba ang code dahil may sariling kulay ang bawat letra: bantayan ang limit na 350 at gamitin ang “I-optimize” kung kailangan.",
+"Ajustes de la vista previa|Preview settings|Vorschau-Einstellungen|Настройки превью|プレビュー設定|预览设置|Mga setting ng preview",
+"Abre este desplegable para cambiar el fondo del perfil, el color de la cabecera y las filas de etiquetas de la tarjeta. Solo sirven para ver cómo queda: no se añaden al código.|Open this dropdown to change the profile background, the header color and the tag rows of the card. They are only for previewing: they are not added to the code.|Öffne dieses Menü, um Profilhintergrund, Kopfzeilenfarbe und Tag-Zeilen der Karte zu ändern. Sie dienen nur der Vorschau und kommen nicht in den Code.|Откройте этот список, чтобы изменить фон профиля, цвет шапки и строки тегов карточки. Это только для предпросмотра: в код они не попадают.|この折りたたみを開くと、プロフィール背景・ヘッダーの色・タグの行数を変えられます。見た目の確認用で、コードには追加されません。|展开此项可更改资料背景、顶部颜色和卡片的标签行数。它们仅用于预览，不会加入代码。|Buksan ito para baguhin ang background ng profile, kulay ng header at mga hilera ng tag sa card. Para lang ito sa preview: hindi idinadagdag sa code.",
+"Aquí aparece el código con tu diseño y, arriba a la derecha, el número de caracteres usados (máximo 350). Pulsa «Copiar código» y pégalo en tu perfil de The Corner.|Here is the code for your design and, at the top right, the number of characters used (max 350). Press “Copy code” and paste it in your The Corner profile.|Hier steht der Code für dein Design und oben rechts die Zahl der verwendeten Zeichen (max. 350). Drücke „Code kopieren“ und füge ihn in dein The Corner-Profil ein.|Здесь код вашего оформления, а справа вверху — число использованных символов (максимум 350). Нажмите «Копировать код» и вставьте его в профиль The Corner.|ここにデザインのコードと、右上に使用文字数（最大350）が表示されます。「コードをコピー」を押して The Corner のプロフィールに貼り付けます。|这里显示你设计的代码，右上角显示已用字符数（最多350）。点“复制代码”并粘贴到 The Corner 资料中。|Narito ang code ng disenyo mo at, sa kanang itaas, ang bilang ng character na nagamit (max 350). Pindutin ang “Kopyahin ang code” at i-paste sa profile mo sa The Corner.",
+"¡Listo!|Done!|Geschafft!|Готово!|完了！|完成！|Tapos na!",
+"Ya conoces lo esencial. Puedes volver a ver este tutorial cuando quieras con el botón «Tutorial» y cambiar el idioma con el botón 🌐.|You now know the essentials. You can replay this tutorial any time with the “Tutorial” button and change the language with the 🌐 button.|Du kennst jetzt das Wichtigste. Mit der Schaltfläche „Anleitung“ kannst du diese Anleitung jederzeit wiederholen und mit 🌐 die Sprache ändern.|Теперь вы знаете главное. Повторить обучение можно в любой момент кнопкой «Обучение», а язык меняется кнопкой 🌐.|基本はこれで完了です。「チュートリアル」ボタンでいつでもやり直せ、🌐ボタンで言語を変えられます。|基础内容就这些。随时可点“教程”按钮重新查看，并用 🌐 按钮切换语言。|Alam mo na ang mga mahalaga. Puwede mong ulitin ang tutorial anumang oras gamit ang “Tutorial” button at palitan ang wika gamit ang 🌐."
+];
+var IDX={es:0,en:1,de:2,ru:3,ja:4,zh:5,fil:6},M={};
+R.forEach(function(r){var p=r.split("|");M[p[0]]=p;});
+var NAMES={en:"English",es:"Español",de:"Deutsch",ru:"Русский",ja:"日本語",zh:"中文",fil:"Filipino"};
+var ORDER=["en","es","de","ru","ja","zh","fil"],lang="es",obs;
+var TEMA_TXT={es:["Tema claro","Tema oscuro","Tema"],en:["Light theme","Dark theme","Theme"],de:["Helles Design","Dunkles Design","Design"],ru:["Светлая тема","Тёмная тема","Тема"],ja:["ライトテーマ","ダークテーマ","テーマ"],zh:["浅色主题","深色主题","主题"],fil:["Maliwanag na tema","Madilim na tema","Tema"]};
+function $(i){return document.getElementById(i);}
+function T(s){var p=M[s];return (p&&p[IDX[lang]])||s;}
+var themeToggle=$("temaToggle");
+function actualizaEtiquetaTema(){var light=document.documentElement.getAttribute("data-theme")==="light",labels=TEMA_TXT[lang]||TEMA_TXT.es;themeToggle.setAttribute("aria-label",labels[2]||labels[0]);themeToggle.title=light?labels[0]:labels[1];themeToggle.setAttribute("aria-checked",String(light));$("temaGrupo").setAttribute("aria-label",labels[2]||labels[0]);}
+function aplicarTema(tema,guardar){tema=tema==="light"?"light":"dark";document.documentElement.setAttribute("data-theme",tema);if(guardar){try{localStorage.setItem("tc-theme",tema);}catch(e){}}actualizaEtiquetaTema();if(window.AndroidTheme&&typeof window.AndroidTheme.applyTheme==="function"){try{window.AndroidTheme.applyTheme(tema);}catch(e){}}}
+themeToggle.addEventListener("click",function(){aplicarTema(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark",true);});
+var SKIP="#pv,#codigo,#texto,script,style,#ejemplos,#tutOv,#langMenu,#langBtn";
+function tn(n){
+  var p=n.parentNode;if(!p||(p.closest&&p.closest(SKIP)))return;
+  if(n.__o!==undefined&&n.nodeValue!==n.__t)n.__o=undefined;
+  var o=n.__o!==undefined?n.__o:n.nodeValue,k=o.trim();
+  if(!M[k])return;
+  n.__o=o;n.__t=o.replace(k,function(){return T(k);});n.nodeValue=n.__t;
+}
+var AT=["title","aria-label","data-ph","placeholder"];
+function an(e){
+  if(e.closest&&e.closest("#tutOv,#langMenu,#langBtn,#codigo"))return;
+  AT.forEach(function(a){
+    if(!e.hasAttribute(a))return;
+    e.__a=e.__a||{};
+    var c=e.getAttribute(a),o=e.__a[a];
+    if(o===undefined||c!==e.__a["_"+a])o=c;
+    if(!M[o])return;
+    var v=T(o);e.__a[a]=o;e.__a["_"+a]=v;e.setAttribute(a,v);
+  });
+}
+function walk(r){
+  if(r.nodeType===3){tn(r);return;}
+  var w=document.createTreeWalker(r,4),n,l=[];while((n=w.nextNode()))l.push(n);l.forEach(tn);
+  if(r.nodeType===1)an(r);
+  if(r.querySelectorAll)r.querySelectorAll("[title],[aria-label],[data-ph],[placeholder]").forEach(an);
+}
+function on(){obs.observe(document.body,{childList:true,subtree:true,characterData:true});}
+obs=new MutationObserver(function(ms){
+  obs.disconnect();
+  ms.forEach(function(m){if(m.type==="characterData")tn(m.target);else m.addedNodes.forEach(walk);});
+  on();
+});
+function apply(){obs.disconnect();walk(document.body);on();}
+function setLang(l){
+  lang=l;try{localStorage.setItem("tc-lang",l);}catch(e){}
+  document.documentElement.lang={fil:"fil"}[l]||l;
+  $("langBtn").textContent="🌐 "+NAMES[l];
+  actualizaEtiquetaTema();
+  Array.prototype.forEach.call($("langMenu").children,function(li){li.setAttribute("aria-selected",li.getAttribute("data-l")===l?"true":"false");});
+  apply();
+}
+/* menú de idiomas */
+var menu=$("langMenu"),btn=$("langBtn");
+ORDER.forEach(function(l){
+  var li=document.createElement("li");li.setAttribute("role","option");li.tabIndex=0;li.setAttribute("data-l",l);li.textContent=NAMES[l];menu.appendChild(li);
+});
+function toggle(o){menu.hidden=!o;btn.setAttribute("aria-expanded",o?"true":"false");}
+btn.addEventListener("click",function(){toggle(menu.hidden);});
+menu.addEventListener("click",function(e){var li=e.target.closest("li");if(li){setLang(li.getAttribute("data-l"));toggle(false);btn.focus();}});
+menu.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){var li=e.target.closest("li");if(li){e.preventDefault();li.click();}}});
+document.addEventListener("click",function(e){if(!menu.hidden&&!menu.contains(e.target)&&!btn.contains(e.target))toggle(false);});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"&&!menu.hidden){toggle(false);btn.focus();}});
+/* tutorial guiado */
+var TS=[[".p-bio","Escribe aquí","Haz clic dentro de la tarjeta y escribe tu texto, igual que en tu perfil. Puedes usar hasta 350 caracteres y saltos de línea."],
+["#perfil","Selecciona las letras","Arrástralas con el ratón o usa Mayús + flechas. En el móvil mantén pulsado el texto para seleccionarlo. Solo cambian las letras seleccionadas; si no seleccionas nada, el cambio afecta a todo el texto."],
+["#quick","Barra rápida","Con las letras seleccionadas: elige un color, negrita (B), cursiva (I), subrayado (U), tachado (S), emojis, mayúsculas o versalitas. «Borrar estilos» limpia la selección, «Deshacer» vuelve atrás y «Optimizar» acorta el código si no cabe."],
+[".chips[role=\"group\"]","Posición del texto","Izquierda, Centro y Derecha mueven la línea donde está el cursor (o las líneas seleccionadas) añadiendo espacios al inicio. Roblox no tiene una etiqueta de alineación, y esos espacios cuentan en los 350 caracteres."],
+[".col:last-child > .panel:nth-child(1)","Fuente, tamaño y Resaltado","Elige la fuente, el tamaño, la transparencia y el color del resaltado del texto seleccionado. Rellena solo lo que quieras cambiar (lo vacío no se toca) y pulsa «Aplicar»."],
+[".col:last-child > .panel:nth-child(2)","Contorno","Elige el color, el grosor y la transparencia (0 % se ve del todo, 100 % es invisible) y pulsa «Aplicar contorno». La casilla viene activada; desmárcala para quitarlo. En RichText manual, se aplica a todo el texto. «Fijo» usa píxeles; «Escalado» hace el grosor proporcional al tamaño de la letra (0 a 0,5). La transparencia 0 no se escribe en el código."],
+[".col:last-child > .panel:nth-child(3)","Color","Pulsa uno de los colores o elige el tuyo con el selector y luego «Aplicar color». Solo cambia el color: no borra negrita, contorno ni los demás estilos."],
+[".col:last-child > .panel:nth-child(4)","Degradado","Un degradado mezcla dos colores a lo largo del texto: la primera letra usa el color de «Inicio», la última el de «Final» y las del medio cambian poco a poco entre ambos. Selecciona el texto, elige los dos colores y pulsa «Aplicar degradado». «Texto arcoíris» pinta las letras con todos los colores del arcoíris. Solo cambian el color, pero el código crece porque cada letra lleva su propio color: vigila el límite de 350 y usa «Optimizar» si hace falta."],
+[".col:first-child > .panel:nth-child(1) > details:nth-of-type(2)","Ajustes de la vista previa","Abre este desplegable para cambiar el fondo del perfil, el color de la cabecera y las filas de etiquetas de la tarjeta. Solo sirven para ver cómo queda: no se añaden al código."],
+[".col:first-child > .panel:nth-child(2)","Código para tu perfil","Aquí aparece el código con tu diseño y, arriba a la derecha, el número de caracteres usados (máximo 350). Pulsa «Copiar código» y pégalo en tu perfil de The Corner."],
+[null,"¡Listo!","Ya conoces lo esencial. Puedes volver a ver este tutorial cuando quieras con el botón «Tutorial» y cambiar el idioma con el botón 🌐."]];
+function tut(){
+  if($("tutOv"))return;
+  var i=0,ov=document.createElement("div");ov.id="tutOv";
+  ov.innerHTML='<div class="tut-hl"></div><div class="tut-card" role="dialog" aria-live="polite"><div class="tut-n"></div><b class="tut-t"></b><p class="tut-p"></p><div class="tut-b"><button type="button" class="tool" data-a="s"></button><span></span><button type="button" class="tool" data-a="b"></button><button type="button" class="apply" data-a="n"></button></div></div>';
+  document.body.appendChild(ov);
+  var hl=ov.firstChild,cd=hl.nextSibling,q=function(s){return cd.querySelector(s);},el=null;
+  function place(){
+    if(!el){hl.style.display="none";ov.style.background="rgba(8,14,26,.66)";cd.style.left=Math.max(8,(innerWidth-cd.offsetWidth)/2)+"px";cd.style.top=Math.max(8,(innerHeight-cd.offsetHeight)/2)+"px";return;}
+    hl.style.display="";ov.style.background="";var r=el.getBoundingClientRect(),p=6,cw=cd.offsetWidth,ch=cd.offsetHeight,vw=innerWidth,vh=innerHeight,y;
+    hl.style.left=r.left-p+"px";hl.style.top=r.top-p+"px";hl.style.width=r.width+p*2+"px";hl.style.height=r.height+p*2+"px";
+    if(r.bottom+p+ch+12<vh)y=r.bottom+p+12;else if(r.top-p-ch-12>0)y=r.top-p-ch-12;else y=vh-ch-12;
+    cd.style.left=Math.max(8,Math.min(vw-cw-8,r.left+r.width/2-cw/2))+"px";cd.style.top=Math.max(8,y)+"px";
+  }
+  function show(){
+    var st=TS[i];el=st[0]?document.querySelector(st[0]):null;
+    q(".tut-n").textContent=T("Paso")+" "+(i+1)+" / "+TS.length;q(".tut-t").textContent=T(st[1]);q(".tut-p").textContent=T(st[2]);
+    q("[data-a=s]").textContent=T("Saltar");q("[data-a=b]").textContent=T("Atrás");q("[data-a=b]").hidden=i===0;
+    q("[data-a=n]").textContent=T(i===TS.length-1?"Terminar":"Siguiente");
+    if(el){var r=el.getBoundingClientRect();el.scrollIntoView({block:r.height>innerHeight*.5?"start":"center"});}
+    place();setTimeout(place,120);q("[data-a=n]").focus({preventScroll:true});
+  }
+  function end(){ov.remove();removeEventListener("resize",place);removeEventListener("scroll",place,true);removeEventListener("keydown",key,true);}
+  function key(e){if(e.key==="Escape")end();else if(e.key==="ArrowRight")go(1);else if(e.key==="ArrowLeft")go(-1);}
+  function go(d){var n=i+d;if(n<0)return;if(n>=TS.length){end();return;}i=n;show();}
+  ov.addEventListener("click",function(e){var a=e.target.getAttribute&&e.target.getAttribute("data-a");if(a==="s")end();else if(a==="b")go(-1);else if(a==="n")go(1);});
+  addEventListener("resize",place);addEventListener("scroll",place,true);addEventListener("keydown",key,true);
+  show();
+}
+$("tutBtn").addEventListener("click",tut);
+var s=null;try{s=localStorage.getItem("tc-lang");}catch(e){}
+if(!NAMES[s]){var n=(navigator.language||"es").toLowerCase();s=/^es/.test(n)?"es":/^(fil|tl)/.test(n)?"fil":["en","de","ru","ja","zh"].indexOf(n.slice(0,2))>=0?n.slice(0,2):"es";}
+setLang(s);
+var savedTheme=null;try{if(window.AndroidTheme&&typeof window.AndroidTheme.getTheme==="function")savedTheme=window.AndroidTheme.getTheme();}catch(e){}
+if(savedTheme!=="light"&&savedTheme!=="dark"){try{savedTheme=localStorage.getItem("tc-theme");}catch(e){}}
+aplicarTema(savedTheme==="light"?"light":"dark",false);
+})();
+</script>
 </body></html>
